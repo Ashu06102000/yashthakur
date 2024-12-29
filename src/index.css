@@ -71,6 +71,29 @@
   }
 }
 
+.card_cut {
+  -webkit-clip-path: polygon(
+    0.75rem 0,
+    100% 0,
+    100% calc(100% - 0.75rem),
+    calc(100% - 0.75rem) 100%,
+    0 100%,
+    0 0.75rem
+  );
+  clip-path: polygon(
+    0.75rem 0,
+    100% 0,
+    100% calc(100% - 0.75rem),
+    calc(100% - 0.75rem) 100%,
+    0 100%,
+    0 0.75rem
+  );
+  background-color: orange;
+  border-top-right-radius: 0.125rem;
+  border-bottom-left-radius: 0.125rem;
+  padding: 1px;
+}
+
 .hand_wave {
   display: inline-block;
   animation: wave 3s infinite;

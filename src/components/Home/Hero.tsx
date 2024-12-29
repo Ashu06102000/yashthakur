@@ -88,7 +88,8 @@ const Hero = () => {
               );
             })}
           </div>
-          <span className=" p-4 flex items-center font-thin gap-2 w-min text-8xl border-l-[1px] border-ra h-full gap-4 flex-col">
+          <span className="relative p-4 flex items-center justify-center font-thin bg-white w-min text-8xl border-l-[1px] border-ra h-full gap-4 flex-col">
+            <span className="h-2 w-2 bg-black flex absolute top-4 left-4"></span>
             ようこそ
             <span className="hand_wave">👋🏽</span>
           </span>
