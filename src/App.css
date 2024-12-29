@@ -1,0 +1,7 @@
+body {
+  background-color: #e8e6dc;
+}
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
