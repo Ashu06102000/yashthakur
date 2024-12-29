@@ -73,7 +73,7 @@
 
 .hand_wave {
   display: inline-block;
-  animation: wave 4s infinite;
+  animation: wave 3s infinite;
 }
 
 /* src/index.css */
