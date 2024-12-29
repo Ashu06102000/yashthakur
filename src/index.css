@@ -10,6 +10,9 @@
   max-height: 100dvh;
   overflow: hidden;
 }
+::selection {
+  background: orange;
+}
 .border-bot {
   border-bottom: 1px solid #9e9e9e;
 }
