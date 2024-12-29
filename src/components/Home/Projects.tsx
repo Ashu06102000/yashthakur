@@ -23,7 +23,7 @@ const Projects = () => {
               href="https://gen-lilac.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-full  text-4xl justify-center items-center border-ra border-t-[1px] border-l-[1px] cursor-pointer p-8 min-w-16"
+              className="flex h-full  text-4xl justify-center items-center border-ra border-t-[1px] border-l-[1px] cursor-pointer p-8 min-w-16 bg-orange-500"
             >
               →
             </a>
@@ -53,7 +53,7 @@ const Projects = () => {
               href="https://morax-three.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-full  text-4xl justify-center items-center border-ra border-t-[1px] border-l-[1px] cursor-pointer p-8 min-w-16 w-full"
+              className="flex h-full  text-4xl justify-center items-center border-ra border-t-[1px] border-l-[1px] cursor-pointer p-8 min-w-16 w-full bg-orange-500"
             >
               →
             </a>
@@ -75,7 +75,7 @@ const Projects = () => {
                 <span className="p-6 ">React Router</span>
               </div>
             </div>
-            <span className="flex h-full  text-4xl justify-center items-center border-ra border-t-[1px] border-l-[1px] cursor-pointer p-8 min-w-16">
+            <span className="flex h-full  text-4xl justify-center items-center border-ra border-t-[1px] border-l-[1px] cursor-pointer p-8 min-w-16 bg-orange-500">
               →
             </span>
           </div>
@@ -94,7 +94,7 @@ const Projects = () => {
               href="https://yashthakur-59b1df.webflow.io/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-full  text-4xl justify-center items-center border-ra border-t-[1px] border-l-[1px] cursor-pointer p-8 min-w-16"
+              className="flex h-full  text-4xl justify-center items-center border-ra border-t-[1px] border-l-[1px] cursor-pointer p-8 min-w-16 bg-orange-500"
             >
               →
             </a>
