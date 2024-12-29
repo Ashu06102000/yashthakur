@@ -8,9 +8,15 @@ function App() {
   return (
     <>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <div className="flex">
+        <div className="w-[4em] border-r-[1px] border-ra h-screen"></div>
+        <div className="flex-1 max-h-[calc(100vh-105px)] overflow-scroll scrollbar_none">
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </div>
+        <div className="w-[4em] border-l-[1px] border-ra h-screen"></div>
+      </div>
     </>
   );
 }
