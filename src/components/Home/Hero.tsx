@@ -3,7 +3,7 @@ import me from "../../assets/me.jpg";
 const Hero = () => {
   return (
     <div>
-      <div className="flex border-bot">
+      <div className=" hidden md:flex border-bot">
         {[1, 2, 3, 4].map((_, index) => {
           return (
             <div
@@ -21,9 +21,9 @@ const Hero = () => {
             <div
               className={`${
                 index === 0
-                  ? "w-2/4 bg-white text-black text-6xl font-play overflow-hidden"
-                  : "w-1/4"
-              } p-10 border-ra text-center flex items-center justify-center ${
+                  ? "w-full md:w-2/4 bg-white text-black text-6xl font-play overflow-hidden"
+                  : "w-1/4 hidden md:flex"
+              } p-10 border-ra  text-center flex items-center justify-center ${
                 index === 2 ? "border-r-0" : "border-r-[1px]"
               }`}
               key={index}
@@ -53,7 +53,7 @@ const Hero = () => {
           );
         })}
       </div>
-      <div className="flex w-full border-bot">
+      <div className="flex md:flex-row flex-col w-full border-bot">
         <div className="border-r-[1px] border-b-0 border-ra w-1/4 border-bot flex flex-col justify-between p-6">
           <div className=" flex flex-col gap-4 justify-start text-6xl uppercase ">
             <span className="text-9xl text-orange-500">2+</span>
@@ -67,7 +67,7 @@ const Hero = () => {
         </div>
 
         <img
-          className="w-full max-h-[40em] p-10 object-cover object-top "
+          className="w-full max-h-[40em] md:p-10 object-cover object-top "
           src={me}
           alt=""
         />
@@ -90,7 +90,7 @@ const Hero = () => {
               );
             })}
           </div>
-          <span className="relative p-4 flex items-center justify-center font-thin bg-white w-min text-8xl border-l-[1px] border-ra h-full gap-4 flex-col">
+          <span className="relative p-4 flex items-center justify-center font-thin bg-white w-min text-6xl md:text-8xl border-l-[1px] border-ra h-full gap-4 flex-col">
             <span className="h-2 w-2 bg-black flex absolute top-4 left-4"></span>
             ようこそ
             <span className="hand_wave">👋🏽</span>

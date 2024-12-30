@@ -7,8 +7,8 @@ import tick from "../../assets/tick.svg";
 
 const About = () => {
   return (
-    <div className="flex w-full">
-      <div className="h-auto mt-[10em] border-ra flex flex-col gap-2 border-bot">
+    <div className="flex flex-col md:flex-row w-full">
+      <div className="h-auto mt-[5em] md:mt-[10em] border-ra flex flex-col gap-2 border-bot">
         <div className=" relative bg-white p-8 border-ra border-y-[1px]">
           <span className="h-2 w-2 bg-orange-400 flex absolute top-4 left-4"></span>
           <span className="text-4xl uppercase flex flex-col">
@@ -16,7 +16,7 @@ const About = () => {
           </span>
         </div>
         <img src={vec} alt="" />
-        <div className="border-ra border-y-[1px] mt-[20em]">
+        <div className="border-ra border-y-[1px] mt-[2em] md:mt-[20em]">
           <div className="flex gap-2 items-center border-ra border-bot p-4">
             <img src={tick} className="flex" />
             <span className=" uppercase flex flex-col">frontend</span>
@@ -38,11 +38,11 @@ const About = () => {
             <span className=" uppercase flex flex-col">Cloud</span>
           </div>
         </div>
-        <img className="pt-20" src={vec2} alt="" />
+        <img className="mt-2 md:pt-20" src={vec2} alt="" />
       </div>
 
       <div className="border-[1px] relative border-t-0 border-ra h-full w-full">
-        <div className="absolute w-full  z-10 top-[50%] bg-white flex">
+        <div className="absolute w-full  z-10 top-[50%] bg-white hidden md:flex">
           <div className="relative p-16 border-ra border-l-[0px] border-[1px] text-nowrap">
             <span className="h-2 w-2 bg-black flex absolute top-4 left-4"></span>
             <h3 className="text-2xl uppercase font-light">Tech Stacks</h3>
@@ -52,9 +52,9 @@ const About = () => {
             <h3 className="text-2xl uppercase font-light">技術スタック</h3>
           </div>
         </div>
-        <div className="h-full relative flex justify-center p-8">
+        <div className="h-[200vh] md:h-full relative flex justify-center p-8">
           <video
-            className="h-72 absolute top-[8%]"
+            className="h-72 absolute top-[10%] md:top-[8%]"
             src={robovie}
             autoPlay
             muted
@@ -68,7 +68,7 @@ const About = () => {
           />
         </div>
       </div>
-      <div className="h-full p-8 flex flex-col gap-16 w-2/3 border-bot">
+      <div className="h-full p-8 flex flex-col gap-16 w-full md:w-2/3 border-bot">
         <h3 className="uppercase text-6xl font-light">About me</h3>
         <div className="flex flex-col gap-4 text-3xl">
           <span className="border-ra border-[1px] p-4 card_cut font-light">
@@ -85,75 +85,75 @@ const About = () => {
             expectations and deliver solutions that make a difference.
           </span>
         </div>
-        <div className="flex flex-wrap gap-2 mt-[15em]">
-          <div className="relative flex bg-white  p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+        <div className="flex flex-wrap gap-2 mt-[2em] md:mt-[15em]">
+          <div className="relative flex items-center bg-white  p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">ReactJs</h3>
           </div>
-          <div className="relative flex bg-white p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">html</h3>
           </div>
-          <div className="relative flex bg-white p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">JavaScript</h3>
           </div>
-          <div className="relative flex bg-white p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">CSS</h3>
           </div>
-          <div className="relative flex bg-white p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">TypeScript</h3>
           </div>
 
-          <div className="relative flex bg-white p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">RemixJs</h3>
           </div>
-          <div className="relative flex bg-white p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">StencilJs</h3>
           </div>
-          <div className="relative flex bg-white    p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">Cypress</h3>
           </div>
 
-          <div className="relative flex bg-white p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">JavaScript</h3>
           </div>
-          <div className="relative flex bg-white p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">AWS</h3>
           </div>
-          <div className="relative flex bg-white p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">Wordpress</h3>
           </div>
-          <div className="relative flex bg-white p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">Micro-frontend</h3>
           </div>
-          <div className="relative flex bg-white p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">Zustand</h3>
           </div>
-          <div className="relative flex bg-white p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center  bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">Prisma-orm</h3>
           </div>
-          <div className="relative flex bg-white p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">Tailwind</h3>
           </div>
-          <div className="relative flex bg-white p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">Wordpress</h3>
           </div>
-          <div className="relative flex bg-white p-6 gap-2">
-            <span className="h-2 w-2 bg-black flex  top-4 left-4"></span>
+          <div className="relative flex items-center bg-white p-6 gap-2">
+            <span className="h-2 w-2 bg-orange-500 flex  top-4 left-4"></span>
             <h3 className=" uppercase font-light">Webflow</h3>
           </div>
         </div>
