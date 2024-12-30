@@ -113,3 +113,9 @@ html {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media screen and (min-width: 1800px) and (max-width: 2420px) {
+  body {
+    zoom: 1.5;
+  }
+}
