@@ -1,3 +1,4 @@
+import robopipes from "/src/assets/robopipes.png";
 const Blogs = () => {
   return (
     <div className="flex flex-col border-bot">
@@ -21,7 +22,7 @@ const Blogs = () => {
           <div className="flex flex-col items-center">
             <img
               className="w-[25em] h--[25em] border-x-[1px] border-ra"
-              src="/src/assets/robopipes.png"
+              src={robopipes}
               alt=""
             />
             <div className="flex gap-2 w-full flex-col border-t-[1px] border-ra">

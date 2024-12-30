@@ -1,3 +1,5 @@
+import whitepip from "../../assets/white_pip.webp";
+import me from "../../assets/me.jpg";
 const Hero = () => {
   return (
     <div>
@@ -59,14 +61,14 @@ const Hero = () => {
           </div>
           <img
             className="max-h-[40em] p-10 w-full object-contain object-top "
-            src="/src/assets/white_pip.webp"
+            src={whitepip}
             alt=""
           />
         </div>
 
         <img
           className="w-full max-h-[40em] p-10 object-cover object-top "
-          src="/src/assets/me.jpg"
+          src={me}
           alt=""
         />
         <div className="border-r-0 border-b-0 border-ra w-full flex justify-between items-start border-l-[1px]">

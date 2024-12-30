@@ -1,3 +1,10 @@
+import robovie from "../../assets/robo.mp4";
+import stacksvg from "../../assets/stack.svg";
+import elivation from "../../assets/elivat.webp";
+import vec2 from "../../assets/vec2.png";
+import vec from "../../assets/vec.png";
+import tick from "../../assets/tick.svg";
+
 const About = () => {
   return (
     <div className="flex w-full">
@@ -8,30 +15,30 @@ const About = () => {
             <span>location: </span> pune
           </span>
         </div>
-        <img src="/src/assets/vec.png" alt="" />
+        <img src={vec} alt="" />
         <div className="border-ra border-y-[1px] mt-[20em]">
           <div className="flex gap-2 items-center border-ra border-bot p-4">
-            <img src="/src/assets/tick.svg" className="flex" />
+            <img src={tick} className="flex" />
             <span className=" uppercase flex flex-col">frontend</span>
           </div>
           <div className="flex gap-2 items-center border-ra border-bot p-4">
-            <img src="/src/assets/tick.svg" className="flex" />
+            <img src={tick} className="flex" />
             <span className=" uppercase flex flex-col">Backend</span>
           </div>
           <div className="flex gap-2 items-center border-ra border-bot p-4">
-            <img src="/src/assets/tick.svg" className="flex" />
+            <img src={tick} className="flex" />
             <span className=" uppercase flex flex-col">Testing</span>
           </div>
           <div className="flex gap-2 items-center border-ra border-bot p-4">
-            <img src="/src/assets/tick.svg" className="flex" />
+            <img src={tick} className="flex" />
             <span className=" uppercase flex flex-col">Web Development</span>
           </div>
           <div className="flex gap-2 items-center p-4">
-            <img src="/src/assets/tick.svg" className="flex" />
+            <img src={tick} className="flex" />
             <span className=" uppercase flex flex-col">Cloud</span>
           </div>
         </div>
-        <img className="pt-20" src="/src/assets/vec2.png" alt="" />
+        <img className="pt-20" src={vec2} alt="" />
       </div>
 
       <div className="border-[1px] relative border-t-0 border-ra h-full w-full">
@@ -48,19 +55,15 @@ const About = () => {
         <div className="h-full relative flex justify-center p-8">
           <video
             className="h-72 absolute top-[8%]"
-            src="/src/assets/robo.mp4"
+            src={robovie}
             autoPlay
             muted
             loop
           ></video>
-          <img
-            className="h-52 absolute bottom-[22%]"
-            src="/src/assets/stack.svg"
-            alt=""
-          />
+          <img className="h-52 absolute bottom-[22%]" src={stacksvg} alt="" />
           <img
             className="sticky top-0 max-h-[800px] w-full max-w-[450px]"
-            src="/src/assets/elivat.webp"
+            src={elivation}
             alt=""
           />
         </div>
