@@ -1,23 +1,53 @@
 import "./App.css";
 import "./index.css";
 import Navbar from "./components/navbar/Navbar";
-import { Route, Routes } from "react-router-dom";
-import Home from "./components/Home/Home";
+
+import { useEffect, useRef } from "react";
+import LocomotiveScroll from "locomotive-scroll";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import SmokeCursor from "./components/generic-components/SmokeCursor";
+import Hero from "./components/hero/Hero";
+import IntroSection from "./components/hero/IntroSection";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function App() {
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      const scroll = new LocomotiveScroll({
+        el: scrollRef.current,
+        smooth: true,
+        multiplier: 0.2,
+      });
+
+      return () => {
+        scroll.destroy();
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    // initializeCustomCursor();
+  }, []);
+
   return (
-    <>
+    <div className="relative h-full w-full">
       <Navbar />
-      <div className="flex">
-        <div className="md:w-[4em] border-r-[1px] border-ra h-screen"></div>
-        <div className="flex-1 max-h-[calc(100vh-105px)] overflow-scroll scrollbar_none">
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
+      <SmokeCursor />
+      <div className="w-full flex flex-col">
+        <Hero />
+        <div className="bg-white">
+          <div className="max-w-screen-2xl mx-auto">
+            {" "}
+            <IntroSection />
+          </div>
         </div>
-        <div className="md:w-[4em] border-l-[1px] border-ra h-screen"></div>
       </div>
-    </>
+    </div>
   );
 }
 
