@@ -23,8 +23,8 @@ const InteractiveParticleSphere: React.FC = () => {
 
     canvasRef.current.appendChild(renderer.domElement);
 
-    const largeParticleCount = 1000;
-    const smallParticleCount = 4000;
+    const largeParticleCount = 10000;
+    const smallParticleCount = 40000;
     const radius = 5;
 
     interface ParticleData {
@@ -40,9 +40,9 @@ const InteractiveParticleSphere: React.FC = () => {
       velocityFactor: number
     ): ParticleData => {
       const geometry = new THREE.BufferGeometry();
-      const positions = new Float32Array(count * 3);
+      const positions = new Float32Array(count * 9);
       const originalPositions = new Float32Array(count * 3);
-      const velocities = new Float32Array(count * 3);
+      const velocities = new Float32Array(count * 9);
 
       for (let i = 0; i < count; i++) {
         const phi = Math.acos(2 * Math.random() - 1);
@@ -52,7 +52,7 @@ const InteractiveParticleSphere: React.FC = () => {
         const y = radius * Math.sin(phi) * Math.sin(theta);
         const z = radius * Math.cos(phi);
 
-        positions.set([x, y, z], i * 3);
+        positions.set([x, y, z], i * 2);
         originalPositions.set([x, y, z], i * 3);
 
         velocities.set(
@@ -75,7 +75,7 @@ const InteractiveParticleSphere: React.FC = () => {
     const largeParticles = generateParticles(largeParticleCount, 0.01, 0.02);
     const largeMaterial = new THREE.PointsMaterial({
       size: 0.02,
-      color: 0x000000,
+      color: 0xc0c0c0,
     });
     const largePoints = new THREE.Points(
       largeParticles.geometry,
@@ -85,8 +85,8 @@ const InteractiveParticleSphere: React.FC = () => {
 
     const smallParticles = generateParticles(smallParticleCount, 0.05, 0.05);
     const smallMaterial = new THREE.PointsMaterial({
-      size: 0.05,
-      color: 0x000000,
+      size: 0.04,
+      color: 0xc0c0c0,
     });
     const smallPoints = new THREE.Points(
       smallParticles.geometry,

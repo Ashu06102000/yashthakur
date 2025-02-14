@@ -32,9 +32,7 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    initializeCustomCursor();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="relative h-full w-full">

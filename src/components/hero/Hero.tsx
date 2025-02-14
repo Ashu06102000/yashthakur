@@ -15,7 +15,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className="text-7xl w-2/3 font-extralight text-black text-center z-10"
+        className="text-7xl w-2/3 font-light text-black text-center z-10"
       >
         The journey started with curiosity. Now, it’s a mission to build
         seamless experiences.

@@ -29,6 +29,29 @@ const IntroSection = () => {
         </div>
         <div className="flex flex-col gap-1">
           <h3 className="text-base tracking-tighter text-secondry">
+            The TL;DR of ME
+          </h3>
+          <p className="font-opensans text-sm text-justify">
+            <span className="font-semibold">From:</span> Pune, India, I work as
+            a <span className="font-semibold">Software Developer</span> at
+            Copods since 2022. My focus is on{" "}
+            <span className="font-semibold">
+              crafting seamless, intuitive, and impactful digital experiences
+            </span>{" "}
+            that bridge user needs with innovation. I believe{" "}
+            <span className="font-semibold">
+              passion transforms into craft when driven by curiosity
+            </span>
+            . With a love for problem-solving and attention to detail, I aim to
+            build products that not only function flawlessly but also inspire.
+            Outside of work, I’m an avid learner, exploring new technologies and
+            sharpening my skills to stay ahead in the ever-evolving tech
+            landscape. My goal is to push boundaries, and create meaningful
+            digital interactions that leave a lasting impact.
+          </p>
+        </div>
+        <div className="flex flex-col gap-1">
+          <h3 className="text-base tracking-tighter text-secondry">
             A Day in the Life of Yash Thakur
           </h3>
           <p className="font-opensans text-sm text-justify">
@@ -40,46 +63,8 @@ const IntroSection = () => {
             developed websites, and diving into other products for inspiration.
             I also enjoy discussing fresh perspectives with designers—it’s a
             constant source of creativity. Currently, I’m learning Spline to
-            create immersive 3D experiences for web development.
-          </p>
-        </div>
-        <div className="flex flex-col gap-1">
-          <h3 className="text-base tracking-tighter text-secondry">
-            The TL;DR of ME
-          </h3>
-          <p className="font-opensans text-sm text-justify">
-            <ul>
-              <li>
-                <span className="font-medium">From:</span> Pune, India
-              </li>
-              <li>
-                {" "}
-                <span className="font-medium">Role:</span> Software Developer{" "}
-              </li>
-              <li>
-                {" "}
-                <span className="font-medium">Copods:</span> Duration: 2022 -
-                Present
-              </li>
-              <li>
-                <span className="font-medium">Focus:</span>
-                Crafting seamless, intuitive, and impactful digital experiences
-              </li>
-              <li>
-                <span className="font-medium">Philosophy:</span>
-                Passion transforms into craft when driven by curiosity
-              </li>
-            </ul>
-          </p>
-        </div>
-        <div className="flex flex-col gap-1">
-          <h3 className="text-base tracking-tighter text-secondry">
-            The Road Ahead
-          </h3>
-          <p className="font-opensans text-sm text-justify">
-            I'm always excited to learn and grow. My goal is to collaborate on
-            projects that challenge norms, push boundaries, and create
-            meaningful digital interactions that leave a lasting impact.
+            create immersive 3D experiences for web development.Apart from the
+            coding, I also play video games and watch Animes.
           </p>
         </div>
       </div>
