@@ -10,6 +10,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SmokeCursor from "./components/generic-components/SmokeCursor";
 import Hero from "./components/hero/Hero";
 import IntroSection from "./components/hero/IntroSection";
+import Work from "./components/Work/Work";
+import { initializeCustomCursor } from "./utils/cursor";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,7 +33,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // initializeCustomCursor();
+    initializeCustomCursor();
   }, []);
 
   return (
@@ -41,8 +43,8 @@ function App() {
       <div className="w-full flex flex-col">
         <Hero />
         <div className="bg-white">
-          <div className="max-w-screen-2xl mx-auto">
-            {" "}
+          <div className="max-w-main-screen mx-auto">
+            <Work />
             <IntroSection />
           </div>
         </div>

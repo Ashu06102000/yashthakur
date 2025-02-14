@@ -21,6 +21,9 @@ body {
 body::-webkit-scrollbar {
   display: none;
 }
+.max-w-main-screen {
+  max-width: 1440px;
+}
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }

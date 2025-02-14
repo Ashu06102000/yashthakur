@@ -10,11 +10,14 @@ export default {
         spectral: ["Spectral", "serif"],
         miaCulpa: ["Mea Culpa", "serif"],
       },
-      color: {
+      colors: {
         primary: "#e4e4df",
+        secondry: "#b6724b",
       },
       backgroundColor: {
         primary: "#e4e4df",
+        secondry: "#f1f1f1",
+        tangyOrange: "#fe8762",
       },
     },
   },
