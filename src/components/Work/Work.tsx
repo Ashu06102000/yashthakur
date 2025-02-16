@@ -2,10 +2,10 @@ import CircularText from "../generic-components/CircularText";
 import sahilImage from "../../assets/sahil-website.png";
 const Work = () => {
   return (
-    <div className="flex gap-36 py-36 items-start flex-col">
-      <div className="flex items-center justify-center gap-12">
+    <div id="PROJECTS" className="flex gap-36 py-36 items-start flex-col">
+      <div className="flex items-center justify-center gap-3">
         <CircularText />
-        <h2 className="text-black text-5xl flex flex-col font-extralight">
+        <h2 className="text-black text-4xl flex flex-col font-extralight">
           Selection<span>of Work</span>
         </h2>
       </div>

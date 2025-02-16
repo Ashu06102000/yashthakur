@@ -14,10 +14,11 @@ const Navbar = () => {
         Yash Thakur
         <span>Frontend Developer</span>
       </h2>
-      <div className="bg-gray-200 p-2 rounded-full flex items-center fixed top-4 right-4 ">
+      <div className="bg-gray-200 p-2 rounded-full flex items-center fixed top-4 right-4 z-[9999]">
         <ul className="flex items-center gap-4  rounded-full p-1 relative z-10">
           {["PROFILE", "PROJECTS"].map((tab) => (
-            <li
+            <a
+              href={`#` + tab}
               key={tab}
               className={`relative font-normal font-xl cursor-pointer px-6 py-2 transition-colors duration-200 z-10 ${
                 activeTab === tab ? "text-white" : "text-black"
@@ -25,7 +26,7 @@ const Navbar = () => {
               onClick={() => handleSwitch(tab)}
             >
               {tab}
-            </li>
+            </a>
           ))}
           <motion.div
             className="absolute top-0 left-0 bg-[#313131] rounded-full w-1/2 h-full z-0"

@@ -12,6 +12,7 @@ import Hero from "./components/hero/Hero";
 import IntroSection from "./components/hero/IntroSection";
 import Work from "./components/Work/Work";
 import { initializeCustomCursor } from "./utils/cursor";
+import Loader from "./components/Loading/Loader";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,6 +37,7 @@ function App() {
 
   return (
     <div className="relative h-full w-full">
+      <Loader />
       <Navbar />
       <SmokeCursor />
       <div className="w-full flex flex-col">

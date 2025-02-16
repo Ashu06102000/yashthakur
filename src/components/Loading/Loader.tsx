@@ -6,7 +6,7 @@ const Loader = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3000); // Adjust time as needed
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -14,7 +14,7 @@ const Loader = () => {
   if (!loading) return null;
 
   return (
-    <div className="w-screen h-screen flex flex-col gap-4 items-center justify-center fixed top-0 left-0 bg-black z-50">
+    <div className="w-screen h-screen flex flex-col gap-4 items-center justify-center fixed top-0 left-0 bg-black z-[999999]">
       <h1 className="text-5xl font-miaCulpa font-thin text-white">
         Yash Thakur
       </h1>

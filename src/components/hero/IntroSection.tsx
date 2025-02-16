@@ -2,7 +2,10 @@ import CircularText from "../generic-components/CircularText";
 
 const IntroSection = () => {
   return (
-    <div className="flex gap-36 bg-secondry rounded-xl p-36 my-36 items-center flex-col">
+    <div
+      id="PROFILE"
+      className="flex gap-36 bg-secondry rounded-xl p-36 my-36 items-center flex-col"
+    >
       <div className="flex items-center flex-col justify-center gap--2">
         <CircularText />
         <h2 className="text-black text-4xl flex flex-col items-center tracking-tighter font-light">
@@ -17,7 +20,7 @@ const IntroSection = () => {
       </p>
       <div className="grid grid-cols-2 justify-between gap-20">
         <div className="flex flex-col gap-1">
-          <p className="font-opensans text-sm text-justify">
+          <p className="font-opensans text-base text-justify">
             As a kid, I was obsessed with computers—even though I didn’t have
             one. That didn’t stop me from exploring how they worked or imagining
             all the incredible things I could do with them. I’d borrow time on
@@ -32,7 +35,7 @@ const IntroSection = () => {
         </div>
 
         <div className="flex flex-col gap-1">
-          <p className="font-opensans text-sm text-justify">
+          <p className="font-opensans text-base text-justify">
             My day starts with a cup of tea ☕ and ends with ideas swirling in
             my head. In between, you’ll find me solving complex problems,
             crafting interactive and modern user interfaces, or collaborating
