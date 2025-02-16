@@ -20,11 +20,12 @@ const InteractiveParticleSphere: React.FC = () => {
     renderer.domElement.style.position = "absolute";
     renderer.domElement.style.top = "0";
     renderer.domElement.style.left = "0";
+    renderer.domElement.style.cursor = "pointer";
 
     canvasRef.current.appendChild(renderer.domElement);
 
     const largeParticleCount = 10000;
-    const smallParticleCount = 40000;
+    const smallParticleCount = 6000;
     const radius = 5;
 
     interface ParticleData {
@@ -85,7 +86,7 @@ const InteractiveParticleSphere: React.FC = () => {
 
     const smallParticles = generateParticles(smallParticleCount, 0.05, 0.05);
     const smallMaterial = new THREE.PointsMaterial({
-      size: 0.04,
+      size: 0.02,
       color: 0xc0c0c0,
     });
     const smallPoints = new THREE.Points(

@@ -157,47 +157,19 @@ body::-webkit-scrollbar {
   transform: translateX(-50%);
 }
 
-.link-border-onhover:hover::after {
-  width: 100%;
-}
-@keyframes fadeInOut {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-    filter: blur(10px);
+@keyframes fadeInAnimation {
+  from {
+    transform: translateY(400px);
   }
-  20% {
-    opacity: 0;
-    transform: translateY(10px);
-    filter: blur(10px);
-  }
-  40% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0px);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0px);
-  }
-  80% {
-    opacity: 0;
-    transform: translateY(0);
-    filter: blur(10px);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(0);
-    filter: blur(10px);
+  to {
+    transform: translateY(0px);
   }
 }
 
 .fade-in-on-scroll {
-  opacity: 0;
-  animation: fadeInOut linear 3s forwards;
+  animation: fadeInAnimation linear;
   animation-timeline: view();
-  animation-range: entry 0% exit 80%;
+  animation-range: entry 0% cover 40%;
 }
 
 @keyframes fadeInOutSlow {

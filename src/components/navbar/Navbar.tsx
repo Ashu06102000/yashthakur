@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <div className="w-full p-8 font-semibold flex gap-12 justify-between">
-      <h2 className="text-2xl font-thin tracking-tighter flex flex-col leading-none">
+      <h2 className="text-2xl text-white font-thin tracking-tighter flex flex-col leading-none">
         Yash Thakur
         <span>Frontend Developer</span>
       </h2>

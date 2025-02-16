@@ -4,18 +4,16 @@ import InteractiveParticleSphere from "../generic-components/InteractiveParticle
 
 const Hero = () => {
   return (
-    <div className="w-full flex flex-col items-center gap-10 justify-center h-[100vh] relative">
-      {/* Background Canvas */}
-      <div className="absolute inset-0 z-0">
+    <div className="w-full flex flex-col items-center gap-10 justify-center h-[calc(100vh-112px)]  sticky top-0">
+      <div className="absolute inset-0 z-0 ">
         <InteractiveParticleSphere />
       </div>
 
-      {/* Heading */}
       <motion.h1
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className="text-7xl w-2/3 font-light text-black text-center z-10"
+        className="text-4xl w-3/5 font-thin text-white text-center z-10"
       >
         The journey started with curiosity. Now, it’s a mission to build
         seamless experiences.

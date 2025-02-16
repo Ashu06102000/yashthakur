@@ -40,7 +40,7 @@ function App() {
       <SmokeCursor />
       <div className="w-full flex flex-col">
         <Hero />
-        <div className="bg-white">
+        <div className="bg-white z-50 rounded-t-3xl">
           <div className="max-w-main-screen mx-auto">
             <Work />
             <IntroSection />

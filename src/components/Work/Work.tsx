@@ -13,7 +13,7 @@ const Work = () => {
         <div className="flex bg-tangyOrange hover:bg-orange-300 transition-all duration-500 ease-in-out p-8 w-full gap-10">
           <div className="w-1/2 relative">
             <img
-              className="rounded-3xl absolute top-1 object-top z-10 w-[600px] object-cover h-[600px] border border-gray-400"
+              className="rounded-3xl absolute top-1 object-top z-10 w-[600px] object-cover h-[600px] border border-gray-400 fade-in-on-scroll"
               src={sahilImage}
               alt=""
             />
@@ -52,7 +52,7 @@ const Work = () => {
           </div>
           <div className="w-1/2 relative">
             <img
-              className="rounded-3xl absolute top-1 right-0 object-top z-10 w-[600px] object-cover h-[600px] border border-gray-400"
+              className="rounded-3xl absolute top-1 right-0 object-top z-10 w-[600px] object-cover h-[600px] border border-gray-400 fade-in-on-scroll"
               src={sahilImage}
               alt=""
             />
