@@ -230,8 +230,12 @@ body::-webkit-scrollbar {
   opacity: 0.8;
 }
 
+html {
+  scroll-behavior: auto; /* Disable native smooth scrolling */
+}
+
 [data-scroll-container] {
-  overflow: hidden; /* Prevent native scroll */
+  overflow: hidden;
 }
 
 [data-scroll-section] {

@@ -1,23 +1,47 @@
-"use client";
-import { motion } from "framer-motion";
-import InteractiveParticleSphere from "../generic-components/InteractiveParticleSphere";
+import React, { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
 
-const Hero = () => {
+const Hero: React.FC = () => {
+  const [isInView, setIsInView] = useState(false);
+
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    gsap.to("body", {
+      backgroundColor: isInView ? "#000000" : "#1a1a1a",
+      duration: 1,
+      ease: "power1.out",
+    });
+  }, [isInView]);
+
   return (
-    <div className="w-full flex flex-col items-center gap-10 justify-center h-[calc(100vh-112px)]  sticky top-0">
-      <div className="absolute inset-0 z-0 ">
-        <InteractiveParticleSphere />
-      </div>
-
-      <motion.h1
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="text-4xl w-3/5 font-thin text-white text-center z-10"
-      >
+    <div
+      ref={sectionRef}
+      className="w-full flex flex-col items-center gap-10 justify-center h-lvh relative"
+    >
+      <h1 className="text-4xl w-3/5 font-thin text-white text-center z-10">
         The journey started with curiosity. Now, it’s a mission to build
         seamless experiences.
-      </motion.h1>
+      </h1>
     </div>
   );
 };

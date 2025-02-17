@@ -1,56 +1,91 @@
-import "./App.css";
-import "./index.css";
-import Navbar from "./components/navbar/Navbar";
-
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import LocomotiveScroll from "locomotive-scroll";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import Navbar from "./components/navbar/Navbar";
 import SmokeCursor from "./components/generic-components/SmokeCursor";
 import Hero from "./components/hero/Hero";
-import IntroSection from "./components/hero/IntroSection";
-import Work from "./components/Work/Work";
-import { initializeCustomCursor } from "./utils/cursor";
+
 import Loader from "./components/Loading/Loader";
+
+import "locomotive-scroll/dist/locomotive-scroll.css"; // Import LocomotiveScroll styles
+import "./App.css";
+import "./index.css";
+import InteractiveParticleSphere from "./components/generic-components/InteractiveParticleSphere";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function App() {
-  const scrollRef = useRef(null);
+const App: React.FC = () => {
+  const scrollRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    let scroll: LocomotiveScroll | null = null;
+
     if (scrollRef.current) {
-      const scroll = new LocomotiveScroll({
-        el: scrollRef.current,
-        smooth: true,
-        multiplier: 0.2,
+      scroll = new LocomotiveScroll({
+        el: scrollRef.current, // Scroll container
+        smooth: true, // Enable smooth scrolling
+        multiplier: 0.8, // Adjust scroll speed
+        //@ts-ignore
+        smoothMobile: true, // Enable smooth scrolling on mobile
+        resetNativeScroll: true,
       });
 
-      return () => {
-        scroll.destroy();
-      };
+      // Sync LocomotiveScroll with GSAP ScrollTrigger
+      scroll.on("scroll", ScrollTrigger.update);
+
+      ScrollTrigger.scrollerProxy(scrollRef.current, {
+        scrollTop(value?: number) {
+          if (value !== undefined) {
+            scroll?.scrollTo(value, { duration: 0, disableLerp: true });
+          }
+          //@ts-ignore
+          return scroll?.scroll.instance.scroll.y || 0;
+        },
+        getBoundingClientRect() {
+          return {
+            top: 0,
+            left: 0,
+            width: window.innerWidth,
+            height: window.innerHeight,
+          };
+        },
+        pinType: scrollRef.current.style.transform ? "transform" : "fixed",
+      });
+      //@ts-ignore
+      ScrollTrigger.addEventListener("refresh", () => scroll?.update());
+      ScrollTrigger.refresh();
     }
+
+    return () => {
+      if (scroll) {
+        scroll.destroy();
+        //@ts-ignore
+        ScrollTrigger.removeEventListener("refresh", () => scroll?.update());
+      }
+    };
   }, []);
 
-  useEffect(() => {}, []);
-
   return (
-    <div className="relative h-full w-full">
-      <Loader />
+    <div
+      data-scroll-container
+      ref={scrollRef}
+      className="relative h-full w-full"
+    >
+      {" "}
+      <div className="absolute inset-0">
+        <InteractiveParticleSphere />
+      </div>
+      {/* <Loader /> */}
       <Navbar />
       <SmokeCursor />
-      <div className="w-full flex flex-col">
+      <div className="w-full flex flex-col" data-scroll-section>
         <Hero />
-        <div className="bg-white z-50 rounded-t-3xl">
-          <div className="max-w-main-screen mx-auto">
-            <Work />
-            <IntroSection />
-          </div>
-        </div>
+        <div className=" rounded-t-3xl h-[200vh]"></div>
       </div>
     </div>
   );
-}
+};
 
 export default App;
