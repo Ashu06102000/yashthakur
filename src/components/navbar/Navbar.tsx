@@ -11,8 +11,6 @@ const Navbar = () => {
 
   const initialWavePath =
     "M0 50 Q50 50 100 50 T200 50 T300 50 T400 50 T500 50 T600 50";
-
-  // Function to start the sine wave animation
   const startAnimation = () => {
     if (pathRef.current) {
       animationRef.current = gsap.to(pathRef.current, {
@@ -26,7 +24,6 @@ const Navbar = () => {
       });
     }
 
-    // Play the music
     if (audioRef.current) {
       audioRef.current.loop = true;
       audioRef.current.play();
@@ -92,6 +89,8 @@ const Navbar = () => {
       duration: 1,
       ease: "power1.inOut",
     });
+    if (!isInView) {
+    }
   }, [isInView]);
 
   return (
@@ -100,29 +99,31 @@ const Navbar = () => {
         Yash Thakur
         <span>Frontend Developer</span>
       </h2>
-      <div className="fixed bottom-0 right-0">
-        <svg
-          width="200"
-          height="50"
-          viewBox="0 0 600 100"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="z-10 cursor-pointer absolute bottom-5 right-5"
-          onClick={toggleAnimation}
-        >
-          <path
-            ref={pathRef}
-            d={initialWavePath}
-            stroke="white"
-            strokeWidth="2"
-            fill="none"
-          />
-        </svg>
+      <div className="fixed bottom-10 right-10 flex items-center gap-2">
+        <span className="text-sm text-white">Sound</span>
+        <div className="cursor-pointer">
+          <svg
+            width="100"
+            height="50"
+            viewBox="0 0 600 100"
+            fill="white"
+            xmlns="http://www.w3.org/2000/svg"
+            onClick={toggleAnimation}
+          >
+            <path
+              ref={pathRef}
+              d={initialWavePath}
+              stroke="white"
+              strokeWidth="10"
+              fill="none"
+            />
+          </svg>
 
-        <audio ref={audioRef}>
-          <source src={music} type="audio/mpeg" />
-          Your browser does not support the audio element.
-        </audio>
+          <audio ref={audioRef}>
+            <source src={music} type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
       </div>
     </div>
   );

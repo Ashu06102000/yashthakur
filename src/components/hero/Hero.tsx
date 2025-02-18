@@ -24,10 +24,14 @@ const Hero: React.FC = () => {
       }
     };
   }, []);
-
   useEffect(() => {
     gsap.to("body", {
-      backgroundColor: isInView ? "#000000" : "#1a1a1a",
+      backgroundColor: isInView ? "#000000" : "#313131",
+      duration: 1,
+      ease: "power1.out",
+    });
+    gsap.to("#canvas-particle", {
+      opacity: isInView ? 1 : 0.8,
       duration: 1,
       ease: "power1.out",
     });
@@ -38,9 +42,11 @@ const Hero: React.FC = () => {
       ref={sectionRef}
       className="w-full flex flex-col items-center gap-10 justify-center h-lvh relative"
     >
-      <h1 className="text-4xl w-3/5 font-thin text-white text-center z-10">
+      <h1 className="text-4xl text-center  w-3/5  text-white z-10 flex flex-col gap-4">
         The journey started with curiosity. Now, it’s a mission to build
-        seamless experiences.
+        <span className="text-8xl font-thin font-miaCulpa">
+          Seamless Experiences.
+        </span>
       </h1>
     </div>
   );

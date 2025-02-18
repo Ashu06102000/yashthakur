@@ -13,6 +13,7 @@ import "locomotive-scroll/dist/locomotive-scroll.css"; // Import LocomotiveScrol
 import "./App.css";
 import "./index.css";
 import InteractiveParticleSphere from "./components/generic-components/InteractiveParticleSphere";
+import IntroSection from "./components/hero/IntroSection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,15 +25,14 @@ const App: React.FC = () => {
 
     if (scrollRef.current) {
       scroll = new LocomotiveScroll({
-        el: scrollRef.current, // Scroll container
-        smooth: true, // Enable smooth scrolling
-        multiplier: 0.8, // Adjust scroll speed
+        el: scrollRef.current,
+        smooth: true,
+        multiplier: 0.4,
         //@ts-ignore
-        smoothMobile: true, // Enable smooth scrolling on mobile
+        smoothMobile: true,
         resetNativeScroll: true,
       });
 
-      // Sync LocomotiveScroll with GSAP ScrollTrigger
       scroll.on("scroll", ScrollTrigger.update);
 
       ScrollTrigger.scrollerProxy(scrollRef.current, {
@@ -82,7 +82,7 @@ const App: React.FC = () => {
       <SmokeCursor />
       <div className="w-full flex flex-col" data-scroll-section>
         <Hero />
-        <div className=" rounded-t-3xl h-[200vh]"></div>
+        <IntroSection />
       </div>
     </div>
   );

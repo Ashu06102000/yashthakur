@@ -12,12 +12,15 @@ export default {
       },
       colors: {
         primary: "#e4e4df",
-        secondry: "#b6724b",
+        secondry: "#afafaf",
       },
       backgroundColor: {
         primary: "#e4e4df",
         secondry: "#f1f1f1",
         tangyOrange: "#fe8762",
+      },
+      maxWidth: {
+        "main-screen": "1440px",
       },
     },
   },

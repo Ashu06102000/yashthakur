@@ -26,7 +26,7 @@ const CircularText = () => {
             d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0"
           />
         </defs>
-        <text fill="black" fontSize="9" fontWeight="normal" letterSpacing="2">
+        <text fill="white" fontSize="9" fontWeight="normal" letterSpacing="2">
           <textPath href="#text-circle" startOffset="50%" textAnchor="middle">
             Crafting Stories · Crafting Experiences .
           </textPath>

@@ -29,9 +29,9 @@ const SmokeCursor = () => {
           x,
           y,
           alpha: 1,
-          size: Math.random() * 8 + 2, // Random size between 2 and 10
-          velocityX: (Math.random() - 0.5) * 3, // Random horizontal movement
-          velocityY: (Math.random() - 0.5) * 3, // Random vertical movement
+          size: Math.random() * 8 + 2,
+          velocityX: (Math.random() - 0.5) * 3,
+          velocityY: (Math.random() - 0.5) * 3,
         });
       }
     };
@@ -42,10 +42,10 @@ const SmokeCursor = () => {
       particles.forEach((particle, index) => {
         particle.x += particle.velocityX;
         particle.y += particle.velocityY;
-        particle.alpha -= 0.02; // Slow fade-out
+        particle.alpha -= 0.02;
 
         ctx.beginPath();
-        ctx.fillStyle = `rgba(180, 180, 180, ${particle.alpha})`; // Light grey smoke
+        ctx.fillStyle = `rgba(180, 180, 180, ${particle.alpha})`;
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fill();
         ctx.closePath();
@@ -71,16 +71,15 @@ const SmokeCursor = () => {
 
   return (
     <>
-      {/* Smoke Canvas */}
       <canvas
         ref={canvasRef}
         className="fixed top-0 left-0 pointer-events-none mix-blend-darken z-50"
       />
-      {/* Smoke Overlay for Blur Effect */}
+
       <div
         className="fixed top-0 left-0 w-full h-full pointer-events-none z-50"
         style={{
-          backdropFilter: "blur(10px)", // Increased blur for a smoky look
+          backdropFilter: "blur(10px)",
           WebkitBackdropFilter: "blur(10px)",
           maskImage: `radial-gradient(circle at ${mouse.x}px ${mouse.y}px, rgba(255,255,255,0.2) 20%, rgba(255,255,255,0) 80%)`,
         }}
