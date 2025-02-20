@@ -14,6 +14,7 @@ import "./App.css";
 import "./index.css";
 import InteractiveParticleSphere from "./components/generic-components/InteractiveParticleSphere";
 import IntroSection from "./components/hero/IntroSection";
+import Work from "./components/Work/Work";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -77,12 +78,13 @@ const App: React.FC = () => {
       <div className="absolute inset-0">
         <InteractiveParticleSphere />
       </div>
-      {/* <Loader /> */}
+      <Loader />
       <Navbar />
       <SmokeCursor />
       <div className="w-full flex flex-col" data-scroll-section>
         <Hero />
-        <IntroSection />
+        {/* <IntroSection />
+        <Work /> */}
       </div>
     </div>
   );

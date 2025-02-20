@@ -4,7 +4,7 @@ const IntroSection = () => {
   return (
     <div
       id="PROFILE"
-      className="flex gap-36 p-8 my-36 flex-col items-center mx-auto max-w-main-screen "
+      className="flex gap-36 p-8 mt-36 mb-20 flex-col items-center mx-auto max-w-main-screen "
     >
       <div className="flex  flex-col justify-center w-full gap-2 min-h-screen">
         <div className="flex">
@@ -23,22 +23,21 @@ const IntroSection = () => {
         </span>
       </div>
       <div className="flex flex-col gap-10 w-full">
-        <h2 className="text-2xl text-white">
+        <h2 className="text-4xl font-thin text-white">
           The Story Behind <span>My Craft</span>
         </h2>
         <div className="flex flex-col gap-2">
-          <p className="text-secondry w-2/5">
-            As a kid, I was obsessed with computers—even though I didn’t have
-            one, I explored how they worked and imagined all the incredible
-            things I could do with them. I’d borrow time on my friends’
-            computers, and soon became the go-to person in my circle for
-            anything tech-related. What started as pure curiosity grew into a
-            lifelong passion, and I realized that creating with technology isn’t
-            just about coding—it’s about solving real-world problems. Today, I
-            take pride in turning that early fascination into seamless,
-            impactful digital experiences.
+          <p className="text-secondry w-2/5  font-light">
+            a kid, I was obsessed with computers—even though I didn’t have one,
+            I explored how they worked and imagined all the incredible things I
+            could do with them. I’d borrow time on my friends’ computers, and
+            soon became the go-to person in my circle for anything tech-related.
+            What started as pure curiosity grew into a lifelong passion, and I
+            realized that creating with technology isn’t just about coding—it’s
+            about solving real-world problems. Today, I take pride in turning
+            that early fascination into seamless, impactful digital experiences.
           </p>
-          <p className="text-secondry w-2/5">
+          <p className="text-secondry w-2/5  font-light">
             My day starts with a cup of tea ☕ and ends with ideas swirling in
             my head. In between, I solve complex problems, craft interactive
             user interfaces, and collaborate with clients to align on timelines

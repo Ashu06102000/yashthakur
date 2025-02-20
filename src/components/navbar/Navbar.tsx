@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import music from "../../assets/music.mp3";
+import { motion } from "framer-motion";
 const Navbar = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isInView, setIsInView] = useState(false);
@@ -8,7 +9,10 @@ const Navbar = () => {
   const pathRef = useRef<SVGPathElement | null>(null);
   const animationRef = useRef<gsap.core.Tween | null>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
-
+  const [activeTab, setActiveTab] = useState("PROFILE");
+  const handleSwitch = (tab: string) => {
+    setActiveTab(tab);
+  };
   const initialWavePath =
     "M0 50 Q50 50 100 50 T200 50 T300 50 T400 50 T500 50 T600 50";
   const startAnimation = () => {
@@ -124,6 +128,33 @@ const Navbar = () => {
             Your browser does not support the audio element.
           </audio>
         </div>
+      </div>
+      <div className="bg-gray-200 p-2 rounded-full flex items-center fixed top-4 right-4 ">
+        <ul className="flex items-center gap-4  rounded-full p-1 relative z-10">
+          {["PROFILE", "PROJECTS"].map((tab) => (
+            <li
+              key={tab}
+              className={`relative font-normal font-xl cursor-pointer px-6 py-2 transition-colors duration-200 z-10 ${
+                activeTab === tab ? "text-white" : "text-black"
+              }`}
+              onClick={() => handleSwitch(tab)}
+            >
+              {tab}
+            </li>
+          ))}
+          <motion.div
+            className="absolute top-0 left-0 bg-[#313131] rounded-full w-1/2 h-full z-0"
+            initial={{ x: 0 }}
+            animate={{
+              x: activeTab === "PROFILE" ? 0 : "100%",
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 20,
+            }}
+          />
+        </ul>
       </div>
     </div>
   );
