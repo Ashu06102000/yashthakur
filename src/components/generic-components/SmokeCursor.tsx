@@ -73,7 +73,7 @@ const SmokeCursor = () => {
     <>
       <canvas
         ref={canvasRef}
-        className="fixed top-0 left-0 pointer-events-none mix-blend-darken z-50"
+        className="fixed top-0 left-0 pointer-events-none mix-blend-multiply z-[9999999]"
       />
 
       <div

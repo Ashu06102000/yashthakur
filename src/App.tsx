@@ -9,12 +9,12 @@ import Hero from "./components/hero/Hero";
 
 import Loader from "./components/Loading/Loader";
 
-import "locomotive-scroll/dist/locomotive-scroll.css"; // Import LocomotiveScroll styles
+import "locomotive-scroll/dist/locomotive-scroll.css";
 import "./App.css";
 import "./index.css";
 import InteractiveParticleSphere from "./components/generic-components/InteractiveParticleSphere";
-import IntroSection from "./components/hero/IntroSection";
-import Work from "./components/Work/Work";
+// import IntroSection from "./components/hero/IntroSection";
+// import Work from "./components/Work/Work";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,7 +79,7 @@ const App: React.FC = () => {
         <InteractiveParticleSphere />
       </div>
       <Loader />
-      <Navbar />
+      {/* <Navbar /> */}
       <SmokeCursor />
       <div className="w-full flex flex-col" data-scroll-section>
         <Hero />

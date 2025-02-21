@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
   }, []);
   useEffect(() => {
     gsap.to("body", {
-      backgroundColor: isInView ? "#000000" : "#313131",
+      backgroundColor: isInView ? "#ffff" : "#313131",
       duration: 1,
       ease: "power1.out",
     });
@@ -54,7 +54,7 @@ const Hero: React.FC = () => {
           Seamless Experiences.
         </span>
       </h1> */}
-      <div className="flex  flex-col justify-center w-full gap-2 min-h-screen">
+      {/* <div className="flex  flex-col justify-center w-full gap-2 min-h-screen">
         <div className="flex from-left-name">
           <CircularText />
 
@@ -69,7 +69,7 @@ const Hero: React.FC = () => {
         <span className="text-secondry font-newsreader text-[162px] flex flex-col font-thin leading-none tracking-tighter self-center">
           Developer
         </span>
-      </div>
+      </div> */}
     </div>
   );
 };
