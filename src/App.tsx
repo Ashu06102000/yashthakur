@@ -1,31 +1,26 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import LocomotiveScroll from "locomotive-scroll";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-import Navbar from "./components/navbar/Navbar";
-import SmokeCursor from "./components/generic-components/SmokeCursor";
+import CustomCursor from "./components/generic-components/CustomCursor";
 import Hero from "./components/hero/Hero";
-
 import Loader from "./components/Loading/Loader";
-
+import Navbar from "./components/navbar/Navbar";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import "./App.css";
 import "./index.css";
-import InteractiveParticleSphere from "./components/generic-components/InteractiveParticleSphere";
-// import IntroSection from "./components/hero/IntroSection";
-// import Work from "./components/Work/Work";
+import Work from "./components/Work/Work";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const App: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const scrollInstance = useRef<LocomotiveScroll | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let scroll: LocomotiveScroll | null = null;
-
-    if (scrollRef.current) {
-      scroll = new LocomotiveScroll({
+    if (!scrollInstance.current && scrollRef.current) {
+      scrollInstance.current = new LocomotiveScroll({
         el: scrollRef.current,
         smooth: true,
         multiplier: 0.4,
@@ -34,15 +29,21 @@ const App: React.FC = () => {
         resetNativeScroll: true,
       });
 
-      scroll.on("scroll", ScrollTrigger.update);
+      // Update ScrollTrigger when Locomotive Scroll updates
+      scrollInstance.current.on("scroll", () => {
+        ScrollTrigger.update();
+      });
 
       ScrollTrigger.scrollerProxy(scrollRef.current, {
         scrollTop(value?: number) {
-          if (value !== undefined) {
-            scroll?.scrollTo(value, { duration: 0, disableLerp: true });
-          }
-          //@ts-ignore
-          return scroll?.scroll.instance.scroll.y || 0;
+          return arguments.length
+            ? //@ts-ignore
+              scrollInstance.current?.scrollTo(value, {
+                duration: 0,
+                disableLerp: true,
+              })
+            : //@ts-ignore
+              scrollInstance.current?.scroll.instance.scroll.y || 0;
         },
         getBoundingClientRect() {
           return {
@@ -52,19 +53,20 @@ const App: React.FC = () => {
             height: window.innerHeight,
           };
         },
-        pinType: scrollRef.current.style.transform ? "transform" : "fixed",
+        pinType: scrollRef.current?.style.transform ? "transform" : "fixed",
       });
-      //@ts-ignore
-      ScrollTrigger.addEventListener("refresh", () => scroll?.update());
-      ScrollTrigger.refresh();
+
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
     }
 
     return () => {
-      if (scroll) {
-        scroll.destroy();
-        //@ts-ignore
-        ScrollTrigger.removeEventListener("refresh", () => scroll?.update());
+      if (scrollInstance.current) {
+        scrollInstance.current.destroy();
+        scrollInstance.current = null;
       }
+      ScrollTrigger.removeEventListener("refresh", ScrollTrigger.refresh);
     };
   }, []);
 
@@ -74,18 +76,22 @@ const App: React.FC = () => {
       ref={scrollRef}
       className="relative h-full w-full"
     >
-      {" "}
-      <div className="absolute inset-0">
-        <InteractiveParticleSphere />
-      </div>
-      <Loader />
-      {/* <Navbar /> */}
-      <SmokeCursor />
-      <div className="w-full flex flex-col" data-scroll-section>
-        <Hero />
-        {/* <IntroSection />
-        <Work /> */}
-      </div>
+      {loading ? (
+        <Loader setLoading={setLoading} />
+      ) : (
+        <>
+          <Navbar />
+          <CustomCursor />
+
+          <div
+            className="w-full flex flex-col bg-transparent z-20"
+            data-scroll-section
+          >
+            <Hero loading={loading} />
+            <Work />
+          </div>
+        </>
+      )}
     </div>
   );
 };

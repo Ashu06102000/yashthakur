@@ -28,7 +28,8 @@ body::-webkit-scrollbar {
   display: none;
 }
 ::selection {
-  background: orange;
+  background: #66514b;
+  color: #f9ef93;
 }
 .border-bot {
   border-bottom: 1px solid #9e9e9e;

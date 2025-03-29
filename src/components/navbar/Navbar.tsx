@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import music from "../../assets/music.mp3";
-import { motion } from "framer-motion";
+import HamburgerMenu from "./HamburgerMenu";
+
 const Navbar = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isInView, setIsInView] = useState(false);
@@ -87,24 +88,27 @@ const Navbar = () => {
       duration: 1,
       ease: "power1.inOut",
     });
+    gsap.fromTo(
+      ".fade-in",
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+        ease: "power1.inOut",
+      }
+    );
 
-    gsap.to("body", {
-      backgroundColor: isInView ? "#000000" : "",
-      duration: 1,
-      ease: "power1.inOut",
-    });
     if (!isInView) {
     }
   }, [isInView]);
 
   return (
-    <div className="w-full p-8 font-semibold flex gap-12 justify-between fixed top-0 z-50">
-      <h2 className="text-2xl text-white font-thin tracking-tighter flex flex-col leading-none">
-        Yash Thakur
-        <span>Frontend Developer</span>
-      </h2>
-      <div className="fixed bottom-10 right-10 flex items-center gap-2">
-        <span className="text-sm text-white">Sound</span>
+    <div className="w-full p-8 font-semibold flex gap-12 justify-between fixed top-0 z-50 fade-in">
+      <HamburgerMenu />
+      {/* <div className="fixed bottom-10 right-10 flex items-center gap-2 h-fit top-[23%]">
+        <span className="text-sm text-black">Sound</span>
         <div className="cursor-pointer">
           <svg
             width="100"
@@ -117,7 +121,7 @@ const Navbar = () => {
             <path
               ref={pathRef}
               d={initialWavePath}
-              stroke="white"
+              stroke="black"
               strokeWidth="10"
               fill="none"
             />
@@ -128,8 +132,8 @@ const Navbar = () => {
             Your browser does not support the audio element.
           </audio>
         </div>
-      </div>
-      <div className="bg-gray-200 p-2 rounded-full flex items-center fixed top-4 right-4 ">
+      </div> */}
+      {/* <div className="bg-gray-200 p-2 rounded-full flex items-center fixed top-4 right-4 ">
         <ul className="flex items-center gap-4  rounded-full p-1 relative z-10">
           {["PROFILE", "PROJECTS"].map((tab) => (
             <li
@@ -155,7 +159,7 @@ const Navbar = () => {
             }}
           />
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 };

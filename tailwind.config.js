@@ -9,15 +9,20 @@ export default {
         roboto: ["Roboto", "sans-serif"],
         spectral: ["Spectral", "serif"],
         miaCulpa: ["Mea Culpa", "serif"],
+        Cormorant: ["Cormorant Upright", "serif"],
       },
       colors: {
         primary: "#e4e4df",
         secondry: "#afafaf",
+        yellowGold: "#f9ef93",
+        brown: "#66514b",
       },
       backgroundColor: {
-        primary: "#e4e4df",
+        primary: "#313131",
         secondry: "#f1f1f1",
         tangyOrange: "#fe8762",
+        highlightColor: "#f04f50",
+        brown: "#66514b",
       },
       maxWidth: {
         "main-screen": "1440px",
