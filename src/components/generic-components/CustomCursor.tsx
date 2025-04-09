@@ -2,36 +2,47 @@
 import { useEffect, useRef, useState } from "react";
 
 const CustomCursor = () => {
-  const cursorRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [position, setPosition] = useState({ x: -100, y: -100 });
-  const [size, setSize] = useState(10);
 
   useEffect(() => {
-    let mouseX = -100;
-    let mouseY = -100;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Set canvas size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    ctx.strokeStyle = "yellow"; // Pencil stroke color
+    ctx.lineWidth = 3;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
     let prevX = -100;
     let prevY = -100;
 
     const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    };
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
 
-    const animate = () => {
-      prevX += (mouseX - prevX) * 0.15;
-      prevY += (mouseY - prevY) * 0.15;
+      // Clear the canvas to remove the trail
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const velocity = Math.sqrt((mouseX - prevX) ** 2 + (mouseY - prevY) ** 2);
-      const newSize = Math.max(10, Math.min(25, 10 + velocity * 0.5));
+      // Draw a new line
+      ctx.beginPath();
+      ctx.moveTo(prevX, prevY);
+      ctx.lineTo(mouseX, mouseY);
+      ctx.stroke();
 
-      setPosition({ x: prevX, y: prevY });
-      setSize(newSize);
-
-      requestAnimationFrame(animate);
+      prevX = mouseX;
+      prevY = mouseY;
+      setPosition({ x: mouseX, y: mouseY });
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    animate();
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
@@ -39,19 +50,10 @@ const CustomCursor = () => {
   }, []);
 
   return (
-    <div
-      ref={cursorRef}
+    <canvas
+      ref={canvasRef}
       className="fixed top-0 left-0 pointer-events-none z-50"
-      style={{
-        width: `${size}px`,
-        height: `${size}px`,
-        borderRadius: "50%",
-        backgroundColor: "#f04f50",
-        transform: `translate(${position.x - size / 2}px, ${
-          position.y - size / 2
-        }px) scale(${size / 10})`,
-        transition: "transform 0.1s ease-out",
-      }}
+      style={{ width: "100vw", height: "100vh" }}
     />
   );
 };

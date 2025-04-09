@@ -1,135 +1,114 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import CircularText from "../generic-components/CircularText";
-import img from "../../assets/msportfolio-min.png";
-import img2 from "../../assets/rator-min.png";
-import img3 from "../../assets/morax-home.png";
-import img4 from "../../assets/moraxtwo.png";
-
-const imageSources = [img, img2, img3, img4];
 
 const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const imageRefs = useRef<HTMLImageElement[]>([]);
+  const linesRef = useRef<HTMLDivElement[]>([]);
+  const burstRef = useRef<SVGSVGElement | null>(null);
+  const dotRef = useRef<HTMLSpanElement | null>(null);
+  const pulseRef = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
     if (!loading) {
-      gsap.to(sectionRef.current, {
-        opacity: 1,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 20%",
-          end: "top -80%",
-          scrub: true,
-        },
-      });
-      const ctx = gsap.context(() => {
-        gsap.fromTo(
-          ".from-right-text",
-          { x: 100, opacity: 0 },
-          { x: 0, opacity: 1, duration: 2, ease: "power1.out" }
-        );
-        gsap.fromTo(
-          ".from-left-name",
-          { x: -100, opacity: 0 },
-          { x: 0, opacity: 1, duration: 2, ease: "power1.out" }
-        );
-      }, sectionRef);
+      const tl = gsap.timeline({ delay: 0.3 });
 
-      return () => ctx.revert();
+      tl.fromTo(
+        burstRef.current,
+        { scale: 0, rotate: -180, opacity: 0 },
+        {
+          scale: 1,
+          rotate: 0,
+          opacity: 1,
+          ease: "back.out(1.7)",
+          duration: 1,
+        }
+      );
+
+      tl.fromTo(
+        linesRef.current,
+        { opacity: 0, y: 80, rotateX: 60 },
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          ease: "expo.out",
+          duration: 1.2,
+          stagger: 0.2,
+        },
+        "-=0.6"
+      );
+
+      gsap.to(pulseRef.current, {
+        scale: 4.5,
+        opacity: 0,
+        repeat: -1,
+        duration: 1.5,
+        ease: "power2.out",
+        delay: 0.2,
+      });
     }
   }, [loading]);
 
-  useEffect(() => {
-    let lastImageTime = 0;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const now = Date.now();
-      if (now - lastImageTime < 200) return;
-      lastImageTime = now;
-
-      setTimeout(() => {
-        const randomImage =
-          imageSources[Math.floor(Math.random() * imageSources.length)];
-        const img = document.createElement("img");
-
-        img.src = randomImage;
-        img.className = "trailing-image";
-        img.style.position = "absolute";
-        img.style.left = `${e.clientX}px`;
-        img.style.top = `${e.clientY}px`;
-        img.style.maxWidth = "300px";
-        img.style.maxHeight = "300px";
-        img.style.pointerEvents = "none";
-        img.style.opacity = "0";
-        img.style.transform = "translate(-50%, -50%) scale(0)";
-        img.style.willChange = "transform, opacity";
-        img.style.imageRendering = "crisp-edges";
-        img.style.cursor = "pointer";
-
-        const contentWrapper = document.querySelector(".content-wrapper");
-        contentWrapper?.appendChild(img);
-
-        gsap.to(img, {
-          opacity: 1,
-          scale: 1,
-          duration: 0.5,
-          ease: "power2.out",
-        });
-
-        imageRefs.current.push(img);
-
-        if (imageRefs.current.length > 20) {
-          const oldImg = imageRefs.current.shift();
-          if (oldImg) {
-            gsap.to(oldImg, {
-              duration: 0.5,
-              ease: "power2.out",
-              onComplete: () => oldImg.remove(),
-            });
-          }
-        }
-
-        gsap.to(img, {
-          scale: 1.2,
-          duration: 0.4,
-          ease: "power2.out",
-          delay: 0.2,
-
-          onComplete: () => {
-            const index = imageRefs.current.indexOf(img);
-            if (index !== -1) imageRefs.current.splice(index, 1);
-            img.remove();
-          },
-        });
-      }, 100);
-    };
-
-    document.addEventListener("mousemove", handleMouseMove);
-    return () => document.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
   return (
-    <div
-      ref={sectionRef}
-      className="w-full grid grid-cols-8 gap-y-10 min-h-lvh relative cursor-default"
-    >
-      <div className="flex flex-col justify-center w-full gap-2 min-h-screen col-span-6 col-start-2 content-wrapper">
-        <div className="flex from-left-name gap-4">
-          {/* <CircularText /> */}
-          <h1 className="text-brown font-newsreader text-[14rem] flex flex-col font-thin leading-none tracking-tighter capitalize">
-            I am
-          </h1>
-        </div>
+    <section className="w-full min-h-screen flex flex-col justify-center items-start px-10 sm:px-20 bg-black text-white font-barracuda relative overflow-hidden">
+      <div className="absolute bottom-8 left-22 text-sm flex items-center gap-3 font-lato text-white/90">
+        <div className="relative w-3 h-3">
+          <span
+            ref={dotRef}
+            className="absolute w-3 h-3 rounded-full bg-green-400 z-10"
+          ></span>
 
-        <span className="text-black font-newsreader text-[14rem] flex flex-col font-thin leading-none tracking-tighter from-right-text capitalize">
-          ___Frontend
-        </span>
-        <span className="text-brown font-newsreader text-[14rem] flex flex-col font-thin leading-none tracking-tighter self-center from-left-name capitalize">
-          Developer
-        </span>
+          <span
+            ref={pulseRef}
+            className="absolute w-3 h-3 rounded-full bg-green-400 opacity-40 z-0"
+          ></span>
+        </div>
+        Available to work
       </div>
-    </div>
+
+      <div className="flex items-start gap-6 mb-8 z-10">
+        <div className="space-y-4 text-[clamp(3rem,8vw,8rem)] font-roboto leading-none uppercase font-light">
+          <div ref={(el) => el && (linesRef.current[0] = el)}>HEY — I'M</div>
+          <div className="flex items-center gap-6">
+            <svg
+              ref={burstRef}
+              className="w-20 h-20 mt-4 shrink-0"
+              viewBox="0 0 100 100"
+              fill="none"
+            >
+              {[...Array(24)].map((_, i) => (
+                <line
+                  key={i}
+                  x1="50"
+                  y1="10"
+                  x2="50"
+                  y2="0"
+                  stroke="white"
+                  strokeWidth="4"
+                  transform={`rotate(${(360 / 24) * i}, 50, 50)`}
+                />
+              ))}
+            </svg>
+            <div ref={(el) => el && (linesRef.current[1] = el)}>
+              YASH THAKUR
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        ref={(el) => el && (linesRef.current[2] = el)}
+        className="text-[clamp(3rem,8vw,8rem)] font-roboto  leading-none uppercase font-light"
+      >
+        A <span className="text-yellowGold">Frontend</span> Developer
+      </div>
+
+      <p
+        ref={(el) => el && (linesRef.current[3] = el)}
+        className="mt-10 max-w-xl text-lg text-white/90 font-lato leading-relaxed px-6 py-3 border border-white/20 rounded-md"
+      >
+        I Animate Interfaces, And Sometimes People
+      </p>
+    </section>
   );
 };
 

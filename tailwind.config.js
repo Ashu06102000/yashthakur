@@ -10,6 +10,7 @@ export default {
         spectral: ["Spectral", "serif"],
         miaCulpa: ["Mea Culpa", "serif"],
         Cormorant: ["Cormorant Upright", "serif"],
+        tulpen: ["Tulpen One", "serif"],
       },
       colors: {
         primary: "#e4e4df",

@@ -10,6 +10,7 @@ import "locomotive-scroll/dist/locomotive-scroll.css";
 import "./App.css";
 import "./index.css";
 import Work from "./components/Work/Work";
+import IntroSection from "./components/hero/IntroSection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,7 +30,6 @@ const App: React.FC = () => {
         resetNativeScroll: true,
       });
 
-      // Update ScrollTrigger when Locomotive Scroll updates
       scrollInstance.current.on("scroll", () => {
         ScrollTrigger.update();
       });
@@ -73,7 +73,7 @@ const App: React.FC = () => {
   return (
     <div
       data-scroll-container
-      ref={scrollRef}
+      // ref={scrollRef}
       className="relative h-full w-full"
     >
       {loading ? (
@@ -88,7 +88,9 @@ const App: React.FC = () => {
             data-scroll-section
           >
             <Hero loading={loading} />
-            <Work />
+
+            <IntroSection />
+            {/* <Work /> */}
           </div>
         </>
       )}

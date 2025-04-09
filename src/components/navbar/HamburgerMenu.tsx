@@ -56,9 +56,12 @@ export default function HamburgerMenu() {
           <div className="line-2 bg-black h-0.5 w-6 rounded transition-all"></div>
           <div className="line-3 bg-black h-0.5 w-6 rounded transition-all"></div>
         </div>
-        <button className="bg-yellowGold p-5 text-black rounded-md text-xs font-roboto font-normal hover:bg-black hover:text-white transition-all duration-300 ease-in-out">
+        <a
+          href="mailto:yash6102000thakur@gmail.com"
+          className="bg-yellowGold p-5 text-black rounded-md text-xs font-roboto font-normal hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
+        >
           CONTACT ME
-        </button>
+        </a>
       </div>
 
       {/* Menu Card */}
@@ -67,7 +70,7 @@ export default function HamburgerMenu() {
         className="fixed top-4 right-10 rounded-lg h-auto w-[28rem] pt-40 bg-brown text-white p-6"
       >
         <ul className="flex flex-col items-end">
-          {["Home", "About", "Services", "Contact"].map((item, index) => (
+          {["Home", "About", "Work", "Contact"].map((item, index) => (
             <li
               key={index}
               className="relative pt-4 px-2 border-t border-t-yellowGold border-opacity-10 group:hover:border-opacity-100 text-7xl font-medium text-yellowGold cursor-pointer overflow-hidden group w-full text-right"
