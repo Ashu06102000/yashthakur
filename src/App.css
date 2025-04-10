@@ -3,6 +3,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Cormorant+Upright:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Tulpen+One&display=swap");
 body {
   background-color: #000;
+  color: white;
+  font-family: roboto;
 }
 /* src/index.css */
 @tailwind base;

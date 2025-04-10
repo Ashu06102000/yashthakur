@@ -234,11 +234,3 @@ body::-webkit-scrollbar {
 html {
   scroll-behavior: auto; /* Disable native smooth scrolling */
 }
-
-[data-scroll-container] {
-  overflow: hidden;
-}
-
-[data-scroll-section] {
-  position: relative;
-}

@@ -13,7 +13,7 @@ export default {
         tulpen: ["Tulpen One", "serif"],
       },
       colors: {
-        primary: "#e4e4df",
+        primary: "#fe8762",
         secondry: "#afafaf",
         yellowGold: "#f9ef93",
         brown: "#66514b",

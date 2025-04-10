@@ -19,10 +19,17 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
           rotate: 0,
           opacity: 1,
           ease: "back.out(1.7)",
-          duration: 1,
+          duration: 2,
+          onComplete: () => {
+            gsap.to(burstRef.current, {
+              rotate: 360,
+              duration: 5,
+              ease: "linear",
+              repeat: -1,
+            });
+          },
         }
       );
-
       tl.fromTo(
         linesRef.current,
         { opacity: 0, y: 80, rotateX: 60 },
@@ -65,13 +72,13 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
         Available to work
       </div>
 
-      <div className="flex items-start gap-6 mb-8 z-10">
-        <div className="space-y-4 text-[clamp(3rem,8vw,8rem)] font-roboto leading-none uppercase font-light">
+      <div className="flex items-start gap-6 z-10">
+        <div className="space-y-4 text-[clamp(3rem,8vw,8rem)] font-roboto leading-none uppercase font-normal">
           <div ref={(el) => el && (linesRef.current[0] = el)}>HEY — I'M</div>
           <div className="flex items-center gap-6">
             <svg
               ref={burstRef}
-              className="w-20 h-20 mt-4 shrink-0"
+              className="w-20 h-20 shrink-0"
               viewBox="0 0 100 100"
               fill="none"
             >
@@ -97,9 +104,9 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
 
       <div
         ref={(el) => el && (linesRef.current[2] = el)}
-        className="text-[clamp(3rem,8vw,8rem)] font-roboto  leading-none uppercase font-light"
+        className="text-[clamp(3rem,8vw,8rem)] font-roboto leading-none uppercase font-light"
       >
-        A <span className="text-yellowGold">Frontend</span> Developer
+        <span className="text-orange-500 font-normal">Frontend Developer</span>
       </div>
 
       <p
@@ -107,6 +114,9 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
         className="mt-10 max-w-xl text-lg text-white/90 font-lato leading-relaxed px-6 py-3 border border-white/20 rounded-md"
       >
         I Animate Interfaces, And Sometimes People
+      </p>
+      <p className="absolute bottom-8 right-20 text-sm flex items-center gap-3 font-lato text-white/90">
+         📍 Pune, Maharashtra, India
       </p>
     </section>
   );

@@ -11,6 +11,7 @@ import "./App.css";
 import "./index.css";
 import Work from "./components/Work/Work";
 import IntroSection from "./components/hero/IntroSection";
+import SkillSection from "./components/landing/SkillSection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -90,7 +91,8 @@ const App: React.FC = () => {
             <Hero loading={loading} />
 
             <IntroSection />
-            {/* <Work /> */}
+            <SkillSection />
+            <div className="h-[400vh]"></div>
           </div>
         </>
       )}

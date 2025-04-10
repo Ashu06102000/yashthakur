@@ -58,31 +58,30 @@ export default function HamburgerMenu() {
         </div>
         <a
           href="mailto:yash6102000thakur@gmail.com"
-          className="bg-yellowGold p-5 text-black rounded-md text-xs font-roboto font-normal hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
+          className="bg-orange-500 p-5 text-black rounded-md text-xs font-roboto font-normal hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
         >
           CONTACT ME
         </a>
       </div>
 
-      {/* Menu Card */}
       <div
         ref={menuRef}
-        className="fixed top-4 right-10 rounded-lg h-auto w-[28rem] pt-40 bg-brown text-white p-6"
+        className="fixed top-4 right-10 rounded-lg h-auto w-[28rem] pt-40 bg-slate-800 text-white p-6"
       >
         <ul className="flex flex-col items-end">
           {["Home", "About", "Work", "Contact"].map((item, index) => (
             <li
               key={index}
-              className="relative pt-4 px-2 border-t border-t-yellowGold border-opacity-10 group:hover:border-opacity-100 text-7xl font-medium text-yellowGold cursor-pointer overflow-hidden group w-full text-right"
+              className="relative pt-4 px-2 border-t border-t-orange-500 border-opacity-10 group:hover:border-opacity-100 text-7xl font-medium text-orange-500 cursor-pointer overflow-hidden group w-full text-right"
             >
-              <span className="absolute left-0 bottom-0 h-full bg-yellowGold scale-y-0 origin-bottom transition-transform duration-300 ease-in-out group-hover:scale-y-100 w-full"></span>
-              <span className="relative font-roboto block transition-transform duration-300 ease-in-out group-hover:-translate-y-2 group-hover:text-brown w-full">
+              <span className="absolute left-0 bottom-0 h-full bg-orange-500 scale-y-0 origin-bottom transition-transform duration-300 ease-in-out group-hover:scale-y-100 w-full"></span>
+              <span className="relative font-roboto block transition-transform duration-300 ease-in-out group-hover:-translate-y-2 group-hover:text-slate-800 w-full">
                 {item}
               </span>
             </li>
           ))}
         </ul>
-        <div className="border-t border-t-yellowGold border-opacity-10 px-6 pt-16">
+        <div className="border-t border-t-orange-500 border-opacity-10 px-6 pt-16">
           linkedin
         </div>
       </div>
