@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
 export default function HamburgerMenu() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [_, setIsOpen] = useState(false);
   const menuRef = useRef(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
 

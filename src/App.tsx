@@ -9,7 +9,6 @@ import Navbar from "./components/navbar/Navbar";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import "./App.css";
 import "./index.css";
-import Work from "./components/Work/Work";
 import IntroSection from "./components/hero/IntroSection";
 import SkillSection from "./components/landing/SkillSection";
 

@@ -11,181 +11,239 @@ const groupedSkills = [
   },
   {
     title: "Styling, Animation & Interaction",
-    skills: ["GSAP", "Webflow", "Zustand"],
+    skills: ["GSAP", "Framer Motion", "Shadcn UI", "Material UI"],
   },
   {
-    title: "Backend & Database",
-    skills: ["Prisma ORM", "MongoDB", "AWS"],
+    title: "Cloud & Database",
+    skills: ["Prisma ORM", "MongoDB", "AWS", "MySQL", "Postgres"],
   },
   {
-    title: "Testing & Quality",
-    skills: ["Cypress"],
+    title: "Testing & State Management",
+    skills: ["Cypress", "Zustand", "React Query"],
   },
   {
     title: "Languages",
-    skills: ["JavaScript", "TypeScript"],
+    skills: [
+      "JavaScript",
+      "TypeScript",
+      "HTML",
+      "CSS",
+      "Liquid",
+      "Php",
+      "Jquery",
+    ],
   },
   {
     title: "CMS & Ecommerce",
-    skills: ["WordPress", "Shopify"],
+    skills: ["WordPress", "Shopify", "Webflow"],
   },
 ];
 
-const SkillSection = () => {
+const cardColors = [
+  "#4d8bd8",
+  "#e16244",
+  "#53879a",
+  "#303030",
+  "#c35038",
+  "#d17d31",
+];
+
+const SkillDeck = () => {
   const sectionRef = useRef(null);
+  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const titleRef = useRef(null);
   const containerRef = useRef(null);
 
   useEffect(() => {
-    let ctx: ReturnType<typeof gsap.context>;
+    const ctx = gsap.context(() => {
+      gsap.from(titleRef.current, {
+        opacity: 0,
+        y: -50,
+        duration: 1.5,
+        ease: "power3.out",
+      });
 
-    if (sectionRef.current && containerRef.current) {
-      ctx = gsap.context(() => {
-        gsap.set(containerRef.current, {
-          willChange: "transform",
-          force3D: true,
+      gsap.from(containerRef.current, {
+        y: 100,
+        opacity: 0,
+        duration: 1.5,
+        delay: 0.3,
+        ease: "power3.out",
+      });
+
+      cardsRef.current.forEach((card, i) => {
+        const totalSpread = 120;
+        const baseRotation = -60;
+        const rotation =
+          baseRotation + (i / (groupedSkills.length - 1)) * totalSpread;
+
+        gsap.set(card, {
+          rotation,
+          transformOrigin: "bottom center",
+          zIndex: i + 1,
         });
 
-        const cards = gsap.utils.toArray(".skill-card");
+        // Offset on hover
+        const rad = (rotation * Math.PI) / 180;
+        const distance = 70;
+        const dx = Math.sin(rad) * distance;
+        const dy = -Math.cos(rad) * distance;
 
-        const screenWidth = window.innerWidth;
-        const initialPosition = screenWidth / 2 - 160;
-
-        gsap.set(containerRef.current, {
-          x: initialPosition,
+        const toX = gsap.quickTo(card, "x", {
+          duration: 0.4,
+          ease: "power3.out",
         });
+        const toY = gsap.quickTo(card, "y", {
+          duration: 0.4,
+          ease: "power3.out",
+        });
+        const toScale = gsap.quickTo(card, "scale", {
+          duration: 0.4,
+          ease: "power3.out",
+        });
+        const toZ = gsap.quickTo(card, "zIndex", { duration: 0 });
 
-        (cards as HTMLElement[]).forEach((card, index) => {
-          const baseTilt = index === 0 ? 0 : index % 2 === 0 ? 3 : -3;
-
-          gsap.set(card, {
-            opacity: index === 0 ? 1 : 0.6,
-            scale: index === 0 ? 1 : 0.95,
-            rotateZ: baseTilt,
-            transformOrigin: "center center",
-            force3D: true,
-            backfaceVisibility: "hidden",
+        card.addEventListener("mouseenter", () => {
+          toX(dx);
+          toY(dy);
+          toScale(1.08);
+          toZ(100);
+          gsap.to(card, {
+            boxShadow: "0 25px 50px rgba(0,0,0,0.4)",
+            filter: "blur(0px)",
+            duration: 0.4,
+            ease: "power2.out",
           });
         });
 
-        const cardWidth = 320;
-        const totalWidth = cards.length * cardWidth;
-        const endPosition = -totalWidth + screenWidth / 2 + 160;
-
-        const cardSequence = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            pin: true,
-            start: "top top",
-            end: `+=${cards.length * 250}`,
-            scrub: 0.5,
-            anticipatePin: 1,
-            fastScrollEnd: true,
-            onUpdate: (self) => {
-              requestAnimationFrame(() =>
-                updateActiveCard(self.progress, cards as HTMLElement[])
-              );
-            },
-          },
+        card.addEventListener("mouseleave", () => {
+          toX(0);
+          toY(0);
+          toScale(1);
+          toZ(i + 1);
+          gsap.to(card, {
+            boxShadow: "0 5px 15px rgba(0,0,0,0.3)",
+            filter: "blur(0px)",
+            duration: 0.4,
+            ease: "power2.inOut",
+          });
         });
+      });
 
-        cardSequence.to(containerRef.current, {
-          x: endPosition,
-          ease: "none",
+      // scrollTl (unchanged, continue using as-is)
+      const scrollTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "+=4000",
+          scrub: 1,
+          pin: true,
+        },
+      });
+
+      scrollTl.to(
+        cardsRef.current,
+        {
+          rotation: 180,
+          left: "0%",
+          x: "0%",
+          y: 0,
+          stagger: { each: 0.05, from: "start" },
+          duration: 1.5,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      scrollTl.to({}, { duration: 0.5 }, 1.5);
+
+      scrollTl.to(
+        containerRef.current,
+        {
+          x: 50,
+          duration: 1.5,
+          ease: "power2.inOut",
+        },
+        2
+      );
+
+      scrollTl.to(
+        titleRef.current,
+        {
+          opacity: 0,
+          y: -50,
           duration: 1,
-        });
+          ease: "power2.inOut",
+        },
+        1
+      );
+    }, sectionRef);
 
-        function updateActiveCard(progress: number, cards: Element[]) {
-          const moveDistance = initialPosition - endPosition;
-          const currentPosition = initialPosition - progress * moveDistance;
-
-          const screenCenter = screenWidth / 2;
-          let closestCardIndex = 0;
-          let closestDistance = Infinity;
-
-          cards.forEach((_, index) => {
-            const cardPosition = currentPosition + index * cardWidth;
-            const distanceFromCenter = Math.abs(
-              cardPosition - screenCenter + 160
-            );
-
-            if (distanceFromCenter < closestDistance) {
-              closestDistance = distanceFromCenter;
-              closestCardIndex = index;
-            }
-          });
-
-          const visibleRange = 3;
-
-          cards.forEach((card, index: number) => {
-            if (Math.abs(index - closestCardIndex) > visibleRange) {
-              return;
-            }
-
-            const cardPosition = currentPosition + index * cardWidth;
-            const distanceFromCenter = cardPosition - screenCenter + 160;
-            const absDistance = Math.abs(distanceFromCenter);
-
-            const centeredness = Math.max(
-              0,
-              1 - Math.min(1, absDistance / (cardWidth * 1.5))
-            );
-
-            const tiltDirection = distanceFromCenter > 0 ? -1 : 1;
-            const tiltAmount = 3 * (1 - centeredness) * tiltDirection;
-
-            gsap.to(card, {
-              duration: 0.2,
-              opacity: 0.6 + centeredness * 0.4,
-              scale: 0.95 + centeredness * 0.05,
-              rotateZ: tiltAmount,
-              ease: "power1.out",
-              overwrite: "auto",
-            });
-          });
-        }
-      }, sectionRef);
-    }
-
-    return () => {
-      if (ctx) ctx.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="py-32 px-4 sm:px-10 overflow-hidden h-screen flex flex-col bg-black"
-    >
-      <h2 className="text-5xl md:text-6xl font-bold mb-20 text-left text-white">
-        What I Work With
-      </h2>
+    <section ref={sectionRef} className="relative overflow-hidden">
+      <div className="sticky top-0 h-screen w-full flex flex-col items-center">
+        <h1
+          ref={titleRef}
+          className="text-6xl font-bold mt-16 text-primary font-roboto "
+        >
+          Development
+        </h1>
 
-      <div className="flex-1 flex items-center justify-center overflow-visible">
-        <div ref={containerRef} className="flex gap-10 will-change-transform">
-          {groupedSkills.map((group, i) => (
-            <div
-              key={i}
-              className="skill-card w-80 h-96 flex-shrink-0 bg-black border border-gray-800 rounded-none p-6 shadow-lg transition-transform duration-200"
-            >
-              <h3 className="text-2xl font-semibold mb-6 text-orange-500">
-                {group.title}
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {group.skills.map((skill, j) => (
-                  <span
-                    key={j}
-                    className="bg-black text-white py-2 px-4 border border-gray-800 transition-all duration-300 hover:border-orange-500"
+        <div
+          ref={containerRef}
+          className="relative mt-24 w-full h-[600px] flex items-end justify-center"
+        >
+          <div className="absolute h-[450px] w-[600px] bottom-0">
+            {groupedSkills.map((skillGroup, i) => (
+              <div
+                key={i}
+                ref={(el) => {
+                  if (el) cardsRef.current[i] = el;
+                }}
+                className="absolute left-1/2 bottom-0 -translate-x-1/2 rounded-xl"
+                style={{
+                  width: "500px",
+                  height: "700px",
+                  backgroundColor: cardColors[i] || "#ffffff",
+                  boxShadow: "0 5px 15px rgba(0,0,0,0.3)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  overflow: "hidden",
+                  padding: "1rem",
+                  cursor: "pointer",
+                }}
+              >
+                <div className="flex justify-between h-full text-center">
+                  <p
+                    className="font-normal tracking-tight text-5xl uppercase text-justify"
+                    style={{
+                      color: ["#FFFFFF", "#E0E0E0"].includes(cardColors[i])
+                        ? "#000000"
+                        : "#FFFFFF",
+
+                      writingMode: "vertical-rl",
+                    }}
                   >
-                    {skill}
-                  </span>
-                ))}
+                    {skillGroup.title}
+                  </p>
+
+                  <ul className="text-sm mt-4 space-y-2 text-left ml-4">
+                    {skillGroup.skills.map((skill, idx) => (
+                      <li key={idx} className="text-white">
+                        {skill}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 };
 
-export default SkillSection;
+export default SkillDeck;
