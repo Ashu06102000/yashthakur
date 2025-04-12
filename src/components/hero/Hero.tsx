@@ -1,11 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
   const linesRef = useRef<HTMLDivElement[]>([]);
   const burstRef = useRef<SVGSVGElement | null>(null);
   const dotRef = useRef<HTMLSpanElement | null>(null);
   const pulseRef = useRef<HTMLSpanElement | null>(null);
+  const heroRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!loading) {
@@ -30,6 +34,7 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
           },
         }
       );
+
       tl.fromTo(
         linesRef.current,
         { opacity: 0, y: 80, rotateX: 60 },
@@ -52,18 +57,37 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
         ease: "power2.out",
         delay: 0.2,
       });
+
+      gsap.to(heroRef.current, {
+        opacity: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+          markers: false,
+          onUpdate: (self) => {
+            const opacity =
+              self.progress < 0.5 ? self.progress * 2 : 2 - self.progress * 2;
+            gsap.to(heroRef.current, { opacity: opacity });
+          },
+        },
+      });
     }
   }, [loading]);
 
   return (
-    <section className="w-full min-h-screen flex flex-col justify-center items-start px-10 sm:px-20 bg-black text-white font-barracuda relative overflow-hidden">
+    <section
+      ref={heroRef}
+      className="hero-section w-full min-h-screen flex flex-col justify-center items-start px-10 sm:px-20 text-white font-barracuda relative overflow-hidden opacity-0"
+    >
       <div className="absolute bottom-8 left-22 text-sm flex items-center gap-3 font-lato text-white/90">
         <div className="relative w-3 h-3">
           <span
             ref={dotRef}
             className="absolute w-3 h-3 rounded-full bg-green-400 z-10"
           ></span>
-
           <span
             ref={pulseRef}
             className="absolute w-3 h-3 rounded-full bg-green-400 opacity-40 z-0"
@@ -116,7 +140,7 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
         I Animate Interfaces, And Sometimes People
       </p>
       <p className="absolute bottom-8 right-20 text-sm flex items-center gap-3 font-lato text-white/90">
-         📍 Pune, Maharashtra, India
+        📍 Pune, Maharashtra, India
       </p>
     </section>
   );

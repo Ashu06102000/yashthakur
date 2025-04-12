@@ -91,7 +91,6 @@ const App: React.FC = () => {
 
             <IntroSection />
             <SkillSection />
-            <div className="h-[400vh]"></div>
           </div>
         </>
       )}

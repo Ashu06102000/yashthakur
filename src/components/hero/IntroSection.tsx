@@ -23,13 +23,13 @@ const IntroSection = () => {
     // Heading animation
     gsap.set(headingLetters, {
       x: () => gsap.utils.random(-1000, 1000),
-      y: () => gsap.utils.random(-1000, 1000),
+      rotate: () => gsap.utils.random(-10, 10),
       opacity: 0,
     });
 
     gsap.to(headingLetters, {
       x: 0,
-      y: 0,
+      rotate: 0,
       opacity: 1,
       duration: 1.5,
       ease: "power2.out",
@@ -44,11 +44,12 @@ const IntroSection = () => {
 
     gsap.fromTo(
       imageWrapperRef.current,
-      { height: 0 },
+      { height: 0, opacity: 0 },
       {
         height: "100%",
         duration: 1.2,
         ease: "power2.out",
+        opacity: 1,
         scrollTrigger: {
           trigger: imageWrapperRef.current,
           start: "top 80%",
@@ -61,12 +62,14 @@ const IntroSection = () => {
 
     gsap.set(paragraphLetters, {
       color: "#696969",
+      opacity: 0,
     });
 
     gsap.to(paragraphLetters, {
       color: "white",
       duration: 1.5,
       ease: "power2.out",
+      opacity: 1,
       stagger: 0.01,
       scrollTrigger: {
         trigger: paragrahRef.current,
@@ -92,7 +95,7 @@ const IntroSection = () => {
         id="ABOUT"
         className="flex gap-96 flex-col items-start w-full mx-auto sticky top-[30%]"
       >
-        <div className="flex items-end justify-between gap-20">
+        <div className="flex items-end justify-between gap-20 h-screen">
           <div className="w-[400px] h-[600px] overflow-hidden">
             <div
               ref={imageWrapperRef}
@@ -114,7 +117,7 @@ const IntroSection = () => {
                 key={i}
                 className={`${
                   i === 1 ? "text-orange-500" : "text-white"
-                } font-roboto text-[6rem] flex font-light leading-none text-left uppercase`}
+                }  text-[6rem] flex font-normal leading-none text-left uppercase`}
               >
                 {Array.from(line).map((letter, index) => (
                   <span
