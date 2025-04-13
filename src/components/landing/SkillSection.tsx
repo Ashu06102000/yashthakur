@@ -18,8 +18,10 @@ const CapabilityHover = () => {
     <section className="min-h-screen px-10 sm:px-20 py-24 flex items-start justify-between cursor-default">
       <div className="text-left flex justify-between mb-16 sticky top-96">
         <div>
-          <h2 className="text-2xl font-light uppercase">Capabilities</h2>
-          <p className="text-xl font-thin mt-2">
+          <h2 className="text-2xl font-light uppercase text-black">
+            Capabilities
+          </h2>
+          <p className="text-xl font-thin mt-2 text-black">
             Here's what I bring to the table
           </p>
         </div>
@@ -31,8 +33,8 @@ const CapabilityHover = () => {
             <ul className="space-y-3">
               <li
                 key={skill}
-                className="relative list-none text-white font-light transition-all duration-300 
-                                hover:text-white hover:font-semibold hover:-translate-x-24 text-4xl leading-none"
+                className="relative list-none text-black font-light transition-all duration-300 
+                                hover:text-black hover:font-semibold hover:-translate-x-24 text-4xl leading-none"
               >
                 <span></span>
                 {skill}

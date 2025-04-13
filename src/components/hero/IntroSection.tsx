@@ -36,7 +36,7 @@ const IntroSection = () => {
       scrollTrigger: {
         trigger: textRef.current,
         start: "top 80%",
-        end: "top 30%",
+        end: "top 50%",
         scrub: true,
         invalidateOnRefresh: true,
       },
@@ -117,7 +117,7 @@ const IntroSection = () => {
                 key={i}
                 className={`${
                   i === 1 ? "text-orange-500" : "text-white"
-                }  text-[6rem] flex font-normal leading-none text-left uppercase`}
+                }  text-[6rem] flex font-thin leading-none text-left uppercase`}
               >
                 {Array.from(line).map((letter, index) => (
                   <span

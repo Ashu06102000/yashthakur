@@ -69,7 +69,7 @@ export default function HamburgerMenu() {
         className="fixed top-4 right-10 rounded-lg h-auto w-[28rem] pt-40 bg-slate-800 text-white p-6"
       >
         <ul className="flex flex-col items-end">
-          {["Home", "About", "Work", "Contact"].map((item, index) => (
+          {["Home", "Background", "Work"].map((item, index) => (
             <li
               key={index}
               className="relative pt-4 px-2 border-t border-t-orange-500 border-opacity-10 group:hover:border-opacity-100 text-7xl font-medium text-orange-500 cursor-pointer overflow-hidden group w-full text-right"
