@@ -17,6 +17,7 @@ export default {
         secondry: "#afafaf",
         yellowGold: "#f9ef93",
         brown: "#66514b",
+        graymain: "#696969",
       },
       backgroundColor: {
         primary: "#313131",

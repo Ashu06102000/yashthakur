@@ -91,7 +91,7 @@ const App: React.FC = () => {
             <Hero loading={loading} />
 
             <IntroSection />
-            <div className="flex flex-col bg-white rounded-lg">
+            <div className="flex flex-col bg-white rounded-3xl">
               <Work />
               <SkillSection />
             </div>

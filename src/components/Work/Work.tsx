@@ -33,15 +33,11 @@ const Work = () => {
 
   return (
     <section className="relative w-full  text-black py-32 px-6 sm:px-20 overflow-hidden">
-      <h2 className="text-center text-4xl sm:text-5xl font-bold mb-28">
-        The Journey of My Work
-      </h2>
-
       <div
         ref={cardsRef}
         className="flex justify-center gap-6"
         style={{
-          width: `${projects.length * 1000}px`, // Adjusting container width based on number of projects
+          width: `${projects.length * 1000}px`,
         }}
       >
         {projects.map((project, index) => (

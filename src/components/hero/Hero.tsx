@@ -130,7 +130,7 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
         ref={(el) => el && (linesRef.current[2] = el)}
         className="text-[clamp(3rem,8vw,8rem)] font-roboto leading-none uppercase font-light"
       >
-        <span className="text-orange-500 font-normal">Frontend Developer</span>
+        <span className="text-graymain font-normal">Frontend Developer</span>
       </div>
 
       <p

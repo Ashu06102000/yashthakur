@@ -116,8 +116,8 @@ const IntroSection = () => {
               <h1
                 key={i}
                 className={`${
-                  i === 1 ? "text-orange-500" : "text-white"
-                }  text-[6rem] flex font-thin leading-none text-left uppercase`}
+                  i === 1 ? "text-graymain" : "text-white"
+                }  text-[6rem] flex font-light leading-none text-left uppercase`}
               >
                 {Array.from(line).map((letter, index) => (
                   <span
