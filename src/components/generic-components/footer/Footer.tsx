@@ -98,7 +98,6 @@ const Footer = () => {
       ref={footerRef}
       className="relative bg-black text-white w-full py-20 px-8 md:px-16 overflow-hidden"
     >
-      {/* Spider Web SVG */}
       <svg
         viewBox="0 0 200 200"
         className="absolute inset-0 w-full h-full opacity-10 z-0"
@@ -162,7 +161,6 @@ const Footer = () => {
         />
       </svg>
 
-      {/* Circle & Content */}
       <div className="section-container relative z-10 text-center mb-16">
         <div
           ref={circleRef}

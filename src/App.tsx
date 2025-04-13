@@ -13,6 +13,7 @@ import IntroSection from "./components/hero/IntroSection";
 import SkillSection from "./components/landing/SkillSection";
 import Work from "./components/Work/Work";
 import Footer from "./components/generic-components/footer/Footer";
+import AnimationLine from "./components/generic-components/AnimatedLine";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -96,6 +97,7 @@ const App: React.FC = () => {
               {/* <Work /> */}
               <SkillSection />
             </div>
+            <AnimationLine />
             <Footer />
           </div>
         </>
