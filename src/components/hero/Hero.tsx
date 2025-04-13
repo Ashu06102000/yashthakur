@@ -82,6 +82,69 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
       ref={heroRef}
       className="hero-section w-full min-h-screen flex flex-col justify-center items-start px-10 sm:px-20 text-white font-barracuda relative overflow-hidden opacity-0"
     >
+      {" "}
+      <svg
+        viewBox="0 0 200 200"
+        className="absolute inset-0 w-full h-full opacity-10 z-0"
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <circle
+          cx="100"
+          cy="100"
+          r="80"
+          stroke="white"
+          strokeWidth="0.5"
+          fill="none"
+        />
+        <circle
+          cx="100"
+          cy="100"
+          r="60"
+          stroke="white"
+          strokeWidth="0.5"
+          fill="none"
+        />
+        <circle
+          cx="100"
+          cy="100"
+          r="40"
+          stroke="white"
+          strokeWidth="0.5"
+          fill="none"
+        />
+        <line
+          x1="100"
+          y1="20"
+          x2="100"
+          y2="180"
+          stroke="white"
+          strokeWidth="0.5"
+        />
+        <line
+          x1="20"
+          y1="100"
+          x2="180"
+          y2="100"
+          stroke="white"
+          strokeWidth="0.5"
+        />
+        <line
+          x1="45"
+          y1="45"
+          x2="155"
+          y2="155"
+          stroke="white"
+          strokeWidth="0.5"
+        />
+        <line
+          x1="155"
+          y1="45"
+          x2="45"
+          y2="155"
+          stroke="white"
+          strokeWidth="0.5"
+        />
+      </svg>
       <div className="absolute bottom-8 left-22 text-sm flex items-center gap-3 font-lato text-white/90">
         <div className="relative w-3 h-3">
           <span
@@ -95,7 +158,6 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
         </div>
         Available to work
       </div>
-
       <div className="flex items-start gap-6 z-10">
         <div className="space-y-4 text-[clamp(3rem,8vw,8rem)] font-roboto leading-none uppercase font-normal">
           <div ref={(el) => el && (linesRef.current[0] = el)}>HEY — I'M</div>
@@ -125,14 +187,12 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
           </div>
         </div>
       </div>
-
       <div
         ref={(el) => el && (linesRef.current[2] = el)}
         className="text-[clamp(3rem,8vw,8rem)] font-roboto leading-none uppercase font-light"
       >
         <span className="text-graymain font-normal">Frontend Developer</span>
       </div>
-
       <p
         ref={(el) => el && (linesRef.current[3] = el)}
         className="mt-10 max-w-xl text-lg text-white/90 font-lato leading-relaxed px-6 py-3 border border-white/20 rounded-md"

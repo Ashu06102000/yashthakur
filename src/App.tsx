@@ -5,13 +5,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CustomCursor from "./components/generic-components/CustomCursor";
 import Hero from "./components/hero/Hero";
 import Loader from "./components/Loading/Loader";
-import Navbar from "./components/navbar/Navbar";
+import Navbar from "./components/generic-components/navbar/Navbar";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import "./App.css";
 import "./index.css";
 import IntroSection from "./components/hero/IntroSection";
 import SkillSection from "./components/landing/SkillSection";
 import Work from "./components/Work/Work";
+import Footer from "./components/generic-components/footer/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -92,9 +93,10 @@ const App: React.FC = () => {
 
             <IntroSection />
             <div className="flex flex-col bg-white rounded-3xl">
-              <Work />
+              {/* <Work /> */}
               <SkillSection />
             </div>
+            <Footer />
           </div>
         </>
       )}

@@ -107,6 +107,7 @@ const IntroSection = () => {
           </div>
 
           <div ref={textRef} className="-mb-40 w-2/3">
+            <span className="text-6xl">🕷️</span>
             {[
               "I bring ideas to ",
               "life and help shape",
@@ -144,14 +145,16 @@ const IntroSection = () => {
           >
             {[paragraph1, paragraph2].map((paragraph, pIndex) => (
               <p key={pIndex}>
-                {Array.from(paragraph).map((char, index) => (
-                  <span
-                    className={`inline-block paragraph-letter ${
-                      char === " " ? "w-[0.4rem]" : ""
-                    } will-change-transform`}
-                    key={index}
-                  >
-                    {char}
+                {paragraph.split(" ").map((word, wordIndex) => (
+                  <span key={wordIndex} className="inline-block mr-2">
+                    {Array.from(word).map((char, charIndex) => (
+                      <span
+                        className="inline-block paragraph-letter will-change-transform"
+                        key={charIndex}
+                      >
+                        {char}
+                      </span>
+                    ))}
                   </span>
                 ))}
               </p>
