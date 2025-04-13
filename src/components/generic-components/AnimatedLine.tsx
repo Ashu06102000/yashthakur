@@ -1,7 +1,7 @@
 const AnimationLine = () => {
   return (
-    <div className="flex flex-col z-10 mb-10">
-      <div className="group border-t border-t-graymain border-opacity-30 flex items-center justify-between p-8 transition-all duration-300 hover:px-20 hover:bg-white hover:rounded-full">
+    <div className="flex flex-col z-10 pt-24 max-w-screen-xl mx-auto w-full gap-2">
+      <div className="group flex border-t border-t-graymain border-opacity-30 items-center justify-between p-8 transition-all duration-300 hover:px-20 hover:bg-white hover:rounded-full">
         <h4 className="text-5xl text-graymain transition-colors duration-300 group-hover:text-black">
           Background
         </h4>
@@ -13,8 +13,8 @@ const AnimationLine = () => {
           →
         </span>
       </div>
-
-      <div className="group border-t border-t-graymain border-opacity-30 flex items-center justify-between p-8 transition-all duration-300 hover:px-20 hover:bg-white hover:rounded-full">
+      <span className=" bg-graymain bg-opacity-30 h-px w-full"></span>
+      <div className="group  flex items-center justify-between p-8 transition-all duration-300 hover:px-20 hover:bg-white hover:rounded-full">
         <h4 className="text-5xl text-graymain transition-colors duration-300 group-hover:text-black">
           Thoughts
         </h4>
