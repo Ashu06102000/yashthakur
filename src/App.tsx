@@ -3,17 +3,15 @@ import LocomotiveScroll from "locomotive-scroll";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CustomCursor from "./components/generic-components/CustomCursor";
-import Hero from "./components/hero/Hero";
-import Loader from "./components/Loading/Loader";
+
+import Loader from "./components/generic-components/Loading/Loader";
 import Navbar from "./components/generic-components/navbar/Navbar";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import "./App.css";
 import "./index.css";
-import IntroSection from "./components/hero/IntroSection";
-import SkillSection from "./components/landing/SkillSection";
-import Work from "./components/Work/Work";
-import Footer from "./components/generic-components/footer/Footer";
-import AnimationLine from "./components/generic-components/AnimatedLine";
+import Landing from "./components/landing/Landing";
+import { Routes, Route } from "react-router-dom";
+import Background from "./components/Background/Background";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -90,15 +88,10 @@ const App: React.FC = () => {
             className="w-full flex flex-col bg-transparent z-20"
             data-scroll-section
           >
-            <Hero loading={loading} />
-
-            <IntroSection />
-            <div className="flex flex-col bg-white rounded-3xl">
-              {/* <Work /> */}
-              <SkillSection />
-            </div>
-            <AnimationLine />
-            <Footer />
+            <Routes>
+              <Route path="/home" element={<Landing loading={loading} />} />
+              <Route path="/background" element={<Background />} />
+            </Routes>
           </div>
         </>
       )}

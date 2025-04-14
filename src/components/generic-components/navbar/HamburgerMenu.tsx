@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
-
+import { Link } from "react-router-dom";
 export default function HamburgerMenu() {
   const [_, setIsOpen] = useState(false);
   const menuRef = useRef(null);
@@ -69,17 +69,22 @@ export default function HamburgerMenu() {
         className="fixed top-4 right-10 rounded-lg h-auto w-[28rem] pt-40 bg-slate-800 text-white p-6"
       >
         <ul className="flex flex-col items-end">
-          {["Home", "Background", "Work"].map((item, index) => (
-            <li
-              key={index}
-              className="relative pt-4 px-2 border-t border-t-orange-500 border-opacity-10 group:hover:border-opacity-100 text-7xl font-medium text-orange-500 cursor-pointer overflow-hidden group w-full text-right"
-            >
-              <span className="absolute left-0 bottom-0 h-full bg-orange-500 scale-y-0 origin-bottom transition-transform duration-300 ease-in-out group-hover:scale-y-100 w-full"></span>
-              <span className="relative font-roboto block transition-transform duration-300 ease-in-out group-hover:-translate-y-2 group-hover:text-slate-800 w-full">
-                {item}
-              </span>
-            </li>
-          ))}
+          {["Home", "Background", "Work"].map((item, index) => {
+            const slug = item.toLowerCase();
+            return (
+              <li
+                key={index}
+                className="relative pt-4 px-2 border-t border-t-orange-500 border-opacity-10 group:hover:border-opacity-100 text-7xl font-medium text-orange-500 cursor-pointer overflow-hidden group w-full text-right"
+              >
+                <Link to={`/${slug}`} className="block w-full h-full">
+                  <span className="absolute left-0 bottom-0 h-full bg-orange-500 scale-y-0 origin-bottom transition-transform duration-300 ease-in-out group-hover:scale-y-100 w-full"></span>
+                  <span className="relative font-roboto block transition-transform duration-300 ease-in-out group-hover:-translate-y-2 group-hover:text-slate-800 w-full">
+                    {item}
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
         <div className="border-t border-t-orange-500 border-opacity-10 px-6 pt-16">
           linkedin

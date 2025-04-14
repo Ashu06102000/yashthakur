@@ -2,7 +2,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Cormorant+Upright:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Tulpen+One&display=swap");
 body {
-  background-color: #000;
+  background-color: #0a0a0a;
   color: white;
   font-family: roboto;
 }
@@ -48,4 +48,54 @@ body {
 .glassy-blur {
   filter: blur(3px); /* soft glow */
   will-change: transform, opacity;
+}
+
+.link-animation {
+  position: relative;
+  overflow: hidden;
+  background: none;
+  padding: 4px 0;
+  width: fit-content;
+}
+
+.link-animation:before {
+  content: "";
+  width: 100%;
+  position: absolute;
+  height: 1px;
+  bottom: 0;
+  right: 0;
+  background-color: #858585;
+  transition: 0.3s;
+}
+
+.link-animation a {
+  text-decoration: none !important;
+}
+
+.link-animation a:hover,
+.link-animation:hover {
+  background: none;
+  color: var(--lead-800);
+  text-decoration: none;
+}
+
+.link-animation:hover:before {
+  animation-name: linkAnimation;
+  animation-duration: 1s;
+}
+
+@keyframes linkAnimation {
+  0% {
+    width: 100%;
+  }
+  30% {
+    width: 0%;
+    right: 0;
+  }
+  100% {
+    width: 100%;
+    left: 0;
+    right: inherit;
+  }
 }

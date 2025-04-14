@@ -18,6 +18,7 @@ export default {
         yellowGold: "#f9ef93",
         brown: "#66514b",
         graymain: "#696969",
+        graysharetwo: "#858585",
       },
       backgroundColor: {
         primary: "#313131",
