@@ -33,7 +33,7 @@ const CapabilityHover = () => {
             <ul className="space-y-3">
               <li
                 key={skill}
-                className="relative list-none text-black font-noraml transition-all duration-300 
+                className="relative list-none text-black font-noraml transition-all duration-500 
                                 hover:text-black hover:font-semibold hover:-translate-x-24 text-4xl leading-none"
               >
                 <span></span>
