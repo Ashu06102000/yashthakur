@@ -74,7 +74,7 @@ const KnowMwe = () => {
       <span className="border-t border-t-graymain border-opacity-30"></span>
       <div className="flex gap-5 py-20 justify-between">
         <h4>Work Experiance</h4>
-        <div className="flex flex-col  w-1/2">
+        <div className="flex flex-col  w-1/2 gap-32">
           <div className="flex gap-48 items-start">
             <img src={copodslogo} alt="" />
             <div className="flex flex-col">
@@ -89,6 +89,9 @@ const KnowMwe = () => {
               </span>
             </div>
           </div>
+          <button className="bg-white text-black py-4 px-6 rounded-full w-fit">
+            Download Resumé
+          </button>
         </div>
       </div>
       <span className="border-t border-t-graymain border-opacity-30"></span>
