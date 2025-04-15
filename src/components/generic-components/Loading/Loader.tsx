@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
-// Add custom styles that aren't directly available in Tailwind
 const customStyles = {
   counter: {
     clipPath: "polygon(0 0, 100% 0, 100% 100px, 0 100px)",
@@ -130,7 +129,9 @@ const Loader = ({
         },
       });
     }, 100);
-
+    gsap.delayedCall(8, () => {
+      setLoading(false);
+    });
     return () => clearTimeout(timer);
   }, []);
 
@@ -165,7 +166,7 @@ const Loader = ({
         </div>
 
         <div
-          className="fixed left-36 bottom-36 flex h-24 text-8xl leading-tight overflow-hidden font-normal text-black font-sans"
+          className="fixed top-1/2 left-36 flex h-24 text-8xl leading-tight overflow-hidden font-normal text-black font-sans"
           style={customStyles.counter}
         >
           <div
@@ -190,7 +191,7 @@ const Loader = ({
             }}
             className="counter-2 digit"
           >
-            {createCounterNumbers(10)}
+            {createCounterNumbers(0)}
           </div>
 
           <div
