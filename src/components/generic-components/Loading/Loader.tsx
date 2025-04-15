@@ -166,7 +166,7 @@ const Loader = ({
         </div>
 
         <div
-          className="fixed top-1/2 left-36 flex h-24 text-8xl leading-tight overflow-hidden font-normal text-black font-sans"
+          className="fixed top-[45%] left-36 flex h-24 text-8xl leading-tight overflow-hidden font-normal text-black font-sans"
           style={customStyles.counter}
         >
           <div
