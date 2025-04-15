@@ -145,7 +145,7 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
           strokeWidth="0.5"
         />
       </svg>
-      <div className="absolute bottom-8 left-22 text-sm flex items-center gap-3 font-lato text-white/90">
+      {/* <div className="absolute bottom-8 left-22 text-sm flex items-center gap-3 font-lato text-white/90">
         <div className="relative w-3 h-3">
           <span
             ref={dotRef}
@@ -157,7 +157,7 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
           ></span>
         </div>
         Available to work
-      </div>
+      </div> */}
       <div className="flex items-start gap-6 z-10">
         <div className="space-y-4 text-[clamp(3rem,8vw,8rem)] font-roboto leading-none uppercase font-normal">
           <div ref={(el) => el && (linesRef.current[0] = el)}>HEY — I'M</div>

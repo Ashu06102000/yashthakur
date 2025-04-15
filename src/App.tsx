@@ -16,60 +16,7 @@ import Background from "./components/Background/Background";
 gsap.registerPlugin(ScrollTrigger);
 
 const App: React.FC = () => {
-  const scrollRef = useRef<HTMLDivElement | null>(null);
-  const scrollInstance = useRef<LocomotiveScroll | null>(null);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!scrollInstance.current && scrollRef.current) {
-      scrollInstance.current = new LocomotiveScroll({
-        el: scrollRef.current,
-        smooth: true,
-        multiplier: 0.4,
-        //@ts-ignore
-        smoothMobile: true,
-        resetNativeScroll: true,
-      });
-
-      scrollInstance.current.on("scroll", () => {
-        ScrollTrigger.update();
-      });
-
-      ScrollTrigger.scrollerProxy(scrollRef.current, {
-        scrollTop(value?: number) {
-          return arguments.length
-            ? //@ts-ignore
-              scrollInstance.current?.scrollTo(value, {
-                duration: 0,
-                disableLerp: true,
-              })
-            : //@ts-ignore
-              scrollInstance.current?.scroll.instance.scroll.y || 0;
-        },
-        getBoundingClientRect() {
-          return {
-            top: 0,
-            left: 0,
-            width: window.innerWidth,
-            height: window.innerHeight,
-          };
-        },
-        pinType: scrollRef.current?.style.transform ? "transform" : "fixed",
-      });
-
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 100);
-    }
-
-    return () => {
-      if (scrollInstance.current) {
-        scrollInstance.current.destroy();
-        scrollInstance.current = null;
-      }
-      ScrollTrigger.removeEventListener("refresh", ScrollTrigger.refresh);
-    };
-  }, []);
 
   return (
     <div
@@ -89,8 +36,11 @@ const App: React.FC = () => {
             data-scroll-section
           >
             <Routes>
-              <Route path="/home" element={<Landing loading={loading} />} />
-              <Route path="/background" element={<Background />} />
+              <Route path="/" element={<Landing loading={loading} />} />
+              <Route
+                path="/background"
+                element={<Background loading={loading} />}
+              />
             </Routes>
           </div>
         </>

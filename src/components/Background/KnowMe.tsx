@@ -1,24 +1,47 @@
-import copodslogo from "../../assets/copodslogo.svg";
-const groupedSkills = [
-  "Javascript",
-  "Typescript",
-  "ReactJs",
-  "StencilJs",
-  "RemixJs",
-  "Tailwind",
-  "Prisma",
-  "Amazon Web Services",
-  "NodeJs",
-  "MongoDB",
-  "Git",
-  "Wordpress",
-  "Shopify",
-  "Webflow",
-  "HTML",
-  "CSS",
-];
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import WorkSection from "./WorkSection";
+import KnowMySkills from "./KnowMySkills";
+gsap.registerPlugin(ScrollTrigger);
 
-const KnowMwe = () => {
+const KnowMwe = ({ loading }: { loading: boolean }) => {
+  const paragrahRef = useRef<HTMLDivElement | null>(null);
+
+  const paragraph1 =
+    "With a foundation in frontend development, I fuse creativity with technical precision to craft digital experiences that are both visually compelling and user-centric, delivering impactful solutions for a global audience.";
+
+  useEffect(() => {
+    const paragraphLetters = gsap.utils.toArray(".paragraph-letter");
+
+    if (!loading) {
+      gsap.set(paragraphLetters, {
+        color: "#696969",
+        opacity: 0,
+      });
+
+      gsap.to(paragraphLetters, {
+        color: "white",
+        duration: 1,
+        ease: "power2.out",
+        opacity: 1,
+        stagger: 0.01,
+      });
+      gsap.fromTo(
+        ".my-intro",
+        {
+          y: 100,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power2.out",
+        }
+      );
+    }
+  });
   return (
     <div className="flex flex-col p-24">
       <div className="flex flex-col gap-5 pb-40">
@@ -27,15 +50,34 @@ const KnowMwe = () => {
           <p className="text-graysharetwo text-xs">Resumé & biography</p>
         </div>
         <h3 className="text-5xl text-white leading-tight">
-          My journey from Bahrain to Singapore to Dubai has refined my ability
-          to blend creativity & culture, mastering strategic design to deliver
-          world-class results.
+          {" "}
+          <div
+            ref={paragrahRef}
+            className="flex flex-col w-3/4 gap-4 text-4xl text-[#696969]"
+          >
+            {[paragraph1].map((paragraph, pIndex) => (
+              <p key={pIndex}>
+                {paragraph.split(" ").map((word, wordIndex) => (
+                  <span key={wordIndex} className="inline-block mr-2">
+                    {Array.from(word).map((char, charIndex) => (
+                      <span
+                        className="inline-block paragraph-letter will-change-transform"
+                        key={charIndex}
+                      >
+                        {char}
+                      </span>
+                    ))}
+                  </span>
+                ))}
+              </p>
+            ))}
+          </div>
         </h3>
       </div>
       <span className="border-t border-t-graymain border-opacity-30"></span>
-      <div className="flex gap-5 py-20 justify-between">
+      <div className="flex gap-5 py-20 justify-between my-intro">
         <h4>Every. Interaction. Feels.</h4>
-        <div className="flex flex-col w-1/2 gap-5">
+        <div className="flex flex-col w-2/3 gap-5">
           <p className="text-graysharetwo flex flex-col gap-5 font-light">
             <span>
               For me, frontend development isn't just about writing code—it's
@@ -72,52 +114,9 @@ const KnowMwe = () => {
         </div>
       </div>
       <span className="border-t border-t-graymain border-opacity-30"></span>
-      <div className="flex gap-5 py-20 justify-between">
-        <h4>Work Experiance</h4>
-        <div className="flex flex-col  w-1/2 gap-32">
-          <div className="flex gap-48 items-start">
-            <img src={copodslogo} alt="" />
-            <div className="flex flex-col">
-              <span className="text-white text-base font-light">
-                Software Engineer
-              </span>
-              <span className="text-graysharetwo text-base font-light">
-                Pune, India
-              </span>
-              <span className="text-white text-base font-light pt-4">
-                2022 - Present
-              </span>
-            </div>
-          </div>
-          <button className="bg-white text-black py-4 px-6 rounded-full w-fit">
-            Download Resumé
-          </button>
-        </div>
-      </div>
+      <WorkSection />
       <span className="border-t border-t-graymain border-opacity-30"></span>
-      <section className="flex justify-between py-20">
-        <h4>Areas of Experience</h4>
-
-        <div className="relative w-1/2 flex flex-col gap-10">
-          <ul className="space-y-4 text-2xl font-light gap-3 flex flex-col">
-            {groupedSkills.map((skill) => (
-              <ul className="space-y-3">
-                <li
-                  key={skill}
-                  className="relative list-none text-graysharetwo font-noraml transition-all duration-500 
-                                hover:text-white hover:font-semibold hover:-translate-x-24 text-4xl leading-none"
-                >
-                  <span></span>
-                  {skill}
-                </li>
-              </ul>
-            ))}
-          </ul>
-          <span className="text-graysharetwo text-sm">
-            *Currently studying & experimenting
-          </span>
-        </div>
-      </section>
+      <KnowMySkills />
     </div>
   );
 };
