@@ -37,8 +37,9 @@ const KnowMySkills = () => {
     if (skillref.current) {
       gsap.fromTo(
         skillref.current,
-        { skillred: 0 },
+        { y: 100, opacity: 0 },
         {
+          y: 0,
           opacity: 1,
           duration: 1,
           ease: "power2.out",
@@ -66,7 +67,7 @@ const KnowMySkills = () => {
 
                 <ul className="text-base text-left capitalize">
                   {skillGroup.skills.map((skill, idx) => (
-                    <li key={idx} className="text-graysharetwo font-light">
+                    <li key={idx} className="text-graysharetwo font-normal">
                       {skill}
                     </li>
                   ))}

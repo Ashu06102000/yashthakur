@@ -15,7 +15,7 @@ const groupedSkills = [
 
 const CapabilityHover = () => {
   return (
-    <section className="min-h-screen px-10 sm:px-20 py-24 flex items-start justify-between cursor-default">
+    <section className="min-h-screen px-10 sm:px-20 py-24 flex items-start justify-between">
       <div className="text-left flex justify-between mb-16 sticky top-96">
         <div className="flex flex-col gap-0">
           <h2 className="text-2xl font-semibold uppercase text-black">

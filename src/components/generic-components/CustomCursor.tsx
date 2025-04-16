@@ -2,58 +2,57 @@
 import { useEffect, useRef, useState } from "react";
 
 const CustomCursor = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [position, setPosition] = useState({ x: -100, y: -100 });
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // Set canvas size
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    ctx.strokeStyle = "yellow"; // Pencil stroke color
-    ctx.lineWidth = 3;
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-
-    let prevX = -100;
-    let prevY = -100;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
-
-      // Clear the canvas to remove the trail
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Draw a new line
-      ctx.beginPath();
-      ctx.moveTo(prevX, prevY);
-      ctx.lineTo(mouseX, mouseY);
-      ctx.stroke();
-
-      prevX = mouseX;
-      prevY = mouseY;
-      setPosition({ x: mouseX, y: mouseY });
+    const moveCursor = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate(${clientX}px, ${clientY}px) scale(${
+          isHovering ? 4 : 1
+        })`;
+      }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === "A" ||
+        target.tagName === "BUTTON" ||
+        target.closest("a, button")
+      ) {
+        setIsHovering(true);
+      }
+    };
+
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === "A" ||
+        target.tagName === "BUTTON" ||
+        target.closest("a, button")
+      ) {
+        setIsHovering(false);
+      }
+    };
+
+    window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("mouseout", handleMouseOut);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousemove", moveCursor);
+      window.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("mouseout", handleMouseOut);
     };
-  }, []);
+  }, [isHovering]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed top-0 left-0 pointer-events-none z-50"
-      style={{ width: "100vw", height: "100vh" }}
+    <div
+      ref={cursorRef}
+      className="fixed top-0 left-0 z-[9999] pointer-events-none w-4 h-4 rounded-full bg-white mix-blend-difference transition-transform duration-150 ease-out"
+      style={{ transform: "translate(-100px, -100px)" }}
     />
   );
 };
