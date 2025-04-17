@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import LocomotiveScroll from "locomotive-scroll";
+import React, { useState } from "react";
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CustomCursor from "./components/generic-components/CustomCursor";
 
 import Loader from "./components/generic-components/Loading/Loader";
 import Navbar from "./components/generic-components/navbar/Navbar";
-import "locomotive-scroll/dist/locomotive-scroll.css";
 import "./App.css";
 import "./index.css";
 import Landing from "./components/landing/Landing";
@@ -20,7 +19,6 @@ const App: React.FC = () => {
 
   return (
     <div
-      data-scroll-container
       // ref={scrollRef}
       className="relative h-full w-full"
     >

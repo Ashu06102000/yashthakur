@@ -5,7 +5,7 @@ import KnowMe from "./KnowMe";
 const Background = ({ loading }: { loading: boolean }) => {
   return (
     <>
-      <div className="py-32 relative px-10 sm:px-20">
+      <div className="py-32 relative px-10 sm:px-20 bg-black">
         <Navbar />
         <KnowMe loading={loading} />
       </div>

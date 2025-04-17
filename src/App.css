@@ -1,10 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playwrite+DE+Grund+Guides&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 @import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Cormorant+Upright:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Tulpen+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=GFS+Didot&family=Kaisei+Tokumin&family=Oranienbaum&display=swap");
+/* src/index.css or src/styles.css */
+
+/* Import your custom .otf font */
+@font-face {
+  font-family: "MyCustomFont";
+  /* font-family: "Oranienbaum", serif; */
+
+  src: url("./assets//fonts/gallery.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
 body {
-  background-color: #141414;
-  color: white;
-  font-family: roboto;
+  background-color: white;
+  color: black;
+  /* font-family: MyCustomFont; */
+  font-family: "Oranienbaum", serif;
+  cursor: none;
 }
 /* src/index.css */
 @tailwind base;
@@ -98,7 +112,4 @@ body {
     left: 0;
     right: inherit;
   }
-}
-body {
-  cursor: none;
 }

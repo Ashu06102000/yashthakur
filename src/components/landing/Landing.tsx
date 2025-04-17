@@ -17,7 +17,7 @@ const items = [
 ];
 const Landing = ({ loading }: { loading: boolean }) => {
   return (
-    <>
+    <div className="bg-white">
       <Hero loading={loading} />
 
       <IntroSection />
@@ -27,7 +27,7 @@ const Landing = ({ loading }: { loading: boolean }) => {
       </div>
       <AnimatedList items={items} />
       <Footer />
-    </>
+    </div>
   );
 };
 export default Landing;

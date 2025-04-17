@@ -76,7 +76,7 @@ const KnowMwe = ({ loading }: { loading: boolean }) => {
       </div>
       <span className="border-t border-t-graymain border-opacity-30"></span>
       <div className="flex gap-5 py-20 justify-between my-intro">
-        <h4>Every. Interaction. Feels.</h4>
+        <h3 className="text-white">Every. Interaction. Feels.</h3>
         <div className="flex flex-col w-2/3 gap-5">
           <p className="text-graysharetwo flex flex-col gap-5 font-light">
             <span>

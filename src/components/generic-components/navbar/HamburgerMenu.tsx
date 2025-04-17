@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { Link } from "react-router-dom";
+
 export default function HamburgerMenu() {
   const [_, setIsOpen] = useState(false);
   const menuRef = useRef(null);

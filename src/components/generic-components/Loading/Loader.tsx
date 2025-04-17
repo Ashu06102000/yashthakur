@@ -152,21 +152,21 @@ const Loader = ({
 
       <div
         ref={screenRef}
-        className="fixed inset-0 bg-gray-300 text-black pointer-events-none overflow-hidden z-50"
+        className="fixed inset-0 bg-black text-white pointer-events-none overflow-hidden z-50"
       >
         <div
           ref={loaderRef}
-          className="absolute top-1/2 left-1/2 w-full h-2.5 -translate-x-1/2 -translate-y-1/2 flex bg-gray-900"
+          className="absolute top-1/2 left-1/2 w-full h-2.5 -translate-x-1/2 -translate-y-1/2 flex bg-fuchsia-600"
         >
           <div
             ref={loaderBarRef}
-            className="relative bg-orange-600 w-full overflow-hidden h-2.5"
+            className="relative bg-white w-full overflow-hidden h-2.5"
           ></div>
           <div className="h-2.5"></div>
         </div>
 
         <div
-          className="fixed top-[45%] left-36 flex h-24 text-8xl leading-tight overflow-hidden font-normal text-black font-sans"
+          className="fixed top-[45%] left-36 flex h-24 text-8xl leading-tight overflow-hidden font-normal text-white font-sans"
           style={customStyles.counter}
         >
           <div

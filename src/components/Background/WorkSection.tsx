@@ -30,7 +30,7 @@ const WorkSection = () => {
 
   return (
     <div ref={workref} className="flex gap-5 py-20 justify-between">
-      <h4>Work Experiance</h4>
+      <h3 className="text-white">Work Experiance</h3>
       <div className="flex flex-col w-2/3 gap-24">
         <div className="flex gap-48 items-start">
           <img src={copodslogo} alt="" />

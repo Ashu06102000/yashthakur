@@ -10,7 +10,7 @@ const CustomCursor = () => {
       const { clientX, clientY } = e;
       if (cursorRef.current) {
         cursorRef.current.style.transform = `translate(${clientX}px, ${clientY}px) scale(${
-          isHovering ? 4 : 1
+          isHovering ? 5 : 1
         })`;
       }
     };
@@ -20,7 +20,8 @@ const CustomCursor = () => {
       if (
         target.tagName === "A" ||
         target.tagName === "BUTTON" ||
-        target.closest("a, button")
+        target.tagName === "H4" ||
+        target.closest("a, button, h4")
       ) {
         setIsHovering(true);
       }
@@ -31,7 +32,8 @@ const CustomCursor = () => {
       if (
         target.tagName === "A" ||
         target.tagName === "BUTTON" ||
-        target.closest("a, button")
+        target.tagName === "H4" ||
+        target.closest("a, button, h4")
       ) {
         setIsHovering(false);
       }
