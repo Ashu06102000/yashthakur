@@ -48,24 +48,24 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
   return (
     <section
       ref={heroRef}
-      className="hero-section w-full min-h-screen flex flex-col justify-center items-center px-10 sm:px-20 text-black font-barracuda relative overflow-hidden opacity-0"
+      className="hero-section w-full min-h-screen flex flex-col justify-center items-center px-6 sm:px-10 md:px-20 text-black font-barracuda relative overflow-hidden opacity-0"
     >
       <div ref={textRef} className="text-center font-oreni">
-        <h1 className="line text-7xl sm:text-8xl md:text-9xl font-light leading-tight mb-4">
+        <h1 className="line text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light leading-tight mb-2 sm:mb-4">
           {Array.from("Every.".split("")).map((letter, index) => (
             <span key={index} className="letter inline-block">
               {letter}
             </span>
           ))}
         </h1>
-        <h1 className="line text-7xl sm:text-8xl md:text-9xl font-extrabold leading-tight mb-4">
+        <h1 className="line text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-tight mb-2 sm:mb-4">
           {Array.from("Interaction.".split("")).map((letter, index) => (
             <span key={index} className="letter inline-block">
               {letter}
             </span>
           ))}
         </h1>
-        <h1 className="line text-7xl sm:text-8xl md:text-9xl font-extrabold leading-tight">
+        <h1 className="line text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-tight">
           {Array.from("Feels.".split("")).map((letter, index) => (
             <span key={index} className="letter inline-block">
               {letter}
@@ -75,19 +75,19 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
       </div>
 
       {/* CTA buttons */}
-      <div className="mt-10 flex flex-wrap gap-4 ">
-        <button className="bg-black text-white px-6 py-3 rounded-full hover:scale-105 transition-all duration-300">
+      <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-4 items-center">
+        <button className="bg-black text-white px-6 py-3 rounded-full hover:scale-105 transition-all duration-300 w-full sm:w-auto">
           View Work
         </button>
-        <button className="border border-black text-black px-6 py-3 rounded-full hover:bg-black hover:text-white transition-all duration-300">
+        <button className="border border-black text-black px-6 py-3 rounded-full hover:bg-black hover:text-white transition-all duration-300 w-full sm:w-auto">
           Let's Talk
         </button>
       </div>
 
       {/* Scroll cue */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-sm text-neutral-500 text-center ">
+      <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 text-sm text-neutral-500 text-center">
         <span className="animate-bounce text-xl">↓</span>
-        <p>Scroll to explore</p>
+        <p className="text-xs sm:text-sm">Scroll to explore</p>
       </div>
     </section>
   );

@@ -82,12 +82,12 @@ const IntroSection = () => {
           <h2 className="text-black text-2xl font-bold font-oreni">WHO I AM</h2>
           <div
             ref={paragrahRef}
-            className="flex flex-col w-2/3 gap-4 text-3xl text-[#696969] font-thin"
+            className="flex flex-col w-2/3 gap-4 text-3xl text-[#696969] font-light font-roboto"
           >
             {[paragraph1, paragraph2, paragraph3].map((paragraph, pIndex) => (
               <p
                 key={pIndex}
-                className={`${pIndex === 0 ? "font-medium" : ""}`}
+                className={`${pIndex === 0 ? "font-normal" : ""}`}
               >
                 {paragraph.split(" ").map((word, wordIndex) => (
                   <span key={wordIndex} className="inline-block mr-2">
