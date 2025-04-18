@@ -5,7 +5,7 @@
 /* src/index.css or src/styles.css */
 
 body {
-  background-color: white;
+  background-color: #fff;
   color: black;
   /* font-family: MyCustomFont; */
   /* font-family: "Oranienbaum", serif; */
@@ -104,4 +104,19 @@ body {
     left: 0;
     right: inherit;
   }
+}
+.flip-container.flip-grid .flip-letter {
+  flex-basis: 50%;
+}
+.flip-container.flip-columns .flip-letter {
+  flex-basis: 25%;
+}
+.flip-container.flip-plain .flip-letter {
+  background: transparent;
+  color: white;
+  padding: 0;
+}
+.flip-container.flip-final .flip-for,
+.flip-container.flip-final .flip-gsap {
+  display: block;
 }

@@ -3,6 +3,7 @@ import Footer from "../generic-components/footer/Footer";
 import Hero from "./hero/Hero";
 import IntroSection from "./hero/IntroSection";
 import SkillSection from "./SkillSection";
+import Work from "./Work/Work";
 
 const items = [
   {
@@ -17,12 +18,12 @@ const items = [
 ];
 const Landing = ({ loading }: { loading: boolean }) => {
   return (
-    <div className="bg-white">
+    <div className="">
       <Hero loading={loading} />
 
       <IntroSection />
-      <div className="flex flex-col bg-white rounded-3xl">
-        {/* <Work /> */}
+      <div className="flex flex-col rounded-3xl">
+        <Work />
         <SkillSection />
       </div>
       <AnimatedList items={items} />

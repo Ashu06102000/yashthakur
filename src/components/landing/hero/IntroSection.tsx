@@ -9,10 +9,12 @@ const IntroSection = () => {
 
   const paragrahRef = useRef<HTMLDivElement | null>(null);
 
-  const paragraph1 =
-    "Hi, My name is Yash Thakur. I’m the frontend storyteller who turns bold ideas into seamless, interactive digital experiences. With a blend of code, creativity, and strategy, I build interfaces that not only look great — they feel great, too. Because for me, frontend isn’t just about visuals — it’s about impact, clarity, and connection.";
+  const paragraph1 = "Hi, My name is Yash Thakur";
 
   const paragraph2 =
+    "I’m the frontend storyteller who turns bold ideas into seamless, interactive digital experiences. With a blend of code, creativity, and strategy, I build interfaces that not only look great — they feel great, too. Because for me, frontend isn’t just about visuals — it’s about impact, clarity, and connection.";
+
+  const paragraph3 =
     "But my mission doesn’t stop at building the web — I’m here to uplift the next wave of developers. Through mentorship, content, and an ever-growing community, I support curious minds in finding their voice in tech. If you believe the frontend is more than just the front — welcome, you’re in the right place.";
 
   useEffect(() => {
@@ -80,10 +82,13 @@ const IntroSection = () => {
           <h2 className="text-black text-2xl font-bold font-oreni">WHO I AM</h2>
           <div
             ref={paragrahRef}
-            className="flex flex-col w-2/3 gap-4 text-3xl text-[#696969] font-light"
+            className="flex flex-col w-2/3 gap-4 text-3xl text-[#696969] font-thin"
           >
-            {[paragraph1, paragraph2].map((paragraph, pIndex) => (
-              <p key={pIndex}>
+            {[paragraph1, paragraph2, paragraph3].map((paragraph, pIndex) => (
+              <p
+                key={pIndex}
+                className={`${pIndex === 0 ? "font-medium" : ""}`}
+              >
                 {paragraph.split(" ").map((word, wordIndex) => (
                   <span key={wordIndex} className="inline-block mr-2">
                     {Array.from(word).map((char, charIndex) => (

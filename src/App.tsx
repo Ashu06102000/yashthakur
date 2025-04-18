@@ -29,10 +29,7 @@ const App: React.FC = () => {
           <Navbar />
           <CustomCursor />
 
-          <div
-            className="w-full flex flex-col bg-transparent z-20"
-            data-scroll-section
-          >
+          <div className="w-full flex flex-col z-20" data-scroll-section>
             <Routes>
               <Route path="/" element={<Landing loading={loading} />} />
               <Route

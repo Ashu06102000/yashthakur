@@ -38,7 +38,7 @@ const SkillSection = () => {
           stagger: 0.1,
           scrollTrigger: {
             trigger: listRef.current,
-            start: "top 140%",
+            start: "top 150%",
             end: "bottom top",
             toggleActions: "play reverse play reverse",
           },
@@ -70,6 +70,7 @@ const SkillSection = () => {
               key={skill}
               ref={(el) => {
                 if (itemRefs.current) {
+                  //@ts-ignore
                   itemRefs.current[i] = el;
                 }
               }}
