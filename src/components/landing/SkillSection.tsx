@@ -66,7 +66,7 @@ const SkillSection = () => {
 
       {/* Skills List */}
       <div className="relative w-full md:w-2/3" ref={listRef}>
-        <ul className="space-y-4 flex flex-col">
+        <ul className="space-y-4 flex flex-col font-roboto">
           {groupedSkills.map((skill, i) => (
             <li
               key={skill}
