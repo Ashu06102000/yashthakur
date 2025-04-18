@@ -84,7 +84,6 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
         </button>
       </div>
 
-      {/* Scroll cue */}
       <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 text-sm text-neutral-500 text-center">
         <span className="animate-bounce text-xl">↓</span>
         <p className="text-xs sm:text-sm">Scroll to explore</p>

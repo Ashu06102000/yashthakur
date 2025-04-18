@@ -105,18 +105,18 @@ body {
     right: inherit;
   }
 }
-.flip-container.flip-grid .flip-letter {
-  flex-basis: 50%;
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
 }
-.flip-container.flip-columns .flip-letter {
-  flex-basis: 25%;
-}
-.flip-container.flip-plain .flip-letter {
-  background: transparent;
-  color: white;
-  padding: 0;
-}
-.flip-container.flip-final .flip-for,
-.flip-container.flip-final .flip-gsap {
-  display: block;
+
+.animate-bounce {
+  animation: bounce 1s infinite;
 }

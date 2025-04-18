@@ -11,6 +11,8 @@ import "./index.css";
 import Landing from "./components/landing/Landing";
 import { Routes, Route } from "react-router-dom";
 import Background from "./components/Background/Background";
+import { TransitionProvider } from "./context/TransitionContext";
+import TransitionComponent from "./components/generic-components/Transition";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,13 +32,26 @@ const App: React.FC = () => {
           <CustomCursor />
 
           <div className="w-full flex flex-col z-20" data-scroll-section>
-            <Routes>
-              <Route path="/" element={<Landing loading={loading} />} />
-              <Route
-                path="/background"
-                element={<Background loading={loading} />}
-              />
-            </Routes>
+            <TransitionProvider>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <TransitionComponent>
+                      <Landing loading={loading} />
+                    </TransitionComponent>
+                  }
+                />
+                <Route
+                  path="/background"
+                  element={
+                    <TransitionComponent>
+                      <Background loading={loading} />
+                    </TransitionComponent>
+                  }
+                />
+              </Routes>
+            </TransitionProvider>
           </div>
         </>
       )}
