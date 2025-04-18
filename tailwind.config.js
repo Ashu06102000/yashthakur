@@ -11,6 +11,7 @@ export default {
         miaCulpa: ["Mea Culpa", "serif"],
         Cormorant: ["Cormorant Upright", "serif"],
         tulpen: ["Tulpen One", "serif"],
+        oreni: ["Oranienbaum", "serif"],
       },
       colors: {
         primary: "#fe8762",

@@ -1,3 +1,9 @@
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const groupedSkills = [
   "Development Strategy",
   "Full-Stack Execution",
@@ -13,11 +19,41 @@ const groupedSkills = [
   "Client Communication",
 ];
 
-const CapabilityHover = () => {
+const SkillSection = () => {
+  const listRef = useRef(null);
+  const itemRefs = useRef([]);
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        itemRefs.current,
+        {
+          x: 100,
+          opacity: 0,
+        },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: listRef.current,
+            start: "top 140%",
+            end: "bottom top",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="min-h-screen px-10 sm:px-20 py-24 flex items-start justify-between">
-      <div className="text-left flex justify-between mb-16 sticky top-96">
-        <div className="flex flex-col gap-0">
+    <section className=" px-10 sm:px-20 py-24 flex items-start justify-between">
+      {/* Sticky Heading Block */}
+      <div className="text-left flex justify-between sticky top-96">
+        <div className="flex flex-col gap-0 font-oreni">
           <h2 className="text-2xl font-semibold uppercase text-black">
             Capabilities
           </h2>
@@ -27,19 +63,21 @@ const CapabilityHover = () => {
         </div>
       </div>
 
-      <div className="relative w-1/2">
-        <ul className="space-y-4 text-2xl font-light gap-3 flex flex-col">
-          {groupedSkills.map((skill) => (
-            <ul className="space-y-3">
-              <li
-                key={skill}
-                className="relative list-none text-black font-noraml transition-all duration-500 
-                                hover:text-black hover:font-semibold hover:-translate-x-24 text-4xl leading-none"
-              >
-                <span></span>
-                {skill}
-              </li>
-            </ul>
+      <div className="relative w-2/3" ref={listRef}>
+        <ul className="space-y-4 text-2xl font-light gap-1 flex flex-col">
+          {groupedSkills.map((skill, i) => (
+            <li
+              key={skill}
+              ref={(el) => {
+                if (itemRefs.current) {
+                  itemRefs.current[i] = el;
+                }
+              }}
+              className="relative list-none text-black transition-all duration-500 
+                         hover:font-semibold hover:-translate-x-24 text-3xl leading-none"
+            >
+              {skill}
+            </li>
           ))}
         </ul>
       </div>
@@ -47,4 +85,4 @@ const CapabilityHover = () => {
   );
 };
 
-export default CapabilityHover;
+export default SkillSection;

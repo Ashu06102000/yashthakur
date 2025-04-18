@@ -38,7 +38,7 @@ const WorkSection = () => {
             <span className="text-white text-base font-light">
               Software Engineer
             </span>
-            <span className="text-graysharetwo text-base font-light">
+            <span className="text-graysharetwo text-base font-light font-roboto">
               Pune, India
             </span>
             <span className="text-white text-base font-light pt-4">

@@ -50,7 +50,7 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
       ref={heroRef}
       className="hero-section w-full min-h-screen flex flex-col justify-center items-center px-10 sm:px-20 text-black font-barracuda relative overflow-hidden opacity-0"
     >
-      <div ref={textRef} className="text-center">
+      <div ref={textRef} className="text-center font-oreni">
         <h1 className="line text-7xl sm:text-8xl md:text-9xl font-light leading-tight mb-4">
           {Array.from("Every.".split("")).map((letter, index) => (
             <span key={index} className="letter inline-block">
@@ -75,7 +75,7 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
       </div>
 
       {/* CTA buttons */}
-      <div className="mt-10 flex flex-wrap gap-4">
+      <div className="mt-10 flex flex-wrap gap-4 ">
         <button className="bg-black text-white px-6 py-3 rounded-full hover:scale-105 transition-all duration-300">
           View Work
         </button>
@@ -85,7 +85,7 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
       </div>
 
       {/* Scroll cue */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-sm text-neutral-500 text-center">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-sm text-neutral-500 text-center ">
         <span className="animate-bounce text-xl">↓</span>
         <p>Scroll to explore</p>
       </div>
