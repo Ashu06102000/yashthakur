@@ -48,7 +48,7 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
   return (
     <section
       ref={heroRef}
-      className="hero-section w-full min-h-screen flex flex-col justify-center items-center px-6 sm:px-10 md:px-20 text-black font-barracuda relative overflow-hidden opacity-0"
+      className="hero-section w-full h-screen flex flex-col justify-center items-center px-6 sm:px-10 md:px-20 text-black font-barracuda relative overflow-hidden opacity-0"
     >
       <div ref={textRef} className="text-center font-oreni">
         <h1 className="line text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light leading-tight mb-2 sm:mb-4">

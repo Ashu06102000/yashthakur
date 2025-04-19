@@ -57,7 +57,7 @@ const KnowMySkills = () => {
       <h3 className="text-white text-lg">Areas of Experience</h3>
 
       <div className="relative w-2/3 flex flex-col gap-20">
-        <ul className="space-y-4 text-2xl font-light gap-3 grid grid-cols-3">
+        <ul className="space-y-4 text-2xl font-light gap-3 grid grid-cols-3 gap-y-24">
           {groupedSkills.map((skillGroup, i) => (
             <div key={i} className="!m-0">
               <div className="flex flex-col justify-start h-full text-left gap-2">

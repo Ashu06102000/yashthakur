@@ -72,13 +72,14 @@ export default function HamburgerMenu() {
         <ul className="flex flex-col items-end">
           {["Home", "Background", "Work"].map((item, index) => {
             const slug = item.toLowerCase();
+
             return (
               <li
                 key={index}
                 className="relative pt-4 px-2 border-t border-t-orange-500 border-opacity-10 group:hover:border-opacity-100 text-7xl font-medium text-orange-500 cursor-pointer overflow-hidden group w-full text-right"
               >
                 <Link
-                  to={`${slug === "/home" ? "/" : `/${slug}`}`}
+                  to={`${slug == "home" ? "/" : `/${slug}`}`}
                   className="block w-full h-full"
                 >
                   <span className="absolute left-0 bottom-0 h-full bg-orange-500 scale-y-0 origin-bottom transition-transform duration-300 ease-in-out group-hover:scale-y-100 w-full"></span>
