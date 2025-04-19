@@ -48,21 +48,21 @@ export default function HamburgerMenu() {
   return (
     <div className="relative">
       {/* Hamburger Icon */}
-      <div className="flex z-10 fixed top-6 right-12 justify-between flex-row rounded-lg bg-white p-2 items-center gap-2">
+      <div className="flex z-10 fixed top-6 right-12 justify-between flex-row rounded-lg  p-2 items-center gap-2">
         <div
           className="flex flex-col gap-1 px-4 cursor-pointer"
           onClick={toggleMenu}
         >
-          <div className="line-1 bg-black h-0.5 w-6 rounded transition-all"></div>
-          <div className="line-2 bg-black h-0.5 w-6 rounded transition-all"></div>
-          <div className="line-3 bg-black h-0.5 w-6 rounded transition-all"></div>
+          <div className="line-1 bg-black h-0.5 w-10 rounded transition-all"></div>
+          <div className="line-2 bg-black h-0.5 w-10 rounded transition-all"></div>
+          <div className="line-3 bg-black h-0.5 w-10 rounded transition-all"></div>
         </div>
-        <a
+        {/* <a
           href="mailto:yash6102000thakur@gmail.com"
-          className="bg-orange-500 p-5 text-black rounded-md text-xs font-roboto font-normal hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
+          className="bg-black p-5 text-white rounded-md text-xs font-roboto font-normal hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
         >
           CONTACT ME
-        </a>
+        </a> */}
       </div>
 
       <div
@@ -82,7 +82,7 @@ export default function HamburgerMenu() {
                   to={`${slug == "home" ? "/" : `/${slug}`}`}
                   className="block w-full h-full"
                 >
-                  <span className="absolute left-0 bottom-0 h-full bg-orange-500 scale-y-0 origin-bottom transition-transform duration-300 ease-in-out group-hover:scale-y-100 w-full"></span>
+                  <span className="absolute left-0 bottom-0 h-full bg-fuchsia-500 scale-y-0 origin-bottom transition-transform duration-300 ease-in-out group-hover:scale-y-100 w-full"></span>
                   <span className="relative font-roboto block transition-transform duration-300 ease-in-out group-hover:-translate-y-2 group-hover:text-slate-800 w-full">
                     {item}
                   </span>

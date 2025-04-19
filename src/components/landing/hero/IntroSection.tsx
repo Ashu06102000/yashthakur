@@ -76,7 +76,7 @@ const IntroSection = () => {
       >
         {/* Sticky Label */}
         <div className="md:sticky md:top-32 w-full md:w-1/3 z-10">
-          <h2 className="text-black text-xl sm:text-2xl md:text-3xl font-bold font-oreni">
+          <h2 className="text-black text-xl sm:text-2xl md:text-2xl font-bold font-oreni">
             WHO I AM
           </h2>
         </div>

@@ -20,10 +20,7 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   return (
-    <div
-      // ref={scrollRef}
-      className="relative h-full w-full"
-    >
+    <div className="relative h-full w-full">
       {loading ? (
         <Loader setLoading={setLoading} />
       ) : (
