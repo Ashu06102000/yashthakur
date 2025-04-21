@@ -10,10 +10,10 @@ const Landing = ({ loading }: { loading: boolean }) => {
       <Hero loading={loading} />
 
       <IntroSection />
-      <div className="flex flex-col rounded-3xl">
-        <Work />
-        <SkillSection />
-      </div>
+
+      <Work />
+      <SkillSection />
+
       <Footer />
     </div>
   );

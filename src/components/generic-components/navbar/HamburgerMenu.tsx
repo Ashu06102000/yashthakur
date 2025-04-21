@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { Link } from "react-router-dom";
 
 export default function HamburgerMenu() {
-  const [_, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
 
@@ -18,6 +18,15 @@ export default function HamburgerMenu() {
       tl.current?.kill();
     };
   }, []);
+
+  useEffect(() => {
+    // Prevent body scroll when menu is open
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isOpen]);
 
   const toggleMenu = () => {
     setIsOpen((prev) => {
@@ -46,44 +55,52 @@ export default function HamburgerMenu() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative z-50">
       {/* Hamburger Icon */}
-      <div className="flex z-10 fixed top-6 right-12 justify-between flex-row rounded-lg  p-2 items-center gap-2">
-        <div
+      <div className="flex fixed top-6 right-6 sm:right-12 justify-between items-center gap-2 z-50">
+        <button
+          aria-label="Toggle menu"
           className="flex flex-col gap-1 px-4 cursor-pointer"
           onClick={toggleMenu}
         >
-          <div className="line-1 bg-black h-0.5 w-10 rounded transition-all"></div>
-          <div className="line-2 bg-black h-0.5 w-10 rounded transition-all"></div>
-          <div className="line-3 bg-black h-0.5 w-10 rounded transition-all"></div>
-        </div>
-        {/* <a
-          href="mailto:yash6102000thakur@gmail.com"
-          className="bg-black p-5 text-white rounded-md text-xs font-roboto font-normal hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
-        >
-          CONTACT ME
-        </a> */}
+          <div
+            className={`line-1 ${
+              isOpen ? "bg-white" : "bg-black"
+            } h-0.5 w-8 sm:w-10 rounded`}
+          ></div>
+          <div
+            className={`line-2 ${
+              isOpen ? "bg-white" : "bg-black"
+            } h-0.5 w-8 sm:w-10 rounded`}
+          ></div>
+          <div
+            className={`line-3 ${
+              isOpen ? "bg-white" : "bg-black"
+            } h-0.5 w-8 sm:w-10 rounded`}
+          ></div>
+        </button>
       </div>
 
+      {/* Sliding Menu */}
       <div
         ref={menuRef}
-        className="fixed top-4 right-10 rounded-lg h-auto w-[28rem] pt-40 bg-slate-800 text-white p-6"
+        className="fixed top-0 right-0 h-screen w-full sm:w-[28rem] md:w-full pt-[15%] bg-black  text-white px-6 sm:px-10 z-40 overflow-y-auto"
       >
-        <ul className="flex flex-col items-end">
+        <ul className="flex flex-col items-center gap-4 md:gap-6 uppercase">
           {["Home", "Background", "Work"].map((item, index) => {
             const slug = item.toLowerCase();
-
             return (
               <li
                 key={index}
-                className="relative pt-4 px-2 border-t border-t-orange-500 border-opacity-10 group:hover:border-opacity-100 text-7xl font-medium text-orange-500 cursor-pointer overflow-hidden group w-full text-right"
+                className="relative pt-4 px-2  text-5xl sm:text-8xl font-medium text-white cursor-pointer overflow-hidden group w-full text-center"
               >
                 <Link
-                  to={`${slug == "home" ? "/" : `/${slug}`}`}
+                  to={slug === "home" ? "/" : `/${slug}`}
+                  onClick={() => setIsOpen(false)}
                   className="block w-full h-full"
                 >
-                  <span className="absolute left-0 bottom-0 h-full bg-fuchsia-500 scale-y-0 origin-bottom transition-transform duration-300 ease-in-out group-hover:scale-y-100 w-full"></span>
-                  <span className="relative font-roboto block transition-transform duration-300 ease-in-out group-hover:-translate-y-2 group-hover:text-slate-800 w-full">
+                  <span className="absolute left-0 bottom-0 h-full  scale-y-0 origin-bottom transition-transform duration-300 ease-in-out group-hover:scale-y-100 w-full"></span>
+                  <span className="relative font-roboto block transition-transform duration-300 ease-in-out group-hover:-translate-y-2  w-full">
                     {item}
                   </span>
                 </Link>
@@ -91,8 +108,16 @@ export default function HamburgerMenu() {
             );
           })}
         </ul>
-        <div className="border-t border-t-orange-500 border-opacity-10 px-6 pt-16">
-          linkedin
+
+        <div className="md:border-t border-t-orange-500 border-opacity-10 px-6 pt-16 text-right">
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm sm:text-base hover:underline text-white/80"
+          >
+            linkedin
+          </a>
         </div>
       </div>
     </div>
