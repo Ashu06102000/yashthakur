@@ -50,22 +50,22 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
       ref={heroRef}
       className="hero-section w-full h-screen flex flex-col justify-center items-center px-6 sm:px-10 md:px-20 text-black font-barracuda relative overflow-hidden opacity-0"
     >
-      <div ref={textRef} className="text-center font-oreni">
-        <h1 className="line text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light leading-tight mb-2 sm:mb-4">
+      <div ref={textRef} className="text-center font-oreni uppercase">
+        <h1 className="line text-4xl sm:text-6xl md:text-7xl lg:text-[12em] font-light leading-tight mb-2 sm:mb-4">
           {Array.from("Every.".split("")).map((letter, index) => (
             <span key={index} className="letter inline-block">
               {letter}
             </span>
           ))}
         </h1>
-        <h1 className="line text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-tight mb-2 sm:mb-4">
+        <h1 className="line text-4xl sm:text-6xl md:text-7xl lg:text-[12em] font-extrabold leading-tight mb-2 sm:mb-4">
           {Array.from("Interaction.".split("")).map((letter, index) => (
             <span key={index} className="letter inline-block">
               {letter}
             </span>
           ))}
         </h1>
-        <h1 className="line text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-tight">
+        <h1 className="line text-4xl sm:text-6xl md:text-7xl lg:text-[12em] font-extrabold leading-tight">
           {Array.from("Feels.".split("")).map((letter, index) => (
             <span key={index} className="letter inline-block">
               {letter}
@@ -74,7 +74,6 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
         </h1>
       </div>
 
-      {/* CTA buttons */}
       <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-4 items-center">
         <button className="bg-black text-white px-6 py-3 rounded-full hover:scale-105 transition-all duration-300 w-full sm:w-auto">
           View Work

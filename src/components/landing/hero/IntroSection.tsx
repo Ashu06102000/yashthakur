@@ -1,108 +1,77 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const IntroSection = () => {
-  const textRef = useRef<HTMLDivElement | null>(null);
-  const paragrahRef = useRef<HTMLDivElement | null>(null);
+const tabs = [
+  { id: "everyone", label: "For Everyone" },
+  { id: "recruiters", label: "Recruiters" },
+  { id: "agencies", label: "Agencies" },
+  { id: "clients", label: "Clients" },
+  { id: "collaborators", label: "Collaborators" },
+];
 
-  const paragraph1 = "Hi, My name is Yash Thakur";
-  const paragraph2 =
-    "I’m the frontend storyteller who turns bold ideas into seamless, interactive digital experiences. With a blend of code, creativity, and strategy, I build interfaces that not only look great — they feel great, too. Because for me, frontend isn’t just about visuals — it’s about impact, clarity, and connection.";
-  const paragraph3 =
-    "But my mission doesn’t stop at building the web — I’m here to uplift the next wave of developers. Through mentorship, content, and an ever-growing community, I support curious minds in finding their voice in tech. If you believe the frontend is more than just the front — welcome, you’re in the right place.";
+const tabContent = {
+  everyone: `Hi, welcome to my portfolio. I’m a hands-on Digital Creative Director focused on crafting innovative digital experiences. Dive in to explore my work, my process, and how I bring ideas to life through collaboration and creativity.`,
+  recruiters: `I bring a unique mix of strategy, creativity, and leadership. Let’s chat about how I can contribute to your client’s vision.`,
+  agencies: `Collaboration with agencies is where I thrive. From ideation to execution, I bring ideas to life with impact and precision.`,
+  clients: `Looking for a trusted digital partner? I specialize in building standout experiences that elevate your brand.`,
+  collaborators: `I’m always open to connect with fellow creatives. Let’s make something bold, thoughtful, and different together.`,
+};
+
+const IntroSection = () => {
+  const [activeTab, setActiveTab] = useState("everyone");
+  const contentRef = useRef(null);
 
   useEffect(() => {
-    const headingLetters = gsap.utils.toArray(".about-heading-letter");
-    const paragraphLetters = gsap.utils.toArray(".paragraph-letter");
-
-    gsap.set(headingLetters, {
-      x: () => gsap.utils.random(-1000, 1000),
-      rotate: () => gsap.utils.random(-10, 10),
-      opacity: 0,
-    });
-
-    gsap.to(headingLetters, {
-      x: 0,
-      rotate: 0,
-      opacity: 1,
-      duration: 1.5,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: textRef.current,
-        start: "top 80%",
-        end: "top 50%",
-        scrub: true,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    gsap.set(paragraphLetters, {
-      color: "#696969",
-      opacity: 0,
-    });
-
-    gsap.to(paragraphLetters, {
-      color: "black",
-      duration: 1.5,
-      ease: "power2.out",
-      opacity: 1,
-      stagger: 0.01,
-      scrollTrigger: {
-        trigger: paragrahRef.current,
-        start: "top 80%",
-        end: "top 30%",
-        scrub: true,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
+    gsap.fromTo(
+      contentRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.5, ease: "power2.out" }
+    );
+  }, [activeTab]);
 
   return (
-    <div className="relative py-24 px-6 sm:px-10 md:px-20">
-      <div
-        id="ABOUT"
-        className="flex flex-col md:flex-row gap-12 md:gap-24 items-start w-full mx-auto"
-      >
-        {/* Sticky Label */}
-        <div className="md:sticky md:top-32 w-full md:w-1/3 z-10">
-          <h2 className="text-black text-xl sm:text-2xl md:text-2xl font-bold font-oreni">
-            WHO I AM
-          </h2>
-        </div>
+    <div className="relative py-24 px-6 sm:px-10 md:px-20 bg-black text-white min-h-screen rounded-3xl">
+      {/* Tabs */}
+      <div className="flex gap-6 mb-12 items-center">
+        {tabs.map((tab) => (
+          <span
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`text-sm font-medium transition-all duration-200 cursor-pointer ${
+              activeTab === tab.id
+                ? "bg-white text-black px-4 py-2 rounded-full"
+                : "text-gray-400 hover:text-white"
+            }`}
+          >
+            {tab.label}
+          </span>
+        ))}
+      </div>
 
-        {/* Paragraph Content */}
-        <div
-          ref={paragrahRef}
-          className="w-full md:w-2/3 flex flex-col gap-6 text-lg sm:text-xl md:text-2xl text-[#696969] font-light font-roboto"
-        >
-          {[paragraph1, paragraph2, paragraph3].map((paragraph, pIndex) => (
-            <p key={pIndex} className={`${pIndex === 0 ? "font-normal" : ""}`}>
-              {paragraph.split(" ").map((word, wordIndex) => (
-                <span key={wordIndex} className="inline-block mr-2">
-                  {Array.from(word).map((char, charIndex) => (
-                    <span
-                      className="inline-block paragraph-letter will-change-transform"
-                      key={charIndex}
-                    >
-                      {char}
-                    </span>
-                  ))}
-                </span>
-              ))}
-            </p>
-          ))}
+      {/* Content */}
+      <div
+        ref={contentRef}
+        className="max-w-4xl text-4xl md:text-4xl leading-snug font-bold"
+      >
+        {tabContent[activeTab as keyof typeof tabContent]}
+      </div>
+
+      {/* Location and CTA */}
+      <div className="mt-16 flex justify-between items-center text-sm">
+        <div className="text-gray-400">
+          <p className="font-medium text-white">Current Location</p>
+          <p>
+            <span className="line-through">Bahrain</span>{" "}
+            <span className="line-through">Singapore</span>{" "}
+            <span className="font-bold text-white">Dubai</span>
+          </p>
         </div>
+        <button className="flex items-center gap-2 text-white border border-white rounded-full px-4 py-2 hover:bg-white hover:text-black transition-all">
+          View my work <span className="text-xl">→</span>
+        </button>
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ const SkillSection = () => {
       {/* Sticky Heading Block */}
       <div className="text-left md:sticky md:top-32 flex-shrink-0 w-full md:w-1/3">
         <div className="flex flex-col gap-2 font-oreni">
-          <h2 className="text-xl sm:text-2xl md:text-2xl font-semibold uppercase text-black">
+          <h2 className="text-xl sm:text-2xl md:text-4xl font-semibold uppercase text-black">
             Capabilities
           </h2>
           <p className="text-lg sm:text-xl md:text-2xl font-light text-black">
@@ -35,11 +35,11 @@ const SkillSection = () => {
 
       {/* Skills List */}
       <div className="relative w-full md:w-2/3">
-        <ul className="flex flex-col font-roboto gap-1">
+        <ul className="flex flex-col font-roboto gap-4">
           {groupedSkills.map((skill, _) => (
             <li
               key={skill}
-              className="relative list-none text-black text-2xl font-light transition-transform duration-500 hover:font-medium hover:-translate-x-16"
+              className="relative list-none text-black text-2xl md:text-5xl font-light transition-transform duration-500 hover:font-medium hover:-translate-x-16"
             >
               {skill}
             </li>

@@ -20,7 +20,6 @@ export default function HamburgerMenu() {
   }, []);
 
   useEffect(() => {
-    // Prevent body scroll when menu is open
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
