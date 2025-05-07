@@ -5,8 +5,8 @@
 /* src/index.css or src/styles.css */
 
 body {
-  background-color: #fff;
-  color: black;
+  background-color: #111;
+  color: white;
   /* font-family: MyCustomFont; */
   /* font-family: "Oranienbaum", serif; */
   font-family: "Kaisei Tokumin", serif;
@@ -119,4 +119,8 @@ body {
 
 .animate-bounce {
   animation: bounce 1s infinite;
+}
+.portal-letter {
+  position: relative;
+  z-index: 10;
 }

@@ -47,15 +47,15 @@ const IntroSection = () => {
   };
 
   return (
-    <div className="relative py-24 px-6 sm:px-10 md:px-20 bg-black text-white min-h-screen rounded-3xl gap-16 flex flex-col">
-      <div className="flex gap-6  items-center h-9">
+    <div className="relative py-24 px-6 sm:px-10 md:px-20 text-white min-h-screen gap-16 flex flex-col">
+      <div className="flex gap-4  items-center h-9">
         {tabs.map((tab) => (
           <span
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`text-sm font-medium transition-all duration-200 cursor-pointer font-roboto ${
+            className={`text-sm font-medium transition-all duration-200 cursor-pointer px-4 py-2 font-roboto ${
               activeTab === tab.id
-                ? "bg-white text-black px-4 py-2 rounded-full"
+                ? "bg-white text-black  rounded-full"
                 : "text-gray-400 hover:text-white"
             }`}
           >

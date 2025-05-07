@@ -7,9 +7,7 @@ import Work from "./Work/Work";
 const Landing = ({ loading }: { loading: boolean }) => {
   return (
     <div className="relative">
-      <div className="sticky top-0">
-        <Hero loading={loading} />
-      </div>
+      <Hero loading={loading} />
 
       <IntroSection />
 

@@ -1,61 +1,58 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+
+import { useEffect } from "react";
+import gsap from "gsap";
 
 const CustomCursor = () => {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const [isHovering, setIsHovering] = useState(false);
-
   useEffect(() => {
-    const moveCursor = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate(${clientX}px, ${clientY}px) scale(${
-          isHovering ? 5 : 1
-        })`;
-      }
+    const cursor = document.querySelector(".cursor") as HTMLDivElement | null;
+    const follower = document.querySelector(
+      ".cursor-follower"
+    ) as HTMLDivElement | null;
+
+    if (!cursor || !follower) return;
+
+    const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const mouse = { x: pos.x, y: pos.y };
+
+    gsap.set([cursor, follower], { xPercent: -50, yPercent: -50 });
+
+    const move = (e: MouseEvent) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
     };
 
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (
-        target.tagName === "A" ||
-        target.tagName === "BUTTON" ||
-        target.tagName === "H4" ||
-        target.closest("a, button, h4")
-      ) {
-        setIsHovering(true);
-      }
-    };
+    window.addEventListener("mousemove", move);
 
-    const handleMouseOut = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (
-        target.tagName === "A" ||
-        target.tagName === "BUTTON" ||
-        target.tagName === "H4" ||
-        target.closest("a, button, h4")
-      ) {
-        setIsHovering(false);
-      }
-    };
+    gsap.ticker.add(() => {
+      pos.x += (mouse.x - pos.x) * 0.15;
+      pos.y += (mouse.y - pos.y) * 0.15;
 
-    window.addEventListener("mousemove", moveCursor);
-    window.addEventListener("mouseover", handleMouseOver);
-    window.addEventListener("mouseout", handleMouseOut);
+      gsap.set(cursor, { x: mouse.x, y: mouse.y });
+      gsap.set(follower, { x: pos.x, y: pos.y });
+    });
+
+    const hoverTargets = document.querySelectorAll("a, button, .cursor-hover");
+
+    hoverTargets.forEach((el) => {
+      el.addEventListener("mouseenter", () => {
+        gsap.to(follower, { scale: 1.5, borderColor: "#0ff", duration: 0.3 });
+      });
+      el.addEventListener("mouseleave", () => {
+        gsap.to(follower, { scale: 1, borderColor: "#fff", duration: 0.3 });
+      });
+    });
 
     return () => {
-      window.removeEventListener("mousemove", moveCursor);
-      window.removeEventListener("mouseover", handleMouseOver);
-      window.removeEventListener("mouseout", handleMouseOut);
+      window.removeEventListener("mousemove", move);
     };
-  }, [isHovering]);
+  }, []);
 
   return (
-    <div
-      ref={cursorRef}
-      className="fixed top-0 left-0 z-[9999] pointer-events-none w-4 h-4 rounded-full bg-white mix-blend-difference transition-transform duration-150 ease-out"
-      style={{ transform: "translate(-100px, -100px)" }}
-    />
+    <>
+      <div className="cursor fixed top-0 left-0 z-[9999] pointer-events-none w-2 h-2 rounded-full bg-white mix-blend-difference" />
+      <div className="cursor-follower fixed top-0 left-0 z-[9998] pointer-events-none w-8 h-8 rounded-full border-2 border-white mix-blend-difference transition-transform duration-300 ease-out" />
+    </>
   );
 };
 

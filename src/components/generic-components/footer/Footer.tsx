@@ -69,7 +69,7 @@ const Footer = () => {
     ));
 
   return (
-    <footer className="relative bg-black text-white w-full py-20 px-6 sm:px-8 md:px-16 overflow-hidden flex flex-col gap-16 sm:gap-18">
+    <footer className="relative  text-white w-full py-20 px-6 sm:px-8 md:px-16 overflow-hidden flex flex-col gap-16 sm:gap-18">
       <h2
         ref={connectRef}
         className="text-center text-4xl sm:text-6xl md:text-9xl font-oreni leading-tight"
