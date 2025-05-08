@@ -44,14 +44,14 @@ const IntroSection = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate each card on scroll
       cardsRef.current.forEach((card) => {
-        gsap.fromTo(
+        // Entry animation
+        gsap.to(
           card,
-          { opacity: 0, y: 100 },
+
           {
             opacity: 1,
-            y: 0,
+
             duration: 1,
             ease: "power2.out",
             scrollTrigger: {
@@ -63,10 +63,10 @@ const IntroSection = () => {
         );
       });
 
-      // Pin heading wrapper until last card
+      // Pin the heading
       ScrollTrigger.create({
         trigger: headingWrapperRef.current,
-        start: "10%",
+        start: "6%",
         endTrigger: lastCardRef.current,
         end: "bottom center",
         pin: true,
@@ -74,7 +74,7 @@ const IntroSection = () => {
       });
     });
 
-    return () => ctx.revert(); // Cleanup
+    return () => ctx.revert();
   }, []);
 
   const handleButtonClick = (path: string) => {
@@ -87,38 +87,45 @@ const IntroSection = () => {
         ref={headingWrapperRef}
         className="flex flex-col items-center justify-center min-h-screen"
       >
-        <h1 className="text-4xl md:text-8xl font-bold text-center flex flex-col gap-4">
-          Hello, <span className="text-6xl">I'm Yash Thakur</span>
+        <h1 className="text-4xl md:text-8xl font-light font-oreni text-center flex flex-col gap-4">
+          Hello from<span className="text-8xl"> Yash Thakur</span>{" "}
         </h1>
       </div>
 
       <div className="flex flex-col gap-32">
-        {contentData.map((item, idx) => (
-          <div
-            key={item.id}
-            ref={(el) => {
-              cardsRef.current[idx] = el!;
-              //@ts-ignore
-              if (idx === contentData.length - 1) lastCardRef.current = el!;
-            }}
-            className="max-w-4xl mx-auto text-2xl md:text-3xl leading-relaxed bg-white/5 backdrop-blur-md p-8 rounded-xl border border-white/10"
-          >
-            <p>{item.text}</p>
-            <div className="flex justify-between items-center mt-6">
-              <button
-                onClick={() =>
-                  handleButtonClick(
-                    tabButtons[item.id as keyof typeof tabButtons].path
-                  )
-                }
-                className="flex items-center gap-2 text-white border border-white rounded-full px-4 py-2 hover:bg-white hover:text-black transition-all"
-              >
-                {tabButtons[item.id as keyof typeof tabButtons].text}
-                <span className="text-xl">→</span>
-              </button>
+        {contentData.map((item, idx) => {
+          const isEven = idx % 2 === 0;
+          const speed = (0.3 + idx * 0.1).toFixed(2);
+
+          return (
+            <div
+              key={item.id}
+              ref={(el) => {
+                cardsRef.current[idx] = el!;
+                //@ts-ignore
+                if (idx === contentData.length - 1) lastCardRef.current = el!;
+              }}
+              className={`relative max-w-sm w-full ${
+                isEven ? "self-end" : "self-start"
+              } text-lg md:text-xl leading-relaxed px-8 py-10 min-h-96 justify-between flex flex-col rounded-2xl border border-white/10 shadow-2xl bg-gradient-to-br from-white/5 via-white/10 to-white/5 backdrop-blur-md transition-transform duration-300`}
+            >
+              <p className="font-thin text-xl">{item.text}</p>
+              <div className="flex justify-between items-center mt-6">
+                <button
+                  onClick={() =>
+                    handleButtonClick(
+                      tabButtons[item.id as keyof typeof tabButtons].path
+                    )
+                  }
+                  className="group relative flex items-center gap-2 text-white border border-white/20 rounded-full px-6 py-3 text-sm font-medium hover:bg-white hover:text-black hover:shadow-lg transition-all duration-300"
+                >
+                  {tabButtons[item.id as keyof typeof tabButtons].text}
+                  <span className="text-xl">→</span>
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
