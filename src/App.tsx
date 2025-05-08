@@ -27,8 +27,8 @@ const App: React.FC = () => {
           smooth: 2,
           effects: true,
           normalizeScroll: true,
-          // wrapper: "#smooth-wrapper",
-          // content: "#smooth-content",
+          wrapper: "#smooth-wrapper",
+          content: "#smooth-content",
         });
       }
     }
