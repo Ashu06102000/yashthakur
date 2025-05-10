@@ -41,6 +41,7 @@ const CustomCursor = () => {
     const fadeOut = (currentTime: number) => {
       const deltaTime = currentTime - lastTime;
       if (deltaTime > 16) {
+        // Fade the background only, not the cursor trail
         ctx.fillStyle = `rgba(17, 17, 17, ${config.current.fadeSpeed})`;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         lastTime = currentTime;
@@ -55,6 +56,7 @@ const CustomCursor = () => {
           ? getAdjustedCoords(lastX, lastY)
           : null;
 
+      // Drawing the cursor trail on top of the faded background
       ctx.beginPath();
       if (adjustedLast) {
         ctx.moveTo(adjustedLast.x, adjustedLast.y);
@@ -114,7 +116,7 @@ const CustomCursor = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="mouse-trail pointer-events-none fixed top-0 left-0 "
+      className="mouse-trail pointer-events-none fixed top-0 left-0"
     />
   );
 };

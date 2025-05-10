@@ -7,6 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 const IntroSection = () => {
   const textRef = useRef<HTMLDivElement | null>(null);
   const paragrahRef = useRef<HTMLDivElement | null>(null);
+  const headingRef = useRef<HTMLHeadingElement | null>(null); // Reference for h2
 
   const paragraph1 = "Hi, My name is Yash Thakur";
   const paragraph2 =
@@ -31,7 +32,6 @@ const IntroSection = () => {
       scrollTrigger: {
         trigger: textRef.current,
         start: "top 70%",
-
         scrub: true,
         invalidateOnRefresh: true,
       },
@@ -56,6 +56,25 @@ const IntroSection = () => {
       },
     });
 
+    // Animate <h2> height from 0% to 100% with overflow hidden
+    gsap.set(headingRef.current, {
+      height: "0", // Initially hidden
+      overflow: "hidden", // Ensure it's clipped until visible
+    });
+
+    gsap.to(headingRef.current, {
+      height: "auto", // Animate to full height when in view
+      duration: 1.5,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: headingRef.current,
+        start: "top 80%", // Trigger when it comes into view
+        end: "top 30%", // Adjust to stop the animation
+        scrub: true,
+        invalidateOnRefresh: true,
+      },
+    });
+
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);
@@ -66,14 +85,19 @@ const IntroSection = () => {
   }, []);
 
   return (
-    <div className="relative py-24 px-6 sm:px-10 md:px-20">
+    <div className="relative py-24 px-6 sm:px-10 md:px-24">
       <div
         id="ABOUT"
-        className="flex flex-col md:flex-row gap-12 md:gap-24 items-start w-full mx-auto"
+        className="flex flex-col gap-12 md:gap-24 items-start w-full mx-auto"
       >
+        <div className="w-full uppercase flex flex-col gap-2 font-oreni">
+          <h2 ref={headingRef} className="text-[192px]">
+            Essence
+          </h2>
+        </div>
         <div
           ref={paragrahRef}
-          className="w-full md:w-3/4 flex flex-col gap-6 text-lg sm:text-xl md:text-3xl text-red-500 uppercase "
+          className="w-full md:w-3/4 flex flex-col gap-6 text-lg sm:text-xl md:text-[32px] text-red-500"
         >
           {[paragraph1, paragraph2, paragraph3].map((paragraph, pIndex) => (
             <p key={pIndex} className={`${pIndex === 0 ? "font-normal" : ""}`}>
@@ -81,7 +105,7 @@ const IntroSection = () => {
                 <span key={wordIndex} className="inline-block mr-2">
                   {Array.from(word).map((char, charIndex) => (
                     <span
-                      className="inline-block paragraph-letter will-change-transform"
+                      className="inline-block paragraph-letter will-change-transform leading-tight"
                       key={charIndex}
                     >
                       {char}
