@@ -12,10 +12,12 @@
 html {
   scroll-behavior: smooth;
   overscroll-behavior: none;
+  background-color: #111;
 }
 body {
   overscroll-behavior: none;
   scroll-behavior: smooth;
+  background-color: #111;
 }
 
 body::-webkit-scrollbar {

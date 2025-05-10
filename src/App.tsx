@@ -24,7 +24,7 @@ const App: React.FC = () => {
     if (!loading) {
       if (!ScrollSmoother.get()) {
         ScrollSmoother.create({
-          smooth: 2,
+          smooth: 1.5,
           effects: true,
           normalizeScroll: true,
           wrapper: "#smooth-wrapper",
@@ -35,7 +35,7 @@ const App: React.FC = () => {
   }, [loading]);
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full bg-[#111]">
       {loading ? (
         <Loader setLoading={setLoading} />
       ) : (

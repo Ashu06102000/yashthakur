@@ -83,7 +83,7 @@ const Footer = () => {
         {/* Logo */}
         <div ref={logoRef} className="mt-8 sm:mt-0">
           <div className="flex items-center">
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter">
+            <h1 className="text-4xl sm:text-5xl md:text-2xl uppercase text-white font-oreni font-bold tracking-tighter">
               Yash
             </h1>
             <div className="relative ml-2">
