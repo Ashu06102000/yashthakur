@@ -3,13 +3,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Cormorant+Upright:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Tulpen+One&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=GFS+Didot&family=Kaisei+Tokumin:wght@400;500;700;800&family=Oranienbaum&display=swap");
 /* src/index.css or src/styles.css */
-
+@font-face {
+  font-family: "MyCustomFont";
+  src: url("./assets/fonts/gallery.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   background-color: #111;
   color: white;
-  /* font-family: MyCustomFont; */
+  font-family: "MyCustomFont";
   /* font-family: "Oranienbaum", serif; */
-  font-family: "Kaisei Tokumin", serif;
+
+  src: url("./assets/fonts/gallery.otf") format("opentype");
+  /* font-family: "Oranienbaum", serif; */
+  /* font-family: "Kaisei Tokumin", serif; */
   cursor: none;
 }
 /* src/index.css */

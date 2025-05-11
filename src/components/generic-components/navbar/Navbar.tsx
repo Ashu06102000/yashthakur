@@ -8,7 +8,7 @@ const Navbar = () => {
     <header className="w-full fixed top-0 py-8  flex justify-between items-center z-50 max-w-main-screen">
       <Link
         to="/"
-        className="text-white text-2xl uppercase font-light font-oreni tracking-wider"
+        className="text-white text-2xl uppercase font-light tracking-tighter"
       >
         YASH THAKUR
       </Link>

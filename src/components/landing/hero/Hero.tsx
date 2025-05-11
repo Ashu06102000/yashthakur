@@ -71,10 +71,10 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
       ref={heroRef}
       className="w-full h-screen flex flex-col justify-center items-center text-white  relative overflow-hidden opacity-0 p-24"
     >
-      <div className="flex flex-col justify-between h-full py-20 ">
+      <div className="flex flex-col gap-20 justify-between h-full py-20 ">
         <h2
           ref={headingRef}
-          className="text-white font-thin font-oreni text-6xl uppercase py-20 leading-none"
+          className="text-white font-thin text-6xl uppercase py-20 leading-none"
         >
           {["Crafting", "Web"].map((word, i) => (
             <span key={i} className="word inline-block mx-2">
@@ -87,7 +87,7 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
         </h2>
         <p
           ref={paragraphRef}
-          className="text-white font-light text-3xl w-2/5 leading-none  self-end"
+          className="text-white font-thin text-3xl w-2/5 leading-none  self-end"
         >
           Building modern web applications, dashboards, and websites with a
           focus on performance, scalability, and seamless user experience.
