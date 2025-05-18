@@ -132,3 +132,23 @@ body {
   position: relative;
   z-index: 10;
 }
+
+.animated-word {
+  transform: translate3d(10px, 51px, -60px) rotateY(60deg) rotateX(-40deg);
+  transform-origin: 50% 50% -150px !important;
+  will-change: opacity, transform;
+}
+
+.about-image {
+  @apply absolute left-1/2 top-0 z-20 h-[60vh] w-96 origin-center -translate-x-1/2 overflow-hidden rounded-3xl md:w-[30vw];
+}
+.animated-word {
+  transform: translate3d(10px, 51px, -60px) rotateY(60deg) rotateX(-40deg);
+  transform-origin: 50% 50% -150px !important;
+  opacity: 0;
+  will-change: opacity, transform;
+}
+/* IntroSection.css */
+.text-align-last {
+  text-align-last: center;
+}

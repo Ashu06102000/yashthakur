@@ -24,7 +24,7 @@ const App: React.FC = () => {
     if (!loading) {
       if (!ScrollSmoother.get()) {
         ScrollSmoother.create({
-          smooth: 1.5,
+          smooth: 2,
           effects: true,
           normalizeScroll: true,
           wrapper: "#smooth-wrapper",
@@ -45,7 +45,7 @@ const App: React.FC = () => {
           </div>
           <CustomCursor />
 
-          <div className="max-w-main-screen mx-auto" id="smooth-wrapper">
+          <div className="mx-auto  " id="smooth-wrapper">
             <div
               id="smooth-content"
               data-scroll-section

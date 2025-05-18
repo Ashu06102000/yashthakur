@@ -1,20 +1,9 @@
-import Footer from "../generic-components/footer/Footer";
 import Hero from "./hero/Hero";
-import IntroSection from "./hero/IntroSection";
-import SkillSection from "./SkillSection";
-import Work from "./Work/Work";
 
 const Landing = ({ loading }: { loading: boolean }) => {
   return (
-    <div className="relative">
+    <div className="relative bg-white">
       <Hero loading={loading} />
-
-      <IntroSection />
-
-      <Work />
-      <SkillSection />
-
-      <Footer />
     </div>
   );
 };
