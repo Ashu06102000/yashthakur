@@ -6,10 +6,8 @@ import AnimatedTitle from "../../generic-components/AnimatedTitle";
 gsap.registerPlugin(ScrollTrigger);
 
 const IntroSection = () => {
-  const textRef = useRef<HTMLDivElement | null>(null);
   const paragrahRef = useRef<HTMLDivElement | null>(null);
 
-  const paragraph1 = "Hi, My name is Yash Thakur";
   const paragraph2 =
     "I’m the frontend storyteller who turns bold ideas into seamless, interactive digital experiences. With a blend of code, creativity, and strategy, I build interfaces that not only look great — they feel great, too. Because for me, frontend isn’t just about visuals — it’s about impact, clarity, and connection.";
   const paragraph3 =
