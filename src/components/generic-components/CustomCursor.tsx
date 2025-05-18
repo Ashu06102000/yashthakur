@@ -1,70 +1,61 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-const TRAIL_LENGTH = 6;
-const IDLE_TIMEOUT = 400; // 1 second
-
 const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
-  const trailRefs = useRef<HTMLDivElement[]>([]);
-  const [isIdle, setIsIdle] = useState(false);
-  const mousePos = useRef({ x: 0, y: 0 });
-  const trailPositions = useRef(
-    Array.from({ length: TRAIL_LENGTH }, () => ({ x: 0, y: 0 }))
-  );
-  const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
-      mousePos.current = { x: e.clientX, y: e.clientY };
-
+      const { clientX, clientY } = e;
       if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px) scale(4)`;
+        cursorRef.current.style.transform = `translate(${clientX}px, ${clientY}px) scale(${
+          isHovering ? 5 : 1
+        })`;
       }
-
-      setIsIdle(false);
-
-      if (idleTimer.current) clearTimeout(idleTimer.current);
-      idleTimer.current = setTimeout(() => {
-        setIsIdle(true);
-      }, IDLE_TIMEOUT);
     };
 
-    const animateTrail = () => {
-      trailPositions.current.forEach((pos, i) => {
-        const target =
-          i === 0 ? mousePos.current : trailPositions.current[i - 1];
-        pos.x += (target.x - pos.x) * 0.2;
-        pos.y += (target.y - pos.y) * 0.2;
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === "A" ||
+        target.tagName === "BUTTON" ||
+        target.tagName === "H4" ||
+        target.closest("a, button, h4")
+      ) {
+        setIsHovering(true);
+      }
+    };
 
-        if (trailRefs.current[i]) {
-          trailRefs.current[
-            i
-          ].style.transform = `translate(${pos.x}px, ${pos.y}px)`;
-        }
-      });
-      requestAnimationFrame(animateTrail);
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === "A" ||
+        target.tagName === "BUTTON" ||
+        target.tagName === "H4" ||
+        target.closest("a, button, h4")
+      ) {
+        setIsHovering(false);
+      }
     };
 
     window.addEventListener("mousemove", moveCursor);
-    requestAnimationFrame(animateTrail);
+    window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("mouseout", handleMouseOut);
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
-      if (idleTimer.current) clearTimeout(idleTimer.current);
+      window.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("mouseout", handleMouseOut);
     };
-  }, []);
+  }, [isHovering]);
 
   return (
-    <>
-      <div
-        ref={cursorRef}
-        className={`fixed top-0 left-0 z-[9999] pointer-events-none w-6 h-6 rounded-full bg-white mix-blend-difference blur-sm transition-opacity duration-300 ease-out ${
-          isIdle ? "opacity-0" : "opacity-100"
-        }`}
-        style={{ transform: "translate(-100px, -100px)" }}
-      />
-    </>
+    <div
+      ref={cursorRef}
+      className="fixed top-0 left-0 z-[9999] pointer-events-none w-4 h-4 rounded-full bg-white mix-blend-difference transition-transform duration-150 ease-out"
+      style={{ transform: "translate(-100px, -100px)" }}
+    />
   );
 };
 

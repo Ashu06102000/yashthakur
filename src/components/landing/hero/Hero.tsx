@@ -4,10 +4,11 @@ import flowerIcon from "../../../assets/FLOWER-ICON.svg";
 import me from "../../../assets/me.jpeg";
 import circleIcon from "../../../assets/CIRCLE-ICON.svg";
 import arrow from "../../../assets/ARROW.svg";
+import illustrationWork from "../../../assets/illustration-work.webp";
 
 const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const cardsRef = useRef<(HTMLDivElement | HTMLButtonElement)[]>([]);
 
   useEffect(() => {
     if (!loading) {
@@ -31,7 +32,6 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
           ease: "power3.out",
         });
 
-        // Animate profile image
         gsap.from(".profile-img", {
           scale: 0.8,
           opacity: 0,
@@ -40,7 +40,6 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
           delay: 0.3,
         });
 
-        // Infinite rotation of icons
         gsap.to(".flower-icon", {
           rotation: 360,
           duration: 10,
@@ -107,8 +106,8 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
               focus on performance, scalability, and seamless user experience.
             </p>
           </div>
-          <div
-            className="bg-[#F8AFA6] flex flex-col justify-between p-8 rounded-2xl"
+          <button
+            className="bg-[#F8AFA6] flex flex-col justify-between p-8 rounded-2xl show-hover-illustration"
             ref={(el) => el && (cardsRef.current[3] = el)}
           >
             <div className="flex justify-between">
@@ -118,24 +117,49 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
               <img src={arrow} alt="" />
             </div>
 
-            <p className="text-black text-6xl">Contact me</p>
-          </div>
+            <p className="text-black text-6xl text-left">Contact me</p>
+          </button>
         </div>
       </div>
       <div className="flex flex-col justify-between w-1/3 gap-6">
         <div
-          className="h-4/5 bg-[#FADCD9] flex flex-col items-center justify-between p-8 rounded-2xl"
+          className="h-4/5 bg-[#FADCD9] flex flex-col justify-between p-8 rounded-2xl gap-4"
           ref={(el) => el && (cardsRef.current[4] = el)}
         >
-          <div className="w-full">
-            <h3 className="text-left text-2xl text-black">Work</h3>
-          </div>
-          <div></div>
+          <h3 className="text-left text-2xl text-black">Work</h3>
+          <ul className="flex flex-col gap-4">
+            {[
+              "Portfolio Website",
+              "Dashboard UI",
+              "E-commerce App",
+              "Blog Platform",
+            ].map((item, idx) => (
+              <li
+                key={idx}
+                className="group flex justify-between items-center text-black text-lg border-b border-black/20 pb-1 hover:pl-2 transition-all duration-300 cursor-pointer"
+              >
+                <span>{item}</span>
+                <span className="opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-xl">
+                  →
+                </span>
+              </li>
+            ))}
+          </ul>
+          <img className="rounded-2xl" src={illustrationWork} alt="" />
         </div>
+
         <div
-          className="h-1/5 bg-[#FADCD9] flex flex-col items-center justify-between p-8 rounded-2xl"
+          className="h-1/5 bg-[#FADCD9] flex items-center justify-between p-8 rounded-2xl text-black"
           ref={(el) => el && (cardsRef.current[5] = el)}
-        ></div>
+        >
+          <a
+            target="_blank"
+            href="https://www.linkedin.com/in/yash-thakur-0b71051b9/"
+          >
+            LINKEDIN
+          </a>
+          <a href="mailto:yash6102000thakur@gmail.com">EMAIL</a>
+        </div>
       </div>
     </section>
   );
