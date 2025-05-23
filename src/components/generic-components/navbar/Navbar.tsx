@@ -5,10 +5,8 @@ const navItems = ["Background", "Work"];
 
 const Navbar = () => {
   const location = useLocation();
-  const isHome = location.pathname === "/";
 
-  // Use this shared class to toggle text color
-  const textColorClass = isHome ? "text-black" : "text-white";
+  const textColorClass = "text-white";
 
   return (
     <header className="w-full fixed top-0 py-8 flex justify-between items-center z-50 max-w-main-screen">

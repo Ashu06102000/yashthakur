@@ -15,7 +15,12 @@ const KnowMySkills = () => {
     },
     {
       title: "Cloud & Database",
-      skills: ["Prisma ORM", "MongoDB", "AWS", "MySQL", "Postgres"],
+      skills: [
+        "Prisma ORM",
+        "AWS (EC2, S3, Elemental MediaLive, Lightsail, CloudFront, Route 53, Lambda)",
+        "MySQL",
+        "MongoDB",
+      ],
     },
     {
       title: "Testing & State Management",

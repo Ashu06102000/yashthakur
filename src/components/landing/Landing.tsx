@@ -2,7 +2,7 @@ import Hero from "./hero/Hero";
 
 const Landing = ({ loading }: { loading: boolean }) => {
   return (
-    <div className="relative bg-white">
+    <div className="relative ">
       <Hero loading={loading} />
     </div>
   );
