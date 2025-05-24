@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import HamburgerMenu from "./HamburgerMenu";
 
-const navItems = ["Background", "Work"];
+const navItems = ["Background", "Work", "Resume"];
 
 const Navbar = () => {
   const location = useLocation();
@@ -9,7 +9,7 @@ const Navbar = () => {
   const textColorClass = "text-white";
 
   return (
-    <header className="w-full fixed top-0 py-8 flex justify-between items-center z-50 max-w-main-screen">
+    <header className="w-full fixed top-0 py-8 flex justify-between items-center z-50 max-w-main-screen backdrop-blur-lg">
       <Link
         to="/"
         className={`text-2xl uppercase font-light tracking-tighter transition-colors duration-300 ${textColorClass}`}

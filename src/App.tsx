@@ -14,6 +14,7 @@ import TransitionComponent from "./components/generic-components/Transition";
 
 import "./App.css";
 import "./index.css";
+import Resume from "./components/resume/Resume";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -66,6 +67,14 @@ const App: React.FC = () => {
                     element={
                       <TransitionComponent>
                         <Background loading={loading} />
+                      </TransitionComponent>
+                    }
+                  />
+                  <Route
+                    path="/resume"
+                    element={
+                      <TransitionComponent>
+                        <Resume loading={loading} />
                       </TransitionComponent>
                     }
                   />

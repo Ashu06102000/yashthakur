@@ -1,198 +1,219 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import buildupAudio from "../../../assets/audio/slow_buildup.mp3";
-const audioSrc = "/path-to-your-audio.mp3"; // Replace with your audio file path
+import flowerIcon from "../../../assets/FLOWER-ICON.svg";
+import me from "../../../assets/me.jpeg";
+import circleIcon from "../../../assets/CIRCLE-ICON.svg";
+import arrow from "../../../assets/ARROW.svg";
 
 const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const holdTimeout = useRef<number | null>(null);
-  const progressInterval = useRef<number | null>(null);
-  const buildupRef = useRef<HTMLAudioElement>(null); // Build-up audio
-
-  const [holding, setHolding] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [mousePos, setMousePos] = useState({
-    x: window.innerWidth / 2,
-    y: window.innerHeight / 2,
-  });
-  const [audioPlaying, setAudioPlaying] = useState(false);
-  const [exiting, setExiting] = useState(false);
-
-  const radius = 50;
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference * (1 - progress);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | HTMLButtonElement)[]>([]);
 
   useEffect(() => {
-    if (loading) resetAll();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading]);
+    if (!loading) {
+      const ctx = gsap.context(() => {
+        // Intro animations
+        gsap.from(cardsRef.current, {
+          opacity: 0,
+          y: 50,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power3.out",
+        });
 
-  const resetAll = () => {
-    setHolding(false);
-    setProgress(0);
-    setExiting(false);
-    setAudioPlaying(false);
+        gsap.from(".intro-text span", {
+          y: 50,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          delay: 0.5,
+          ease: "power3.out",
+        });
 
-    if (holdTimeout.current) {
-      clearTimeout(holdTimeout.current);
-      holdTimeout.current = null;
-    }
-    if (progressInterval.current) {
-      clearInterval(progressInterval.current);
-      progressInterval.current = null;
-    }
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
+        gsap.from(".profile-img", {
+          scale: 0.8,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+          delay: 0.3,
+        });
 
-    // Reset GSAP animation
-    gsap.to("#hero-container", {
-      scale: 1,
-      opacity: 1,
-      duration: 0.5,
-      ease: "power2.out",
-    });
-  };
+        gsap.to(".flower-icon", {
+          rotation: 360,
+          duration: 10,
+          ease: "linear",
+          repeat: -1,
+        });
 
-  const startHold = () => {
-    if (loading || holding || audioPlaying || exiting) return;
+        gsap.to(".circle-icon", {
+          rotation: 360,
+          duration: 15,
+          ease: "linear",
+          repeat: -1,
+        });
+      }, sectionRef);
 
-    setHolding(true);
-    setProgress(0);
-    const startTime = Date.now();
-    if (buildupRef.current) {
-      buildupRef.current.currentTime = 0;
-      buildupRef.current.play();
-    }
-    progressInterval.current = window.setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const currentProgress = Math.min(elapsed / 2000, 1);
-      setProgress(currentProgress);
-    }, 30);
+      // 3D Scroll Animation
+      const cards = cardsRef.current;
+      const container = sectionRef.current;
+      const winHeight = window.innerHeight;
+      const distance = 1500;
+      const visibleRange = 5000;
+      const initialZ = cards.map((_, i) => -i * distance);
 
-    holdTimeout.current = window.setTimeout(() => {
-      // Stop buildup
-      if (buildupRef.current) {
-        buildupRef.current.pause();
-        buildupRef.current.currentTime = 0;
+      function mapRange(
+        value: number,
+        inMin: number,
+        inMax: number,
+        outMin: number,
+        outMax: number
+      ) {
+        return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
       }
-      if (audioRef.current) audioRef.current.play();
-      setProgress(1);
-      clearInterval(progressInterval.current!);
-      progressInterval.current = null;
-      setAudioPlaying(true);
-      triggerExitAnimation();
-    }, 2000);
-  };
 
-  const endHold = () => {
-    if (!holding) return;
-    resetHold();
-  };
+      const onScroll = () => {
+        if (!container) return;
+        const containerTop = container.offsetTop;
+        const containerHeight = container.offsetHeight;
+        const scrollTop = window.scrollY;
+        const progress =
+          (scrollTop - containerTop) / (containerHeight - winHeight);
 
-  const resetHold = () => {
-    setHolding(false);
-    setProgress(0);
-    if (holdTimeout.current) {
-      clearTimeout(holdTimeout.current);
-      holdTimeout.current = null;
-    }
-    if (progressInterval.current) {
-      clearInterval(progressInterval.current);
-      progressInterval.current = null;
-    }
-    // Stop buildup audio
-    if (buildupRef.current) {
-      buildupRef.current.pause();
-      buildupRef.current.currentTime = 0;
-    }
-  };
+        if (progress >= 0 && progress <= 1) {
+          const zIncrement = progress * distance * (cards.length - 1);
 
-  const triggerExitAnimation = () => {
-    setExiting(true);
-    gsap.to("#hero-container", {
-      scale: 1.05,
-      opacity: 0.95,
-      duration: 1,
-      ease: "power4.inOut",
-    });
-  };
+          cards.forEach((card, i) => {
+            const currentZ = initialZ[i] + zIncrement;
+            const opacity = mapRange(currentZ, -visibleRange, 0, 0, 1);
 
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!audioPlaying) {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    }
-  };
+            gsap.to(card, {
+              transform: `translate3d(0, 0, ${currentZ}px)`,
+              opacity: Math.max(0, Math.min(opacity, 1)),
+              ease: "power3.out",
+              duration: 0.4,
+            });
+          });
+        }
+      };
 
-  const handleClickAnywhere = () => {
-    if (audioPlaying) {
-      resetAll();
+      window.addEventListener("scroll", onScroll);
+      return () => {
+        ctx.revert();
+        window.removeEventListener("scroll", onScroll);
+      };
     }
-  };
+  }, [loading]);
 
   return (
     <section
-      id="hero-container"
-      className="relative w-full h-screen bg-[#111] overflow-hidden select-none"
-      onClick={handleClickAnywhere}
+      ref={sectionRef}
+      className="flex gap-6 justify-between py-20 w-full h-screen max-w-main-screen mx-auto [perspective:2000px] [transform-style:preserve-3d] "
     >
-      <audio ref={audioRef} src={audioSrc} preload="auto" />
-      <audio ref={buildupRef} src={buildupAudio} preload="auto" />
+      <div className="w-3/4 grid grid-rows-2 h-full gap-6 z-10">
+        <div className="w-full flex h-full gap-6">
+          <div
+            className="w-2/3 h-full flex flex-col justify-between p-8 rounded-2xl gap-6 backdrop-blur-md bg-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-white/20"
+            ref={(el) => el && (cardsRef.current[0] = el)}
+          >
+            <img
+              className="self-end flower-icon"
+              src={flowerIcon}
+              alt="Flower"
+            />
+            <h2 className="text-white text-5xl intro-text leading-tight">
+              Hello There 👋🏽, <br /> My name is{" "}
+              <span className=" inline-block">Yash Thakur</span>
+            </h2>
+          </div>
 
-      {/* Background Text */}
+          <div
+            className="w-1/3 rounded-2xl p-2 backdrop-blur-md bg-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-white/20"
+            ref={(el) => el && (cardsRef.current[1] = el)}
+          >
+            <img
+              className="h-full w-full object-cover rounded-xl grayscale"
+              src={me}
+              alt=""
+            />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 h-full gap-6">
+          <div
+            className=" flex flex-col items-center justify-between p-8 rounded-2xl  backdrop-blur-md bg-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-white/20"
+            ref={(el) => el && (cardsRef.current[2] = el)}
+          >
+            <img
+              className="self-start circle-icon"
+              src={circleIcon}
+              alt="Circle"
+            />
+            <p className="text-white text-2xl text-left font-roboto font-light">
+              Building modern web applications, dashboards, and websites with a
+              focus on performance, scalability, and seamless user experience.
+            </p>
+          </div>
+          <button
+            className="backdrop-blur-md bg-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-white/20 flex flex-col justify-between p-8 rounded-2xl show-hover-illustration"
+            ref={(el) => el && (cardsRef.current[3] = el)}
+          >
+            <div className="flex justify-between">
+              <h4 className="text-white text-base flex flex-col font-roboto">
+                Have some <span> questions?</span>
+              </h4>
+              <img src={arrow} alt="" />
+            </div>
+            <p className="text-white text-6xl text-left">Contact me</p>
+          </button>
+        </div>
+      </div>
+      <div className="flex flex-col justify-between w-1/3 gap-6 z-10">
+        <div
+          className="h-4/5  flex flex-col justify-between p-8 rounded-2xl gap-4  backdrop-blur-md bg-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-white/20"
+          ref={(el) => el && (cardsRef.current[4] = el)}
+        >
+          <h3 className="text-left text-5xl text-white">Work</h3>
+          <ul className="flex flex-col gap-4">
+            {[
+              "Portfolio Website",
+              "Dashboard UI",
+              "E-commerce App",
+              "Blog Platform",
+            ].map((item, idx) => (
+              <li
+                key={idx}
+                className="group flex justify-between items-center text-white text-3xl border-b border-white/20 pb-1 hover:pl-2 transition-all duration-300 cursor-pointer font-roboto"
+              >
+                <span>{item}</span>
+                <span className="opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-xl">
+                  →
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div
+          className="h-1/5 backdrop-blur-md bg-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-white/20 flex items-center justify-between p-8 rounded-2xl text-white font-roboto"
+          ref={(el) => el && (cardsRef.current[5] = el)}
+        >
+          <a
+            target="_blank"
+            href="https://www.linkedin.com/in/yash-thakur-0b71051b9/"
+            rel="noopener noreferrer"
+          >
+            LINKEDIN
+          </a>
+          <a href="mailto:yash6102000thakur@gmail.com">EMAIL</a>
+        </div>
+      </div>
       <h1
         aria-hidden="true"
         className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
           text-[25rem] font-black text-white/5 select-none pointer-events-none
-          transition-opacity duration-500 ${
-            exiting && !audioPlaying ? "opacity-0" : "opacity-20"
-          }`}
+          transition-opacity duration-500 ${"opacity-20"}`}
       >
-        HOLD
+        Yash
       </h1>
-
-      {/* Main Text */}
-      <div className="absolute top-1/2 left-1/2 max-w-3xl w-full px-6 text-center -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500">
-        {!audioPlaying && (
-          <h2
-            className={`text-6xl font-extrabold text-white tracking-wide mb-6 transition-opacity duration-500 ${
-              exiting ? "opacity-0" : "opacity-100"
-            }`}
-          >
-            {loading ? "Loading..." : "Hold the button below"}
-          </h2>
-        )}
-
-        {audioPlaying && (
-          <>
-            <h2 className="text-6xl font-extrabold text-white tracking-wide mb-6">
-              Audio Playing 🎧
-            </h2>
-            <p className="text-purple-400 text-xl mb-20">
-              Click anywhere to stop and return.
-            </p>
-          </>
-        )}
-      </div>
-
-      {/* Hold Button */}
-      {!audioPlaying && !loading && (
-        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2">
-          <div
-            className="w-24 h-24 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg cursor-pointer relative"
-            onPointerDown={startHold}
-            onPointerUp={endHold}
-            onPointerLeave={endHold}
-            onTouchStart={startHold}
-            onTouchEnd={endHold}
-          >
-            Hold
-          </div>
-
-          <p className="text-white text-sm mt-2 text-center">Press & Hold</p>
-        </div>
-      )}
     </section>
   );
 };
