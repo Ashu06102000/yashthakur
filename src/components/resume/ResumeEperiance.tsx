@@ -1,7 +1,7 @@
 const ResumeExperiance = () => {
   return (
     <div className="flex gap-5 py-20 justify-between">
-      <h3 className="text-white ">Work Experiance</h3>
+      <h3 className="text-white text-lg ">Work Experiance</h3>
       <div className="flex flex-col w-2/3 gap-16">
         <div className="flex gap-48 items-start">
           <h3 className=" font-semibold">Copods</h3>

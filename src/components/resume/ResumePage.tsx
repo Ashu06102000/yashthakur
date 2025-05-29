@@ -1,5 +1,6 @@
 import ResumeEducation from "./ResumeEducation";
 import ResumeExperiance from "./ResumeEperiance";
+import ResumeSkills from "./ResumeSkills";
 
 const ResumePage = ({ loading }: { loading: boolean }) => {
   return (
@@ -26,6 +27,7 @@ const ResumePage = ({ loading }: { loading: boolean }) => {
       </div>
       <ResumeEducation />
       <ResumeExperiance />
+      <ResumeSkills />
     </div>
   );
 };

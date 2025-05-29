@@ -1,7 +1,7 @@
 const ResumeEducation = () => {
   return (
     <div className="flex gap-5 py-20 justify-between">
-      <h3 className="text-white">Education</h3>
+      <h3 className="text-whit text-lg">Education</h3>
       <div className="flex flex-col w-2/3 gap-12">
         <div className="flex gap-48 items-start">
           <div className="flex flex-col">
