@@ -1,6 +1,32 @@
-const ResumeEducation = () => {
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+const Education = () => {
+  const eduRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (eduRef.current) {
+      gsap.fromTo(
+        eduRef.current,
+        { y: 100, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: eduRef.current,
+            start: "top 70%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
+  }, []);
   return (
-    <div className="flex gap-5 py-20 justify-between">
+    <div ref={eduRef} className="flex justify-between py-20">
       <h3 className="text-whit text-lg">Education</h3>
       <div className="flex flex-col w-2/3 gap-12">
         <div className="flex gap-48 items-start">
@@ -29,4 +55,4 @@ const ResumeEducation = () => {
     </div>
   );
 };
-export default ResumeEducation;
+export default Education;

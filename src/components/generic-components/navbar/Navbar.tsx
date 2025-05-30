@@ -1,12 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
 import HamburgerMenu from "./HamburgerMenu";
 
-const navItems = ["Background", "Work", "Resume"];
+const navItems = ["Background", "Work"];
 
 const Navbar = () => {
   const location = useLocation();
 
-  const textColorClass = "text-white";
+  const textColorClass =
+    location.pathname === "/" ? "text-black" : "text-white";
 
   return (
     <header className="w-full fixed top-0 py-8 flex justify-between items-center z-50 max-w-main-screen ">

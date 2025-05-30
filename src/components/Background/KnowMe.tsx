@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import WorkSection from "./WorkSection";
 import KnowMySkills from "./KnowMySkills";
+import Education from "./Education";
 gsap.registerPlugin(ScrollTrigger);
 
 const KnowMwe = ({ loading }: { loading: boolean }) => {
@@ -117,6 +118,8 @@ const KnowMwe = ({ loading }: { loading: boolean }) => {
       <WorkSection />
       <span className="border-t border-t-graymain border-opacity-30"></span>
       <KnowMySkills />
+      <span className="border-t border-t-graymain border-opacity-30"></span>
+      <Education />
     </div>
   );
 };

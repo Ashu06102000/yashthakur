@@ -46,6 +46,70 @@ const WorkSection = () => {
             </span>
           </div>
         </div>
+        <p className="font-roboto text-graymain flex flex-col gap-2">
+          <span>
+            Implemented encrypted HLS video streaming using AWS MediaConvert,
+            CloudFront, and signed URLs—reducing piracy risk by 95% while
+            supporting over 650,000+ streams per month.
+          </span>
+          <span>
+            Developed a feature-rich workspace system with real-time
+            invitations, live collaboration, and access control. Cut down
+            project management time by an average of 2 hours/week per user.
+          </span>
+          <span>
+            Built a flexible authentication system using micro frontends and
+            Module Federation. Allowed seamless integration across six
+            independent platform modules without authentication conflicts.
+          </span>
+          <span>
+            Created a library of reusable, framework-agnostic UI components.
+            Reduced development time on shared features by 40% and improved
+            design consistency across platforms.
+          </span>
+          <span>
+            Designed and deployed an Online Examination System that automated
+            candidate testing. Improved recruitment efficiency by 63% and cut
+            evaluation time from five days to just a few hours.
+          </span>
+          <span>
+            Led the redesign of a healthcare portal offering free diabetes
+            consultations. Increased accessibility by 90% and tripled
+            appointment bookings within the first three months.
+          </span>
+          <span>
+            Built custom eCommerce experiences using Shopify by creating custom
+            components with Liquid, helping brands achieve eight-figure revenue
+            within their first year after launch.
+          </span>
+          <span>
+            Developed an AI-powered learning platform on WordPress that
+            personalizes content delivery. Boosted average engagement time by
+            2.3x and increased course completion rates by 45%.
+          </span>
+          <span>
+            Strengthened backend infrastructure with Prisma ORM, role-based
+            access control, Cypress tests, and automated SSL renewals. Reduced
+            downtime and critical bugs by 70%.
+          </span>
+          <span>
+            Integrated Twilio to send real-time SMS alerts for healthcare
+            appointments. Improved communication response rate by 62%,
+            especially in low-connectivity regions.
+          </span>
+          <span>
+            Leveraged AWS services such as S3 for storage, EC2 and Lightsail for
+            hosting, and Lambda for serverless functions—building scalable,
+            reliable, and cost-effective cloud infrastructure to support various
+            applications and platforms.
+          </span>
+          <span>
+            Created responsive, user-friendly websites using WordPress and
+            Webflow, delivering tailored digital experiences for various
+            clients.
+          </span>
+        </p>
+
         <button className="bg-white text-black py-4 px-6 rounded-full w-fit">
           Download Resumé
         </button>
