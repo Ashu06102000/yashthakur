@@ -16,7 +16,6 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
             playsInline
           />
         </div>
-
         <h1 className="text-black text-2xl font-light absolute bottom-10 left-0 w-1/3 font-roboto">
           — a frontend developer turning bold ideas into seamless, interactive
           digital experiences.
