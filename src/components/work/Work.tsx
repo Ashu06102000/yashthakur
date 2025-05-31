@@ -4,7 +4,7 @@ import WorkSection from "./WorkSection";
 const Work = ({ loading }: { loading: boolean }) => {
   return (
     <>
-      <div className="py-32 pt-0 relative mx-auto max-w-main-screen">
+      <div className="py-32 relative mx-auto max-w-main-screen w-full">
         {" "}
         <WorkSection />
       </div>

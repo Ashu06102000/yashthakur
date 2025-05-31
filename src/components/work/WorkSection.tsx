@@ -1,191 +1,102 @@
-import React, { useEffect, useRef, useState } from "react";
-import { TweenMax, Strong } from "gsap";
+import React, { useRef, useLayoutEffect } from "react";
+import { gsap } from "gsap";
 import rator from "../../assets/rator.png";
 import morax from "../../assets/morax-home.png";
-import moraxTwo from "../../assets//moraxtwo.png";
+import moraxTwo from "../../assets/moraxtwo.png";
 
-const images = [rator, morax, moraxTwo];
-const imageTitles = ["Rator", "Morax", "morax"];
+interface Project {
+  name: string;
+  image: string;
+}
 
-const IMAGE_PIECE_COUNT = 10;
-const X_CHANGE = 1000;
-const Y_CHANGE = 1000;
-const ROTATION = 25;
-const TOTAL_WIDTH = 750;
-const TOTAL_HEIGHT = 500;
+const projects: Project[] = [
+  { name: "Rator Project", image: rator },
+  { name: "Morax Home", image: morax },
+  { name: "Morax Two", image: moraxTwo },
+  { name: "Another Rator", image: rator },
+];
 
-const WorkSection = () => {
-  const [index, setIndex] = useState(0);
-  const isChanging = useRef(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const labelRef = useRef<HTMLDivElement>(null);
+const WorkSection: React.FC = () => {
+  const imgRef = useRef<HTMLImageElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-  const displayImage = (idx: number) => {
-    if (!containerRef.current) return;
+  useLayoutEffect(() => {
+    const img = imgRef.current;
+    if (!img || !wrapperRef.current) return;
 
-    containerRef.current.innerHTML = "";
-
-    const chunkWidthPercent = 100 / IMAGE_PIECE_COUNT;
-
-    // Animate label fade-in
-    if (labelRef.current) {
-      TweenMax.fromTo(
-        labelRef.current,
-        0.6,
-        { opacity: 0 },
-        { opacity: 0.1, ease: Strong.easeInOut }
-      );
-    }
-
-    for (let i = 0; i < IMAGE_PIECE_COUNT; i++) {
-      const chunk = document.createElement("div");
-      chunk.id = `chunk${i}`;
-
-      Object.assign(chunk.style, {
-        backgroundImage: `url(${images[idx]})`,
-        backgroundPosition: `${i * chunkWidthPercent}% 50%`,
-        backgroundSize: `${IMAGE_PIECE_COUNT * 100}% 100%`,
-        height: `${TOTAL_HEIGHT}px`,
-        width: `${TOTAL_WIDTH / IMAGE_PIECE_COUNT}px`,
-        display: "inline-block",
-        backgroundRepeat: "no-repeat",
-        filter: "grayscale(100%)",
-        boxSizing: "border-box",
-        overflow: "hidden",
-        cursor: "default",
+    const moveImage = (e: MouseEvent) => {
+      gsap.to(img, {
+        x: e.clientX + 20,
+        y: e.clientY + 20,
+        duration: 0.3,
+        ease: "power3.out",
       });
+    };
 
-      containerRef.current.appendChild(chunk);
+    const showImage = () => {
+      gsap.to(img, { autoAlpha: 1, scale: 1, duration: 0.3 });
+    };
 
-      TweenMax.fromTo(
-        chunk,
-        1,
-        {
-          x: i % 2 === 0 ? -X_CHANGE : X_CHANGE,
-          y: i % 2 === 0 ? Y_CHANGE : -Y_CHANGE,
-          rotation: -ROTATION,
-          opacity: 0,
-        },
-        {
-          x: 0,
-          y: 0,
-          rotation: 0,
-          opacity: 1,
-          ease: Strong.easeInOut,
-          onComplete: () => {
-            if (i === IMAGE_PIECE_COUNT - 1) {
-              isChanging.current = false;
-            }
-          },
-        }
-      );
-    }
-  };
+    const hideImage = () => {
+      gsap.to(img, { autoAlpha: 0, scale: 0.8, duration: 0.3 });
+    };
 
-  const removeImage = (): Promise<void> => {
-    return new Promise((resolve) => {
-      if (!containerRef.current) {
-        resolve();
-        return;
-      }
+    const items =
+      wrapperRef.current.querySelectorAll<HTMLDivElement>(".hover-item");
 
-      const chunks = Array.from(
-        containerRef.current.querySelectorAll<HTMLDivElement>("div")
-      );
+    items.forEach((item) => {
+      const mouseEnterHandler = () => {
+        const image = item.getAttribute("data-image");
+        if (image) img.src = image;
+        showImage();
+      };
+      item.addEventListener("mouseenter", mouseEnterHandler);
+      item.addEventListener("mousemove", moveImage);
+      item.addEventListener("mouseleave", hideImage);
 
-      if (chunks.length === 0) {
-        resolve();
-        return;
-      }
+      // Save references to handlers for cleanup
+      (item as any)._mouseEnterHandler = mouseEnterHandler;
+    });
 
-      let completedCount = 0;
-
-      chunks.forEach((chunk, i) => {
-        TweenMax.to(chunk, 1, {
-          rotation: ROTATION,
-          ease: Strong.easeInOut,
-          onComplete: () => {
-            TweenMax.fromTo(
-              chunk,
-              1,
-              { x: 0, y: 0 },
-              {
-                y: i % 2 === 0 ? -Y_CHANGE : Y_CHANGE,
-                x: i % 2 === 0 ? -X_CHANGE : X_CHANGE,
-                ease: Strong.easeInOut,
-                onComplete: () => {
-                  chunk.parentNode?.removeChild(chunk);
-                  completedCount++;
-                  if (completedCount === chunks.length) {
-                    resolve();
-                  }
-                },
-              }
-            );
-          },
-        });
+    return () => {
+      items.forEach((item) => {
+        item.removeEventListener(
+          "mouseenter",
+          (item as any)._mouseEnterHandler
+        );
+        item.removeEventListener("mousemove", moveImage);
+        item.removeEventListener("mouseleave", hideImage);
       });
-    });
-  };
-
-  const changePosition = (movement: number) => {
-    if (isChanging.current) return;
-    isChanging.current = true;
-
-    let newIndex = index + movement;
-    if (newIndex < 0) newIndex = images.length - 1;
-    else if (newIndex >= images.length) newIndex = 0;
-
-    removeImage().then(() => {
-      setIndex(newIndex);
-      displayImage(newIndex);
-    });
-  };
-
-  useEffect(() => {
-    displayImage(index);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    };
   }, []);
 
   return (
-    <div
-      className="relative flex flex-col items-center justify-center min-h-screen bg-[#111] text-white"
-      style={{ userSelect: "none" }}
-    >
-      {/* Big background label */}
-      <div
-        ref={labelRef}
-        className="absolute text-[20rem] font-bold uppercase opacity-10 pointer-events-none select-none"
-        style={{
-          zIndex: 0,
-          whiteSpace: "nowrap",
-        }}
-      >
-        {imageTitles[index]}
+    <section className="relative p-12 sm:p-16 md:p-24 bg-[#111] text-white flex flex-col gap-8 sm:gap-12 md:gap-16">
+      <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-6 sm:mb-8">
+        Selected Work
+      </h1>
+
+      <div ref={wrapperRef} className="space-y-4 sm:space-y-6 md:space-y-2">
+        {projects.map((project, index) => (
+          <div
+            key={index}
+            data-image={project.image}
+            className="hover-item border-b border-graymain py-4 sm:py-6 text-xl sm:text-3xl md:text-4xl font-light cursor-pointer relative z-10 px-2 sm:px-4 md:px-8 transition-all duration-300 ease-in-out hover:px-6 sm:hover:px-8 md:hover:px-10"
+          >
+            <a href="#" className="block w-full h-full">
+              {project.name}
+            </a>
+          </div>
+        ))}
       </div>
 
-      {/* Image chunks container */}
-      <div
-        ref={containerRef}
-        id="theImage"
-        className="flex flex-wrap rounded-lg"
-        style={{
-          width: `${TOTAL_WIDTH}px`,
-          height: `${TOTAL_HEIGHT}px`,
-          perspective: "1500px",
-          zIndex: 1,
-        }}
-      ></div>
-
-      <div
-        id="buttons"
-        className="mt-10 flex gap-16 text-2xl cursor-pointer select-none tracking-wide uppercase"
-        style={{ zIndex: 2 }}
-      >
-        <span onClick={() => changePosition(-1)}>Previous</span>
-        <span onClick={() => changePosition(1)}>Next</span>
-      </div>
-    </div>
+      {/* Floating Image Preview */}
+      <img
+        ref={imgRef}
+        className="pointer-events-none fixed top-0 left-0 z-50 w-32 sm:w-40 md:w-48 h-auto opacity-0 scale-90"
+        alt="Preview"
+      />
+    </section>
   );
 };
 
