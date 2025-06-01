@@ -44,8 +44,8 @@ const KnowMwe = ({ loading }: { loading: boolean }) => {
     }
   });
   return (
-    <div className="flex flex-col p-24">
-      <div className="flex flex-col gap-5 pb-40">
+    <div className="flex flex-col p-5 md:p-24">
+      <div className="flex flex-col gap-5 pb-20 md:pb-40">
         <div className="flex items-center gap-5">
           <h1 className="text-white text-base">Get to know me</h1>
           <p className="text-graysharetwo text-xs">Resumé & biography</p>
@@ -54,7 +54,7 @@ const KnowMwe = ({ loading }: { loading: boolean }) => {
           {" "}
           <div
             ref={paragrahRef}
-            className="flex flex-col w-3/4 gap-4 text-4xl text-[#696969]"
+            className="flex flex-col w-full md:w-3/4 gap-4 text-4xl text-[#696969]"
           >
             {[paragraph1].map((paragraph, pIndex) => (
               <p key={pIndex}>
@@ -76,9 +76,9 @@ const KnowMwe = ({ loading }: { loading: boolean }) => {
         </h3>
       </div>
       <span className="border-t border-t-graymain border-opacity-30"></span>
-      <div className="flex gap-5 py-20 justify-between my-intro">
+      <div className="flex md:flex-row flex-col gap-5 py-20 justify-between my-intro">
         <h3 className="text-white text-lg">Every. Interaction. Feels.</h3>
-        <div className="flex flex-col w-2/3 gap-5">
+        <div className="flex flex-col w-full md:w-2/3 gap-5">
           <p className="text-graysharetwo font-roboto flex flex-col gap-5 font-light">
             <span>
               For me, frontend development isn't just about writing code—it's

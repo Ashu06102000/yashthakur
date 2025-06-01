@@ -32,7 +32,7 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
       ref={containerRef}
       className="flex items-center justify-center bg-[#fcfaf9] w-full h-screen [perspective:2000px] max-h-screen [transform-style:preserve-3d]"
     >
-      <div className="relative w-full h-full max-w-main-screen mx-auto flex items-center justify-center">
+      <div className="relative w-full h-full max-w-main-screen mx-auto flex items-center justify-center px-5 sm:px-8">
         <div className="w-full max-w-5xl max-h-[60vh] flex justify-center items-center">
           <video
             ref={videoRef}
@@ -46,20 +46,22 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
         </div>
         <h1
           ref={subTextLeftRef}
-          className="text-black text-2xl font-light absolute bottom-10 left-0 w-1/3 font-roboto"
+          className="text-black text-sm sm:text-base md:text-2xl font-light absolute bottom-24 md:bottom-10 left-2 md:left-0 w-1/2 sm:w-1/3 font-roboto px-2 sm:px-0"
+          style={{ lineHeight: 1.3 }}
         >
           — a frontend developer turning bold ideas into seamless, interactive
           digital experiences.
         </h1>
         <h2
           ref={subTextRightRef}
-          className="text-black/80 text-xl font-thin absolute bottom-10 right-0"
+          className="text-black/80 text-sm sm:text-lg md:text-xl font-thin absolute bottom-10 left-2 md:left-auto right-auto md:right-0 px-2 sm:px-0"
         >
           Every. Interaction. Feels.
         </h2>
         <span
           ref={titleRef}
-          className="text-[16em] text-black/80 absolute top-20 left-auto right-auto"
+          className="text-[6rem] sm:text-[10rem] md:text-[16rem] text-black/80 absolute top-18 md:top-[1em] left-1/2 transform -translate-x-1/2 whitespace-nowrap"
+          style={{ lineHeight: 1 }}
         >
           iamyash
         </span>

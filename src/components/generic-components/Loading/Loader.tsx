@@ -156,7 +156,7 @@ const Loader = ({
       >
         <div
           ref={loaderRef}
-          className="absolute top-1/2 left-1/2 w-full h-2.5 -translate-x-1/2 -translate-y-1/2 flex bg-[#F8AFA6]"
+          className="absolute top-1/2 left-1/2 w-full h-2.5 -translate-x-1/2 -translate-y-1/2 flex bg-[#FF6F61]"
         >
           <div
             ref={loaderBarRef}

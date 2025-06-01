@@ -10,7 +10,7 @@ const Navbar = () => {
     location.pathname === "/" ? "text-black" : "text-white";
 
   return (
-    <header className="w-full fixed top-0 py-8 flex justify-between items-center z-50 max-w-main-screen ">
+    <header className="w-full fixed top-0 py-8 flex justify-between items-center z-50 max-w-main-screen md:px-0 px-5">
       <Link
         to="/"
         className={`text-2xl uppercase font-light tracking-tighter transition-colors duration-300 ${textColorClass}`}

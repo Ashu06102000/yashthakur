@@ -26,9 +26,12 @@ const Education = () => {
     }
   }, []);
   return (
-    <div ref={eduRef} className="flex justify-between py-20">
+    <div
+      ref={eduRef}
+      className="flex flex-col md:flex-row justify-between pt-20"
+    >
       <h3 className="text-whit text-lg">Education</h3>
-      <div className="flex flex-col w-2/3 gap-12">
+      <div className="flex flex-col w-full md:w-2/3 gap-5 md:gap-12">
         <div className="flex gap-48 items-start">
           <div className="flex flex-col">
             <h3 className="font-semibold">B-TECH Electrical Engineering</h3>

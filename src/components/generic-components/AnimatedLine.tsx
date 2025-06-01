@@ -4,7 +4,7 @@ const AnimatedList = ({
   items: { title: string; description: string }[];
 }) => {
   return (
-    <div className="flex flex-col z-10 pt-16 sm:pt-24 max-w-screen-xl mx-auto w-full gap-2">
+    <div className="flex flex-col z-10 pt-0 sm:pt-24 max-w-screen-xl mx-auto w-full gap-2">
       {items.map((item, index) => (
         <button
           key={index}

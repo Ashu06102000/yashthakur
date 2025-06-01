@@ -29,10 +29,13 @@ const WorkSection = () => {
   }, []);
 
   return (
-    <div ref={workref} className="flex gap-5 py-20 justify-between">
-      <h3 className="text-white">Work Experiance</h3>
-      <div className="flex flex-col w-2/3 gap-24">
-        <div className="flex gap-48 items-start">
+    <div
+      ref={workref}
+      className="flex flex-col md:flex-row gap-5 py-20 justify-between"
+    >
+      <h3 className="text-white text-lg">Work Experiance</h3>
+      <div className="flex flex-col w-full md:w-2/3 md:gap-24 gap-5">
+        <div className="flex md:flex-row flex-col gap-12 md:gap-48 items-start">
           <img src={copodslogo} alt="" />
           <div className="flex flex-col">
             <span className="text-white text-base font-light">
@@ -110,7 +113,7 @@ const WorkSection = () => {
           </span>
         </p>
 
-        <button className="bg-white text-black py-4 px-6 rounded-full w-fit">
+        <button className="bg-white text-black py-4 px-6 rounded-full w-fit md:mt-0 mt-12">
           Download Resumé
         </button>
       </div>

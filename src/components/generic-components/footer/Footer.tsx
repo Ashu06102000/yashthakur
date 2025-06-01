@@ -79,7 +79,7 @@ const Footer = () => {
 
       <AnimatedList items={items} />
 
-      <div className="mx-auto w-full mt-20 sm:mt-32 flex flex-col-reverse sm:flex-row items-center sm:items-end justify-between gap-8 sm:gap-0 relative z-10">
+      <div className="mx-auto w-full mt-0 sm:mt-32 flex flex-col-reverse sm:flex-row items-center sm:items-end justify-between gap-2 sm:gap-0 relative z-10">
         {/* Logo */}
         <div ref={logoRef} className="mt-8 sm:mt-0">
           <div className="flex items-center">

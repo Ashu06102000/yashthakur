@@ -56,7 +56,7 @@ export default function HamburgerMenu() {
   return (
     <div className="relative z-50">
       {/* Hamburger Icon */}
-      <div className="flex fixed top-6 right-6 sm:right-12 justify-between items-center gap-2 z-50">
+      <div className="flex fixed top-10 right-6 sm:right-12 justify-between items-center gap-2 z-50">
         <button
           aria-label="Toggle menu"
           className="flex flex-col gap-1 px-4 cursor-pointer"
