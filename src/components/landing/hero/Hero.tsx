@@ -30,7 +30,7 @@ const Hero: React.FC<{ loading: boolean }> = ({ loading }) => {
   return (
     <section
       ref={containerRef}
-      className="flex items-center justify-center bg-[#fcfaf9] w-full h-screen [perspective:2000px] max-h-screen [transform-style:preserve-3d]"
+      className="flex items-center justify-center bg-[#fcfaf9] w-full h-screen [perspective:2000px] max-h-screen overflow-hidden [transform-style:preserve-3d]"
     >
       <div className="relative w-full h-full max-w-main-screen mx-auto flex items-center justify-center px-5 sm:px-8">
         <div className="w-full max-w-5xl max-h-[60vh] flex justify-center items-center">
