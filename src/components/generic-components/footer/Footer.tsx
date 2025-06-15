@@ -14,7 +14,7 @@ const Footer = () => {
     {
       title: "Thoughts",
       description:
-        "An unfiltered look into my thoughts on the design Industry as a whole",
+        "An unfiltered look into my thoughts on the Development Industry as a whole",
     },
   ];
 
