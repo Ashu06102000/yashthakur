@@ -9,7 +9,6 @@ const Work = ({ loading }: { loading: boolean }) => {
 
   useEffect(() => {
     if (!loading) {
-      // GSAP animation triggered after loading is false
       gsap.fromTo(
         containerRef.current,
         { opacity: 0, y: 50 },
