@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,7 +52,6 @@ export default function HamburgerMenu() {
   };
 
   const handleLinkClick = (slug: string) => {
-    // Reverse animations
     tl.current?.reverse();
     gsap.to(".line-1", { rotate: 0, y: 0, duration: 0.3 });
     gsap.to(".line-2", { opacity: 1, duration: 0.3 });
@@ -60,12 +60,13 @@ export default function HamburgerMenu() {
     setTimeout(() => {
       setIsOpen(false);
       navigate(slug === "home" ? "/" : `/${slug}`);
-    }, 500); // Delay matches GSAP duration
+    }, 500);
   };
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   return (
     <div className="relative z-50">
-      {/* Hamburger Icon */}
       <div className="flex fixed top-10 right-6 sm:right-12 justify-between items-center gap-2 z-50">
         <button
           aria-label="Toggle menu"
@@ -74,23 +75,22 @@ export default function HamburgerMenu() {
         >
           <div
             className={`line-1 ${
-              isOpen ? "bg-white" : "bg-black"
+              isOpen || !isHome ? "bg-white" : "bg-black"
             } h-0.5 w-8 sm:w-10 rounded`}
-          ></div>
+          />
           <div
             className={`line-2 ${
-              isOpen ? "bg-white" : "bg-black"
+              isOpen || !isHome ? "bg-white" : "bg-black"
             } h-0.5 w-8 sm:w-10 rounded`}
-          ></div>
+          />
           <div
             className={`line-3 ${
-              isOpen ? "bg-white" : "bg-black"
+              isOpen || !isHome ? "bg-white" : "bg-black"
             } h-0.5 w-8 sm:w-10 rounded`}
-          ></div>
+          />
         </button>
       </div>
 
-      {/* Sliding Menu */}
       <div
         ref={menuRef}
         className="fixed top-0 right-0 h-screen w-full sm:w-[28rem] md:w-full pt-[15%] bg-black text-white px-6 sm:px-10 z-40 overflow-y-auto"
