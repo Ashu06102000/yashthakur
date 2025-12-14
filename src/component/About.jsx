@@ -28,13 +28,13 @@ const About = () => {
           ref={contentRef}
           className="w-full flex flex-col justify-center gap-3"
         >
-          <p className="text-[#e0dcdc] text-3xl  font-normal lineheight">
+          <p className="text-white text-3xl  font-normal lineheight">
             I specialize in Product Experience Engineering, crafting solutions
             that prioritize exceptional user experiences. I collaborate closely
             with cross-functional teams to turn business goals into impactful
             products.
           </p>
-          <p className="text-[#e0dcdc] text-3xl font-normal lineheight">
+          <p className="text-white text-3xl font-normal lineheight">
             Skilled in full-stack development and AWS infrastructure, I
             translate complex requirements into scalable solutions. Passionate
             about problem-solving and leveraging technology to drive innovation.
