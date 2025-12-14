@@ -5,10 +5,17 @@ body {
   margin: auto;
   padding-left: 80px;
   padding-right: 80px;
-  font-family: sans-serif;
+}
+
+@font-face {
+  font-family: "MyCustomFont";
+  src: url("../public/gallery.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
 }
 p {
   font-size: 16px;
+  font-family: "MyCustomFont";
 }
 
 /* Gallery layout */
@@ -83,7 +90,7 @@ p {
 }
 
 .default-label {
-  font-size: 48px;
+  font-size: 36px;
   font-weight: bold;
   color: #fff;
   position: fixed;
@@ -92,4 +99,15 @@ p {
   transform: translateX(-50%);
   text-transform: uppercase;
   font-family: "Anton", sans-serif;
+}
+
+.default-content {
+  color: white;
+  font-size: 20vw;
+  text-align: center;
+  line-height: 1;
+}
+
+.lineheight {
+  line-height: 1.3;
 }

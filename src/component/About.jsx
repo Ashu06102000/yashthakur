@@ -1,42 +1,45 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 const About = () => {
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      const paragraphs = contentRef.current.children;
+      gsap.fromTo(
+        paragraphs,
+        { opacity: 0, y: 30 }, // start state
+        {
+          opacity: 1,
+          y: 0, // end state
+          stagger: 0.2,
+          duration: 0.8,
+          ease: "power3.out",
+        }
+      );
+    }
+  }, []);
+
   return (
-    <div className="w-full h-full overflow-y-auto p-10 text-white flex justify-center items-start">
-      <div className="max-w-4xl space-y-8">
-        {/* Name and Title */}
-        <div className="space-y-2">
-          <h1 className="text-2xl font-bold">Yash Thakur</h1>
-          <h3 className="text-xl text-gray-300">Software Engineer</h3>
+    <div className="w-full h-[60vh] flex justify-center items-center px-4">
+      <div className="w-full max-w-4xl gap-6 h-full">
+        <div
+          ref={contentRef}
+          className="w-full flex flex-col justify-center gap-3"
+        >
+          <p className="text-[#e0dcdc] text-2xl leading-relaxed font-normal lineheight">
+            I specialize in Product Experience Engineering, crafting solutions
+            that prioritize exceptional user experiences. I collaborate closely
+            with cross-functional teams to turn business goals into impactful
+            products.
+          </p>
+          <p className="text-[#e0dcdc] text-2xl leading-relaxed font-normal lineheight">
+            Skilled in full-stack development and AWS infrastructure, I
+            translate complex requirements into scalable solutions. Passionate
+            about problem-solving and leveraging technology to drive innovation.
+          </p>
         </div>
-
-        {/* Contact */}
-        <section className="space-y-2">
-          <h4 className="text-red-500 text-sm font-semibold">CONTACT</h4>
-          <p>Email: yash.thakur@copods.co</p>
-          <p>Location: Pune, India</p>
-        </section>
-
-        {/* About Me */}
-        <section className="space-y-2">
-          <h4 className="text-red-500 text-sm font-semibold">ABOUT ME</h4>
-          <p>
-            With expertise in Product Experience Engineering, I thrive on
-            exploring cutting-edge technologies and crafting solutions that
-            prioritize exceptional user experiences. I collaborate closely with
-            cross-functional teams, aligning business objectives with user needs
-            to build innovative and impactful products.
-          </p>
-          <p>
-            Proficient in full-stack development, including infrastructure
-            management with AWS, I seamlessly translate complex requirements
-            into scalable solutions. Experienced in fast-paced startup
-            ecosystems, I excel in adapting to challenges, driving technical
-            excellence, and enhancing product strategy. Passionate about
-            creative problem-solving and leveraging technology to push
-            boundaries in product development.
-          </p>
-        </section>
       </div>
     </div>
   );
