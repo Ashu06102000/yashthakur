@@ -1,4 +1,3 @@
-import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import HoverGallery from "./component/HoverGallery";
 import Header from "./component/Header";
