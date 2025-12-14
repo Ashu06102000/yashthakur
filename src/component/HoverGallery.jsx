@@ -2,7 +2,20 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import About from "./About";
 
-// Example components for each image
+const DefaultHello = () => (
+  <div
+    className="default-content"
+    style={{
+      textAlign: "center",
+      color: "#fff",
+      fontSize: "36px",
+      marginBottom: "20px",
+    }}
+  >
+    Hello
+  </div>
+);
+
 const Component1 = () => (
   <div className="hover-content">
     <About />
@@ -22,19 +35,21 @@ const images = [
 ];
 
 export default function HoverGallery() {
-  const containerRef = useRef(null);
   const cursorRef = useRef(null);
+  const componentContainerRef = useRef(null);
   const [HoveredComponent, setHoveredComponent] = useState(null);
+
+  const defaultText = "Frontend Developer";
 
   useEffect(() => {
     const cursor = cursorRef.current;
-    gsap.set(cursor, { xPercent: -50, yPercent: -50 });
+    gsap.set(cursor, { xPercent: -50, yPercent: -50, scale: 1, autoAlpha: 1 });
 
     const moveCursor = (e) => {
       gsap.to(cursor, {
         x: e.clientX,
         y: e.clientY,
-        duration: 0.3,
+        duration: 0.2,
         ease: "power3.out",
       });
     };
@@ -43,47 +58,17 @@ export default function HoverGallery() {
     return () => window.removeEventListener("mousemove", moveCursor);
   }, []);
 
-  const handleEnter = (Component) => (e) => {
-    const img = e.currentTarget;
-
-    gsap.to(img, {
-      scale: 1,
-      zIndex: 10,
-      duration: 0.4,
-      ease: "power3.out",
-    });
-
-    gsap.to(cursorRef.current, {
-      scale: 1.4,
-      autoAlpha: 1,
-      duration: 0.3,
-    });
-
+  const handleEnter = (Component) => () => {
     setHoveredComponent(() => Component);
   };
 
-  const handleLeave = (e) => {
-    const img = e.currentTarget;
-
-    gsap.to(img, {
-      scale: 1,
-      zIndex: 1,
-      duration: 0.4,
-      ease: "power3.out",
-    });
-
-    gsap.to(cursorRef.current, {
-      scale: 0,
-      autoAlpha: 0,
-      duration: 0.3,
-    });
-
+  const handleLeave = () => {
     setHoveredComponent(null);
   };
 
   return (
-    <>
-      <div className="gallery" ref={containerRef}>
+    <div className="gallery-wrapper">
+      <div className="gallery">
         {images.map((item, i) => (
           <div
             key={i}
@@ -91,20 +76,71 @@ export default function HoverGallery() {
             onMouseEnter={handleEnter(item.component)}
             onMouseLeave={handleLeave}
           >
-            <img src={item.src} alt="" />
+            <img src={item.src} alt={`thumb-${i}`} />
           </div>
         ))}
       </div>
 
-      <div className="cursor" ref={cursorRef}>
+      {/* Cursor */}
+      <div
+        className="cursor"
+        ref={cursorRef}
+        style={{
+          position: "fixed",
+          width: "40px",
+          height: "40px",
+          borderRadius: "50%",
+          background: "#ff4757",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "#fff",
+          fontWeight: "bold",
+          pointerEvents: "none",
+          zIndex: 1000,
+        }}
+      >
         ↗
       </div>
 
-      {HoveredComponent && (
-        <div className="hover-overlay">
-          <HoveredComponent />
+      {/* Component overlay */}
+      <div
+        className="hover-overlay"
+        ref={componentContainerRef}
+        style={{
+          position: "fixed",
+          top: "30%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 50,
+          pointerEvents: "none",
+        }}
+      >
+        {/* Smooth fade between hovered and default */}
+        <div style={{ position: "relative" }}>
+          <div
+            style={{
+              position: "absolute",
+              width: "100%",
+              opacity: HoveredComponent ? 0 : 1,
+            }}
+          >
+            <DefaultHello />
+          </div>
+          <div
+            style={{
+              position: "relative",
+              width: "100%",
+              opacity: HoveredComponent ? 1 : 0,
+            }}
+          >
+            {HoveredComponent && <HoveredComponent />}
+          </div>
         </div>
-      )}
-    </>
+      </div>
+
+      {/* Frontend Developer text at bottom */}
+      <div className="default-label">{defaultText}</div>
+    </div>
   );
 }

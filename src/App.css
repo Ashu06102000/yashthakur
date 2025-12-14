@@ -7,6 +7,9 @@ body {
   padding-right: 80px;
   font-family: sans-serif;
 }
+p {
+  font-size: 16px;
+}
 
 /* Gallery layout */
 .gallery {
@@ -65,4 +68,28 @@ body {
   color: white;
   font-size: 3rem;
   text-align: center;
+}
+
+.initial-label {
+  font-size: 22vw;
+  color: white;
+  text-transform: uppercase;
+  font-family: "Anton", sans-serif;
+  text-align: center;
+  line-height: 1.2;
+}
+.letter {
+  display: inline-block;
+}
+
+.default-label {
+  font-size: 48px;
+  font-weight: bold;
+  color: #fff;
+  position: fixed;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-transform: uppercase;
+  font-family: "Anton", sans-serif;
 }

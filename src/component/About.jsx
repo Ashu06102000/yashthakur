@@ -37,56 +37,6 @@ const About = () => {
             boundaries in product development.
           </p>
         </section>
-
-        {/* Experience & Technical Proficiency */}
-        <section className="space-y-2">
-          <h4 className="text-red-500 text-sm font-semibold">
-            EXPERIENCE & TECHNICAL PROFICIENCY
-          </h4>
-          <ul className="list-disc list-inside space-y-1 text-sm">
-            <li>
-              Frontend: JavaScript, TypeScript, HTML5, CSS3, Micro-frontend
-              (Webpack Module Federation), StencilJS, Zustand
-            </li>
-            <li>JavaScript Frameworks: React, Remix.js, Meteor</li>
-            <li>
-              Testing & Cloud: Cypress, AWS (S3, EC2, MediaConverter, Lightsail,
-              Route53, CloudFront, Lambda)
-            </li>
-            <li>Backend & Databases: Node.js, Postgres, MySQL, PrismaORM</li>
-            <li>Version Control: Git, GitHub</li>
-            <li>Visualization Libraries: Highcharts</li>
-            <li>SDLC Methods: Agile and Waterfall</li>
-            <li>CMS & Platforms: WordPress, Shopify</li>
-          </ul>
-        </section>
-
-        {/* Key Responsibilities */}
-        <section className="space-y-2">
-          <h4 className="text-red-500 text-sm font-semibold">
-            KEY RESPONSIBILITIES
-          </h4>
-          <ul className="list-disc list-inside space-y-1 text-sm">
-            <li>
-              Collaborating with Stakeholders – align product strategies with
-              business objectives and user needs.
-            </li>
-            <li>
-              Requirement Analysis – use data-driven research to define success
-              criteria and shape product interventions.
-            </li>
-            <li>
-              Technical Implementation – build scalable full-stack solutions.
-            </li>
-            <li>
-              Infrastructure & Deployment – manage cloud infrastructure (AWS).
-            </li>
-            <li>
-              Continuous Improvement – gather feedback and refine
-              implementations.
-            </li>
-          </ul>
-        </section>
       </div>
     </div>
   );
