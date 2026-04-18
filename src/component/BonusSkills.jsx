@@ -1,0 +1,61 @@
+const TICKER_MSG =
+  "'Just below lies the realm of brilliance—projects that speak louder than words. ^_~ 💡'";
+
+const bonusSkills = [
+  "React.js, React Native, Next.js, TypeScript",
+  "Modular architecture, Micro-frontends (Module Federation), Component libraries",
+  "State management, API integration, Data fetching & caching",
+  "AWS (S3, CloudFront, Lambda, Bedrock, MediaConvert)",
+  "RAG systems, Vector search, AI integrations",
+  "Real-time systems (LiveKit), HLS streaming",
+  "Git, Webpack, Cypress",
+];
+
+const BonusSkills = () => {
+  return (
+    <section id="bonus" className="relative flex flex-col min-h-screen max-w-screen-lg mx-auto">
+      {/* ── Main content ── */}
+      <div className="flex-1 px-14 pt-14 pb-10 flex flex-col">
+
+        {/* Top area: heading left, list right */}
+        <div className="flex justify-between items-start mb-12">
+          {/* Heading */}
+          <h2 className="font-sans font-thin text-[clamp(24px,4vw,40px)] leading-none text-black">
+            <span className="opacity-40 mr-2">--</span>
+            <span className="underline decoration-[1.5px] underline-offset-8">Technical Skills:</span>
+          </h2>
+
+          {/* List items */}
+          <div className="flex flex-col max-w-md">
+            {bonusSkills.map((skill, index) => (
+              <div key={index} className="flex items-start gap-2">
+                <span className="mt-2 w-1 h-1 bg-black rounded-full shrink-0" />
+                <p className="font-sans text-sm leading-6 text-[#1a1a1a]">
+                  {skill}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Big Illustration */}
+        <div className="flex-1 flex items-center justify-center mt-auto">
+          <img
+            src="/skiils-cluster.svg"
+            alt="Skills Cluster Illustration"
+            className="w-full h-auto max-w-4xl opacity-90"
+          />
+        </div>
+
+        {/* Bottom ticker */}
+        <div aria-hidden="true" className="overflow-hidden w-full pt-20">
+          <span className="font-sans text-sm text-black/40">
+            {TICKER_MSG}
+          </span>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default BonusSkills;
