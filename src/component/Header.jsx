@@ -1,10 +1,12 @@
 const Header = () => {
   return (
     <header>
-      <nav className="flex items-center justify-end px-14 py-7">
+      <nav className="flex items-center justify-between px-14 py-7 max-w-screen-lg m-auto">
 
-
-        <a href="mailto:yash6102000thakur@gmail.com" className="font-istok text-lg text-black bg-transparent border-b border-gray-800">
+        <div className="font-sans text-2xl text-black bg-transparent">
+          iamyash
+        </div>
+        <a href="mailto:yash6102000thakur@gmail.com" className="font-sans text-sm text-black bg-transparent border-b border-gray-800">
           Let's Work
         </a>
       </nav>
