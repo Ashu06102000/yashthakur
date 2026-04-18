@@ -15,10 +15,10 @@ const BonusSkills = () => {
   return (
     <section id="bonus" className="relative flex flex-col min-h-screen max-w-screen-lg mx-auto">
       {/* ── Main content ── */}
-      <div className="flex-1 px-14 pt-14 pb-10 flex flex-col">
+      <div className="flex-1 px-6 md:px-14 pt-14 pb-10 flex flex-col">
 
-        {/* Top area: heading left, list right */}
-        <div className="flex justify-between items-start mb-12">
+        {/* Top area: heading left, list right (stacked on mobile) */}
+        <div className="flex flex-col md:flex-row justify-between items-start mb-12 gap-8 md:gap-4">
           {/* Heading */}
           <h2 className="font-sans font-thin text-[clamp(24px,4vw,40px)] leading-none text-black">
             <span className="opacity-40 mr-2">--</span>
@@ -39,7 +39,7 @@ const BonusSkills = () => {
         </div>
 
         {/* Big Illustration */}
-        <div className="flex-1 flex items-center justify-center mt-auto">
+        <div className="flex-1 flex items-center justify-center mt-auto py-10">
           <img
             src="/skiils-cluster.svg"
             alt="Skills Cluster Illustration"
@@ -48,7 +48,7 @@ const BonusSkills = () => {
         </div>
 
         {/* Bottom ticker */}
-        <div aria-hidden="true" className="overflow-hidden w-full pt-20">
+        <div aria-hidden="true" className="overflow-hidden w-full pt-16 md:pt-20">
           <span className="font-sans text-sm text-black/40">
             {TICKER_MSG}
           </span>
