@@ -31,7 +31,7 @@ const Hero = () => {
             </h3>
             <p className="font-sans text-sm font-normal leading-6">
               A collection of systems I’ve built — focused on scalability, performance,
-              and solving real-world problems through thoughtful engineering.
+              and solving real-world problems through thoughtful engineering ^_~ ❤️
             </p>
           </div>
 
