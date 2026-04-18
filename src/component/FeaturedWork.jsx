@@ -1,5 +1,5 @@
 const TICKER_MSG =
-  "From architecture to production — building systems that scale and perform.";
+  "From architecture to production — building systems that scale and perform ^_~ 🚀";
 
 const FeaturedWork = () => {
   return (
@@ -11,7 +11,7 @@ const FeaturedWork = () => {
       <div className="flex-1 px-14 pt-14 pb-10 flex flex-col">
 
         {/* Heading */}
-        <h2 className="font-sans font-thin text-[clamp(28px,5vw,52px)] leading-tight text-black mb-12">
+        <h2 className="font-sans font-thin text-[clamp(28px,4.5vw,52px)] leading-[1.15] text-black underline decoration-[1.5px] underline-offset-4">
           Approach
           <br />
           Thoughtful systems. Built to last.

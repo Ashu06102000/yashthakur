@@ -5,6 +5,7 @@ import About from "./component/About";
 import WhatIBring from "./component/WhatIBring";
 import BonusSkills from "./component/BonusSkills";
 import FeaturedWork from "./component/FeaturedWork";
+import Footer from "./component/Footer";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <WhatIBring />
       <BonusSkills />
       <FeaturedWork />
+      <Footer />
     </>
   );
 }
