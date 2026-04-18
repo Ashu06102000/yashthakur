@@ -38,9 +38,10 @@ const Hero = () => {
           {/* Right */}
           <div className="flex flex-col justify-between">
             <p className="font-sans text-sm leading-6 text-[#1a1a1a]">
-              I’m Yash — a Frontend Engineer building scalable web and mobile applications
-              with a focus on performance, system design, and real-world impact. I turn
-              complex problems into fast, reliable, and intuitive user experiences.
+              I’m Yash — a Frontend Engineer with 4+ years of experience building scalable
+              web and mobile applications with a focus on performance, system design, and
+              real-world impact. I turn complex problems into fast, reliable, and intuitive
+              user experiences.
             </p>
             <a
               href="/Yash thakur resume.pdf"
