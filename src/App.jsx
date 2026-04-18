@@ -1,15 +1,14 @@
-import "./App.css";
-import HoverGallery from "./component/HoverGallery";
+import "./index.css";
 import Header from "./component/Header";
+import Hero from "./component/Hero";
 
 function App() {
   return (
-    <div className="h-screen">
-      <div>
-        <Header />
-        <HoverGallery />l
-      </div>
-    </div>
+    <>
+      <Header />
+      <Hero />
+    </>
   );
 }
+
 export default App;
