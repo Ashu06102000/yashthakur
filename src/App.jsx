@@ -4,6 +4,7 @@ import Hero from "./component/Hero";
 import About from "./component/About";
 import WhatIBring from "./component/WhatIBring";
 import BonusSkills from "./component/BonusSkills";
+import FeaturedWork from "./component/FeaturedWork";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <About />
       <WhatIBring />
       <BonusSkills />
+      <FeaturedWork />
     </>
   );
 }

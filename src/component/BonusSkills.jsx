@@ -2,13 +2,13 @@ const TICKER_MSG =
   "'Just below lies the realm of brilliance—projects that speak louder than words. ^_~ 💡'";
 
 const bonusSkills = [
-  "React.js, React Native, Next.js, TypeScript",
-  "Modular architecture, Micro-frontends (Module Federation), Component libraries",
-  "State management, API integration, Data fetching & caching",
-  "AWS (S3, CloudFront, Lambda, Bedrock, MediaConvert)",
-  "RAG systems, Vector search, AI integrations",
-  "Real-time systems (LiveKit), HLS streaming",
-  "Git, Webpack, Cypress",
+  "React.js, React Native, Next.js, Tailwind CSS",
+  "iOS & Android (React Native)",
+  "REST APIs, Node.js",
+  "AWS (EC2, S3, S3 Vector, Bedrock, Lambda, MediaConvert, Lightsail, IAM, CloudFront, Route 53)",
+  "MongoDB, PostgreSQL",
+  "Git, Webpack, Module Federation, Cypress",
+  "Seats.io, Twilio, HLS Streaming",
 ];
 
 const BonusSkills = () => {
@@ -29,7 +29,7 @@ const BonusSkills = () => {
           <div className="flex flex-col max-w-md">
             {bonusSkills.map((skill, index) => (
               <div key={index} className="flex items-start gap-2">
-                <span className="mt-2 w-1 h-1 bg-black rounded-full shrink-0" />
+                <span className="mt-2.5 w-1 h-1 bg-black rounded-full shrink-0" />
                 <p className="font-sans text-sm leading-6 text-[#1a1a1a]">
                   {skill}
                 </p>
