@@ -15,7 +15,7 @@
 
 .showreel__intro-container {
     display: flex;
-    max-width: 1028px;
+    max-width: 80%;
     gap: 4rem;
 }
 
@@ -59,7 +59,7 @@
     color: var(--color-dark);
     letter-spacing: -0.2px;
     cursor: url('/assets/Cursor SVG/cursor-text.svg') 12 12, auto;
-    text-align: justify;
+    text-align: center;
     width: 50%;
 }
 
