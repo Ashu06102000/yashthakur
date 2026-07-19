@@ -108,6 +108,23 @@
     font-weight: 400;
     letter-spacing: -1px;
 }
+.home-header__subtitle-wrapper{
+    display: flex;
+    justify-content: center;
+}
+.home-header__subtitle {
+    max-width: 680px;
+    margin-top: 2rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
 
 /* ─── ⑤ Smiley — NO animation ─────────────────── */
 .home-header__smiley {

@@ -187,14 +187,15 @@ export default function VimeoHero() {
 
                 {/* ① Headline — bottom left, word-by-word layout */}
                 <div className="home-header__title">
-                    <h1 className="vimeo-hero__title" ref={titleRef} onClick={(e) => e.stopPropagation()}>
-
-                        {/* "we" */}
-                        <span className="vimeo-hero__word">we </span>
-
-                        {/* "make" + ⑤ smiley (no animation) */}
+                    <h1
+                        className="vimeo-hero__title"
+                        ref={titleRef}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Building */}
                         <span className="vimeo-hero__word is--relative">
-                            <span>make </span>
+                            <span>Building </span>
+
                             <div className="home-header__smiley">
                                 <img
                                     src="/assets/VimeoHero SVG/smiley-face.svg"
@@ -204,18 +205,24 @@ export default function VimeoHero() {
                             </div>
                         </span>
 
-                        {/* "advertising" italic */}
-                        <span className="vimeo-hero__word"><em>advertising </em></span>
+                        {/* digital */}
+                        <span className="vimeo-hero__word">
+                            <em>digital </em>
+                        </span>
 
-                        {/* "for" */}
-                        <span className="vimeo-hero__word">for </span>
+                        {/* products */}
+                        <span className="vimeo-hero__word">
+                            products
+                        </span>
 
-                        <div style={{ flexBasis: '100%', height: 0 }} />
+                        <div style={{ flexBasis: "100%", height: 0 }} />
 
-                        <span className="vimeo-hero__word">the </span>
-                        <span className="vimeo-hero__word">new </span>
+                        {/* people */}
+                        <span className="vimeo-hero__word">
+                            people{" "}
+                        </span>
 
-                        {/* "mainstream" + ⑤ pink star (no spin) + oval underline */}
+                        {/* love */}
                         <span className="vimeo-hero__word is--relative">
                             <div className="home-header__star">
                                 <div className="home-header__star-inner">
@@ -226,18 +233,25 @@ export default function VimeoHero() {
                                     />
                                 </div>
                             </div>
-                            {/* Oval underline */}
+
                             <img
                                 src="/assets/VimeoHero SVG/oval-underline.svg"
                                 alt=""
                                 className="home-header__title-line-svg"
                             />
-                            <span>mainstream</span>
+
+                            <span>love</span>
                         </span>
-
                     </h1>
-                </div>
 
+                    <div className="home-header__subtitle-wrapper">
+                        <p className="home-header__subtitle">
+                            Frontend Engineer with 4+ years of experience building modern web and
+                            mobile applications. Passionate about crafting fast, scalable, and
+                            intuitive products powered by thoughtful engineering.
+                        </p>
+                    </div>
+                </div>
                 {/* ① Controls — bottom LEFT: pause/play + fullscreen */}
                 <div className="vimeo-hero__controls" ref={controlsRef} onClick={(e) => e.stopPropagation()}>
                     {/* Play / Pause */}
