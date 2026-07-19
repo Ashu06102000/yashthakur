@@ -67,160 +67,44 @@ export default function Showreel() {
                         Four years
                         building
                         <br />
-                        digital
-                        products.
-                    </span>
-
-                    <h2 className="showreel__title">
-                        professional experiace
-
-                    </h2>
-
-                
-
-                </div>
-
-                <div className="showreel__right">
-
-                    <div className="showreel__company">
-
-                        <div>
-
-                            <span className="showreel__role">
-                                Frontend Engineer
-                            </span>
-
-                            <h3 className="showreel__company-name">
-                                Copods
-                            </h3>
-
-                        </div>
-
-                        <span className="showreel__date">
-                            2022 — Present
-                        </span>
-
-                    </div>
-
-                    <div className="showreel__stats">
-
-                        {stats.map((item) => (
-
-                            <div
-                                key={item.label}
-                                className="showreel__stat"
-                            >
-
-                                <h3>
-                                    {item.value}
-                                </h3>
-
-                                <span>
-                                    {item.label}
-                                </span>
-
+                        digital {" "}
+                        <span className="vimeo-hero__word is--relative">
+                            <div className="home-header__star">
+                                <div className="home-header__star-inner">
+                                    <img
+                                        src="/assets/VimeoHero SVG/pink-star.svg"
+                                        alt=""
+                                        className="home-header__star-svg"
+                                    />
+                                </div>
                             </div>
 
-                        ))}
+                            <img
+                                src="/assets/VimeoHero SVG/oval-underline.svg"
+                                alt=""
+                                className="home-header__title-line-svg"
+                            />
 
-                    </div>
-
-                    <div className="showreel__achievements">
-                        {achievements.map((item, index) => (
-
-                            <article
-                                key={item.title}
-                                className="showreel__achievement"
-                            >
-
-                                <div className="showreel__achievement-number">
-                                    0{index + 1}
-                                </div>
-
-                                <div className="showreel__achievement-content">
-
-                                    <h4>
-                                        {item.title}
-                                    </h4>
-
-                                    <p>
-                                        {item.description}
-                                    </p>
-
-                                </div>
-
-                            </article>
-
-                        ))}
-
-                    </div>
-
-                    <div className="showreel__divider" />
-
-                    <div className="showreel__stack">
-
-                        <span className="showreel__stack-title">
-                            Technologies I work with
+                            <span> {" "}Products</span>
                         </span>
+                    </span>
 
-                        <div className="showreel__stack-list">
 
-                            {stack.map((tech) => (
+                    <div className="showreel__intro-container">
+                        <p className="showreel__intro">
+                            Over the past 4+ years, I&apos;ve worked across product, engineering, and design to build 20+ digital experiences for companies operating in 5 different industries. The work has ranged from fast-moving startups to product-led teams that need reliable systems and polished user experiences.
+                        </p>
 
-                                <span
-                                    key={tech}
-                                    className="showreel__stack-item"
-                                >
-                                    {tech}
-                                </span>
-
-                            ))}
-
-                        </div>
+                        <p className="showreel__intro">
+                            From shaping architecture to shipping end-user features, I focus on building products that feel thoughtful from both a company perspective and a customer perspective—balancing speed, scalability, clarity, and long-term maintainability.
+                        </p>
 
                     </div>
 
-                    <div className="showreel__footer">
 
-                        <div className="showreel__footer-left">
-
-                            <span>
-                                Currently building products at
-                            </span>
-
-                            <h3>
-                                Copods
-                            </h3>
-
-                        </div>
-
-                        <div className="showreel__footer-right">
-
-                            <a href="mailto:yash6102000thakur@gmail.com">
-                                Email
-                            </a>
-
-                            <a
-                                href="https://linkedin.com/in/YOUR-LINK"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                LinkedIn
-                            </a>
-
-                            <a
-                                href="https://github.com/YOUR-GITHUB"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                GitHub
-                            </a>
-
-                        </div>
-
-                    </div>
 
                 </div>
+
 
             </div>
 
