@@ -253,8 +253,7 @@ export default function VimeoHero() {
                     </div>
                 </div>
                 {/* ① Controls — bottom LEFT: pause/play + fullscreen */}
-                <div className="vimeo-hero__controls" ref={controlsRef} onClick={(e) => e.stopPropagation()}>
-                    {/* Play / Pause */}
+                {/* <div className="vimeo-hero__controls" ref={controlsRef} onClick={(e) => e.stopPropagation()}>
                     <button className="vimeo-hero__btn" onClick={togglePlay} aria-label={isPlaying ? 'Pause' : 'Play'}>
                         {isPlaying ? (
                             <svg viewBox="0 0 24 24" fill="none">
@@ -268,7 +267,6 @@ export default function VimeoHero() {
                         )}
                     </button>
 
-                    {/* Fullscreen */}
                     <button className="vimeo-hero__btn" onClick={toggleFullscreen} aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
                         {!isFullscreen ? (
                             <svg viewBox="0 0 20 20" fill="none">
@@ -283,7 +281,7 @@ export default function VimeoHero() {
                             </svg>
                         )}
                     </button>
-                </div>
+                </div> */}
 
                 {/* Loading spinner removed because native HTML video loads silently in background */}
             </div>

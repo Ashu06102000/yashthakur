@@ -231,12 +231,12 @@ export default function MotionCards() {
 
             {/* ─── Part 3: Bottom Paragraph Text ─── */}
             <div className="motion-card__footer-text">
-                <p className="motion-card__description">
+                {/* <p className="motion-card__description">
                     To reach the new generation you need to know where
                     they are. We are a true 360° agency, working the
                     whole spectrum from TikTok content to TVC and from influencer
                     collabs to out of home spectaculars.
-                </p>
+                </p> */}
             </div>
         </section>
     );

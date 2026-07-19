@@ -307,14 +307,14 @@ export default function Navbar() {
                             <div className="nav-popout-inner">
                                 <div className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
-                                        <img src="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/68a46f25779a71fac3a11903_SnapInsta.jpg" loading="eager" alt="Feestje bouwe? App Douwe" className="nav-work-item__img" />
+                                        <img src="/assets/copodslogo.png" loading="eager" alt="Feestje bouwe? App Douwe" className="nav-work-item__img" />
                                     </div>
                                     <div className="nav-work-item__text">
-                                        <span className="nav-work-badge badge-maroon">douwe egberts</span>
-                                        <h4 className="nav-work-title">feestje bouwe? app douwe</h4>
+                                        <span className="nav-work-badge badge-maroon">Copods</span>
+                                        <h4 className="nav-work-title">Senior engineer</h4>
                                     </div>
                                 </div>
-                                <div className="nav-work-item">
+                                {/* <div className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
                                         <img src="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/6880a344675f3a6144ed04df_01_HEMA_Back2School.avif" loading="eager" alt="Skibidi school" sizes="100vw" srcSet="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/6880a344675f3a6144ed04df_01_HEMA_Back2School-p-500.avif 500w, https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/6880a344675f3a6144ed04df_01_HEMA_Back2School.avif 1080w" className="nav-work-item__img" />
                                     </div>
@@ -322,8 +322,8 @@ export default function Navbar() {
                                         <span className="nav-work-badge badge-pink">hema</span>
                                         <h4 className="nav-work-title">skibidi school</h4>
                                     </div>
-                                </div>
-                                <div className="nav-work-item">
+                                </div> */}
+                                {/* <div className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
                                         <img src="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/686b7e0ed3ab3045b28a2012_3.avif" loading="eager" alt="Hema socials" sizes="100vw" srcSet="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/686b7e0ed3ab3045b28a2012_3-p-500.avif 500w, https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/686b7e0ed3ab3045b28a2012_3.avif 1080w" className="nav-work-item__img" />
                                     </div>
@@ -331,14 +331,22 @@ export default function Navbar() {
                                         <span className="nav-work-badge badge-pink">hema</span>
                                         <h4 className="nav-work-title">hema socials</h4>
                                     </div>
-                                </div>
-                                <a href="#" className="nav-work-btn"><span className="nav-work-btn__text">All our work</span></a>
-                            </div>
+                                </div> */}
+                                <a
+                                    href="https://www.linkedin.com/in/yash-thakur-0b71051b9/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="nav-work-btn"
+                                >
+                                    <span className="nav-work-btn__text">
+                                        LinkedIn Profile
+                                    </span>
+                                </a>                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="nav-center" style={{ cursor: "url('/assets/Cursor SVG/cursor-pointer.svg') 12 12, pointer" }}>
-                   <span>Yash Thakur</span>
+                    <span>Yash Thakur</span>
                 </div>
                 <div className="nav-right" style={{ cursor: "url('/assets/Cursor SVG/cursor-pointer.svg') 12 12, pointer" }}>
                     <div className="nav-hover-trigger">
@@ -351,14 +359,38 @@ export default function Navbar() {
                         {/* Pop-out Box for Right Side */}
                         <div className="nav-popout nav-wa-box">
                             <div className="nav-popout-inner">
-                                <img src="/assets/wa_qr_code.png" className="nav-wa-qr" alt="WhatsApp QR Code" />
+                                <img src="/assets/myqr.png" className="nav-wa-qr" alt="WhatsApp QR Code" />
                                 <h4 className="nav-wa-title">whatsapp us</h4>
                                 <p className="nav-wa-desc">Scan the QR code to chat with us via your smartphone.</p>
-                                <a href="#" className="nav-wa-link">
-                                    <span className="nav-wa-link-text">Chat via desktop</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 169 10" fill="none" className="draw-btn__svg nav-wa-link-svg">
-                                        <path d="M1 6.5661C56.3941 3.06082 112.187 1.20095 168 0.999878" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" />
-                                        <path d="M32.1313 8.63371C68.2147 6.92799 104.462 6.13378 140.695 6.25107" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" />
+                                <a
+                                    href="https://wa.me/917028046118?text=Hi%20Yash,%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect."
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="nav-wa-link"
+                                >
+                                    <span className="nav-wa-link-text">Let's talk</span>
+
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="100%"
+                                        viewBox="0 0 169 10"
+                                        fill="none"
+                                        className="draw-btn__svg nav-wa-link-svg"
+                                    >
+                                        <path
+                                            d="M1 6.5661C56.3941 3.06082 112.187 1.20095 168 0.999878"
+                                            stroke="currentColor"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="1.25"
+                                        />
+                                        <path
+                                            d="M32.1313 8.63371C68.2147 6.92799 104.462 6.13378 140.695 6.25107"
+                                            stroke="currentColor"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="1.25"
+                                        />
                                     </svg>
                                 </a>
                             </div>
