@@ -122,9 +122,17 @@ export default function DoubleMarquee() {
                         <div className="marquee-track">
                             {trackItems.map((item, i) => (
                                 <div key={i} className="marquee-item" data-brand={item.brand.name} style={{ backgroundColor: item.color }}>
-                                    <div className="marquee-logo">
+                                    <div className={`marquee-logo ${item.brand.src ? '' : 'marquee-logo--text'}`}>
                                         <div className="marquee-logo__before"></div>
-                                        <img src={item.brand.src} loading="lazy" alt={item.brand.name} className="cover-image" />
+                                        {item.brand.src ? (
+                                            <img src={item.brand.src} loading="lazy" alt={item.brand.name} className="cover-image" />
+                                        ) : (
+                                            <div className="marquee-logo__content">
+                                                <span className="marquee-logo__label">{item.brand.shortLabel}</span>
+                                                <span className="marquee-logo__name">{item.brand.name}</span>
+                                                <span className="marquee-logo__tag">{item.brand.tag}</span>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             ))}

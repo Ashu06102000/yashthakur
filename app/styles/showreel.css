@@ -1,33 +1,411 @@
-/* ─── Showreel Section ───────────────────────────────────────────────────── */
 .showreel-section {
     position: relative;
-    width: 100%;
-    min-height: 100vh;
-    background-color: var(--color-black-deep);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 200px 20px 0px;
     overflow: hidden;
 }
 
-.showreel__content {
+.showreel{
+    width:min(1400px,90%);
+    margin:0 auto;
+
+    display:flex;
+    gap:3.5rem;
+    flex-direction: column;
+}
+
+.showreel__left {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.showreel__eyebrow {
+   font-family: 'Epilogue', sans-serif;
+    font-size: 7rem;
+    font-weight: 750;
+    line-height: 0.9;
+    letter-spacing: -5px;
+    color: var(--color-dark);
+    text-align: center;
+    top: -30px;
 }
 
 .showreel__title {
-    font-family: 'Epilogue', sans-serif;
-    font-size: 5rem;
-    font-weight: 900;
-    letter-spacing: -3px;
-    color: var(--color-white);
-    margin-bottom: 1rem;
+    font-family: 'Times New Roman', 'Georgia', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 7.5rem;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: var(--color-dark);
+    position: relative;
+    display: inline-block;
+    width: 100%;
 }
 
-.showreel__subtitle {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.4);
-    letter-spacing: 2px;
-    text-transform: uppercase;
+.showreel__intro {
+    margin-top: 1.4rem;
+    max-width: 30rem;
+
+    font-size: 1rem;
+    line-height: 1.7;
+
+    color: rgba(0,0,0,.62);
+}
+
+.showreel__right{
+    width:100%;
+}
+
+.showreel__company{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+
+    padding-bottom:1.8rem;
+    border-bottom:1px solid rgba(0,0,0,.08);
+}
+
+.showreel__role{
+    display:block;
+
+    margin-bottom:.5rem;
+
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    font-size:.75rem;
+
+    color:rgba(0,0,0,.45);
+}
+
+.showreel__company-name{
+    margin:0;
+
+    font-size:clamp(2.5rem,4vw,4rem);
+    line-height:1;
+    font-weight:500;
+}
+
+.showreel__date{
+    font-size:1rem;
+    opacity:.55;
+}
+
+.showreel__stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+
+    gap:1rem;
+
+    margin:2rem 0 2.2rem;
+}
+
+.showreel__stat{
+    padding:1rem 0.8rem;
+    border-radius:16px;
+    background: rgba(255,255,255,0.45);
+}
+
+.showreel__stat h3{
+    margin:0;
+
+    font-size:2.2rem;
+    line-height:1;
+    font-weight:500;
+}
+
+.showreel__stat span{
+    display:block;
+    margin-top:.45rem;
+
+    font-size:.8rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+
+    color:rgba(0,0,0,.45);
+}
+
+.showreel__achievements{
+    display:grid;
+    gap:1rem;
+}
+/* ============================
+   ACHIEVEMENTS
+============================ */
+
+.showreel__achievement {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 1.25rem;
+
+    padding: 1.2rem 0;
+
+    border-top: 1px solid rgba(0,0,0,.08);
+
+    transition: all .35s ease;
+}
+
+.showreel__achievement:last-child {
+    border-bottom: 1px solid rgba(0,0,0,.08);
+}
+
+.showreel__achievement:hover {
+    transform: translateX(14px);
+}
+
+.showreel__achievement-number {
+
+    font-size: 2rem;
+    line-height: 1;
+
+    color: rgba(0,0,0,.14);
+
+    font-weight: 500;
+
+    transition: .35s;
+}
+
+.showreel__achievement:hover
+.showreel__achievement-number{
+
+    color:#111;
+
+}
+
+.showreel__achievement-content h4{
+
+    margin:0;
+
+    font-size:1.2rem;
+
+    font-weight:500;
+
+    letter-spacing:-.02em;
+}
+
+.showreel__achievement-content p{
+
+    margin-top:.55rem;
+
+    max-width:720px;
+
+    font-size:.95rem;
+
+    line-height:1.65;
+
+    color:rgba(0,0,0,.62);
+}
+
+/* ============================
+   DIVIDER
+============================ */
+
+.showreel__divider{
+
+    margin:2.6rem 0;
+
+    width:100%;
+    height:1px;
+
+    background:rgba(0,0,0,.08);
+
+}
+
+/* ============================
+   STACK
+============================ */
+
+.showreel__stack-title{
+
+    display:block;
+
+    margin-bottom:1rem;
+
+    text-transform:uppercase;
+
+    letter-spacing:.15em;
+
+    font-size:.74rem;
+
+    color:rgba(0,0,0,.45);
+
+}
+
+.showreel__stack-list{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:.7rem;
+
+}
+
+.showreel__stack-item{
+
+    padding:.7rem 1rem;
+
+    background:white;
+
+    border-radius:999px;
+
+    font-size:.9rem;
+
+    transition:.35s ease;
+
+    cursor:default;
+
+}
+
+.showreel__stack-item:hover{
+
+    background:#111;
+
+    color:white;
+
+    transform:translateY(-4px);
+
+}
+
+/* ============================
+   FOOTER
+============================ */
+
+.showreel__footer{
+
+    margin-top:2.4rem;
+
+    padding-top:1.5rem;
+
+    border-top:1px solid rgba(0,0,0,.08);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+}
+
+.showreel__footer-left span{
+
+    display:block;
+
+    margin-bottom:.6rem;
+
+    text-transform:uppercase;
+
+    letter-spacing:.15em;
+
+    font-size:.72rem;
+
+    color:rgba(0,0,0,.45);
+
+}
+
+.showreel__footer-left h3{
+
+    margin:0;
+
+    font-size:clamp(1.5rem,2.2vw,2.2rem);
+
+    line-height:1;
+
+    font-weight:500;
+
+}
+
+.showreel__footer-right{
+
+    display:flex;
+
+    gap:1.2rem;
+
+    flex-wrap:wrap;
+
+}
+
+.showreel__footer-right a{
+
+    text-decoration:none;
+
+    color:#111;
+
+    font-size:.95rem;
+
+    position:relative;
+
+    transition:.35s;
+
+}
+
+.showreel__footer-right a::after{
+
+    content:'';
+
+    position:absolute;
+
+    left:0;
+    bottom:-6px;
+
+    width:0;
+
+    height:1px;
+
+    background:#111;
+
+    transition:.35s;
+
+}
+
+.showreel__footer-right a:hover::after{
+
+    width:100%;
+
+}
+
+@media (max-width: 900px) {
+    .showreel {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .showreel__left {
+        position: static;
+    }
+
+    .showreel__title {
+        max-width: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .showreel-section {
+        padding: 4.5rem 0 3.5rem;
+    }
+
+    .showreel {
+        width: min(100%, 92%);
+    }
+
+    .showreel__company,
+    .showreel__footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: .8rem;
+    }
+
+    .showreel__stats {
+        grid-template-columns: 1fr;
+    }
+
+    .showreel__achievement {
+        grid-template-columns: 1fr;
+        gap: .7rem;
+    }
+
+    .showreel__achievement-number {
+        font-size: 1.5rem;
+    }
 }
