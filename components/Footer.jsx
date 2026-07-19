@@ -158,43 +158,20 @@ export default function Footer() {
             <div className="footer-top">
                 {/* Jobs */}
                 <div className="footer-column">
-                    <span className="footer-badge">looking for a job?</span>
-                    <h3>not hiring right now :(</h3>
+                    <span className="footer-badge">looking for a engineer?</span>
+                    <h3>Ping me your ideas!</h3>
                 </div>
-                {/* Office */}
-                <div className="footer-column">
-                    <span className="footer-badge">office</span>
-                    <address>
-                        papaverhof 21<br />
-                        1032 LX amsterdam
-                    </address>
-                    <a href="#" className="footer-map-link">
-                        <span>Google Maps</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 169 10" fill="none" className="draw-btn__svg">
-                            <path d="M1 6.5661C56.3941 3.06082 112.187 1.20095 168 0.999878" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25"></path>
-                            <path d="M32.1313 8.63371C68.2147 6.92799 104.462 6.13378 140.695 6.25107" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25"></path>
-                        </svg>
-                    </a>
-                </div>
+
+
                 {/* Contact */}
                 <div className="footer-column">
                     <span className="footer-badge">contact</span>
-                    <a href="mailto:hello@truus.co" className="footer-email">hello@truus.co</a>
-                    <a href="#" className="footer-whatsapp">send us a whatsapp*</a>
-                    <p className="footer-note">*we&apos;re millennials and gen-z: please do not call us.</p>
-                    <div className="footer-socials" id="footer-socials">
-                        {SOCIAL_ICONS.map(({ href, label, svg }) => (
-                            <a
-                                key={label}
-                                href={href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="single-social w-inline-block"
-                                aria-label={label}
-                                dangerouslySetInnerHTML={{ __html: svg }}
-                            />
-                        ))}
-                    </div>
+                    <a href="mailto:yash6102000thakur@gmail.com" className="footer-email">yash6102000thakur@gmail.com</a>
+                    <a href="https://wa.me/917028046118"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="footer-whatsapp">send me a whatsapp*</a>
+
                 </div>
             </div>
 
