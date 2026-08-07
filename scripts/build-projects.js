@@ -36,7 +36,10 @@ const buildProjectSection = (templateCheerio, set, setIndex) => {
       ${labelInner}
     </div>`;
 
-    const title = `
+    const hasLink = project.link && project.link.length > 0;
+
+    const title = hasLink
+      ? `
     <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="home__projects__project__link">
       <h1 class="home__projects__project__title"
           data-scroll=""
@@ -51,9 +54,26 @@ const buildProjectSection = (templateCheerio, set, setIndex) => {
           </div>
         </span>
       </h1>
-    </a>`;
+    </a>`
+      : `
+    <div class="home__projects__project__link">
+      <h1 class="home__projects__project__title"
+          data-scroll=""
+          data-scroll-direction="horizontal"
+          data-scroll-speed="${scrollSpeed}">
+        <span class="inline-ovh">
+          <div class="title__main ${scrollDirection}">
+            <span class="slide-up"
+                  data-content="${project.title}"
+                  aria-hidden="true"></span>
+            ${project.title}
+          </div>
+        </span>
+      </h1>
+    </div>`;
 
-    const button = `
+    const button = hasLink
+      ? `
     <div class="project__link">
       <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="c-button">
         <span class="c-link">
@@ -69,6 +89,15 @@ const buildProjectSection = (templateCheerio, set, setIndex) => {
           </span>
         </span>
       </a>
+    </div>`
+      : `<div class="project__link project__link--static">
+      <span class="c-button c-button--static">
+        <span class="c-link">
+          <span class="c-link__inner">
+            <span>Case Study</span>
+          </span>
+        </span>
+      </span>
     </div>`;
 
     // Build project block

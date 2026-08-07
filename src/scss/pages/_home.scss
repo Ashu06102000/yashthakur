@@ -97,6 +97,46 @@
         line-height: 0.9;
         color: $col-boulder;
 
+        &.hero__title--compact {
+          .hero__title__left,
+          .hero__title__right,
+          .hero__title__dash,
+          .bottom__left,
+          h1.mobile {
+            font-size: 24rem;
+            letter-spacing: -0.09em;
+
+            @include media("<=LGdesktop") {
+              font-size: 19rem;
+            }
+
+            @include media("<=desktop") {
+              font-size: 15rem;
+            }
+
+            @include media("<=tablet") {
+              font-size: 14rem;
+            }
+
+            @include media("<=phone") {
+              font-size: 70px;
+            }
+          }
+
+          .hero__title__top {
+            padding-right: 2rem;
+          }
+
+          .hero__title__left {
+            flex-shrink: 0;
+          }
+
+          .hero__title__right {
+            flex-shrink: 0;
+          }
+        }
+
+
         h1 {
           &.desktop {
             @include media("<=phone") {
@@ -306,6 +346,7 @@
   }
 
   &__stack {
+
     max-width: 104.4rem;
     margin-left: auto;
     padding-top: 16rem;
