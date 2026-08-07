@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "title": "AI-POWERED RAG CHAT SYSTEM",
+    "role": "AI / <br /> AWS BEDROCK",
+    "description": "End to end document ingestion, vectorization, storage, retrieval, and LLM response flows enabling scalable, context aware information access.",
+    "link": ""
+  },
+  {
+    "id": 2,
+    "title": "CROSS-PLATFORM MOBILE APP",
+    "role": "REACT NATIVE / <br /> iOS & ANDROID",
+    "description": "End to end cross platform mobile application with scalable architecture and optimized performance for smooth, high quality user experiences.",
+    "link": ""
+  },
+  {
+    "id": 3,
+    "title": "MICRO-FRONTEND ARCHITECTURE",
+    "role": "MODULE FEDERATION / <br /> SYSTEM DESIGN",
+    "description": "Architected a micro-frontend setup using Module Federation, enabling independent deployments and improving team productivity.",
+    "link": ""
+  },
+  {
+    "id": 4,
+    "title": "ONLINE ASSESSMENT PLATFORM",
+    "role": "AUTOMATION / <br /> RESULT WORKFLOWS",
+    "description": "Scalable online assessment platform with automated evaluation, validation, and result workflows, improving hiring efficiency by 60%+.",
+    "link": ""
+  },
+  {
+    "id": 5,
+    "title": "AI VOICE ASSISTANT",
+    "role": "REAL-TIME AUDIO / <br /> HEALTHCARE",
+    "description": "Hands free AI voice assistant for healthcare with wake word detection and continuous speech handling for seamless, low latency interactions.",
+    "link": ""
+  },
+  {
+    "id": 6,
+    "title": "DATA-INTENSIVE DASHBOARDS",
+    "role": "REAL-TIME UI / <br /> SYSTEM DESIGN",
+    "description": "Data intensive dashboards and real time UI systems, improving usability and interaction of users at scale.",
+    "link": ""
+  },
+  {
+    "id": 7,
+    "title": "VIDEO PROCESSING PIPELINE",
+    "role": "AWS MEDIACONVERT / <br /> MEDIA DELIVERY",
+    "description": "Integrated AWS Elemental MediaConvert for scalable video processing, improving playback performance and consistent media delivery.",
+    "link": ""
+  }
+]
+
