@@ -36,12 +36,17 @@ const buildProjectSection = (templateCheerio, set, setIndex) => {
       ${labelInner}
     </div>`;
 
-    const hasLink = project.link && project.link.length > 0;
+const hasLink = project.link && project.link.length > 0;
+    const isCritical = project.critical;
+
+    const criticalDesc = isCritical
+      ? `<p class="title__critical-desc">${project.description}</p>`
+      : "";
 
     const title = hasLink
       ? `
     <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="home__projects__project__link">
-      <h1 class="home__projects__project__title"
+      <h1 class="home__projects__project__title ${isCritical ? "title--critical" : ""}"
           data-scroll=""
           data-scroll-direction="horizontal"
           data-scroll-speed="${scrollSpeed}">
@@ -54,10 +59,11 @@ const buildProjectSection = (templateCheerio, set, setIndex) => {
           </div>
         </span>
       </h1>
+      ${criticalDesc}
     </a>`
       : `
     <div class="home__projects__project__link">
-      <h1 class="home__projects__project__title"
+      <h1 class="home__projects__project__title ${isCritical ? "title--critical" : ""}"
           data-scroll=""
           data-scroll-direction="horizontal"
           data-scroll-speed="${scrollSpeed}">
@@ -70,6 +76,7 @@ const buildProjectSection = (templateCheerio, set, setIndex) => {
           </div>
         </span>
       </h1>
+      ${criticalDesc}
     </div>`;
 
     const button = hasLink
@@ -101,7 +108,7 @@ const buildProjectSection = (templateCheerio, set, setIndex) => {
     </div>`;
 
     // Build project block
-    const projectEl = `<div class="home__projects__project ${scrollDirection}">
+    const projectEl = `<div class="home__projects__project ${scrollDirection} ${isCritical ? "project--critical" : ""}">
       ${label}
       ${title}
       ${button}

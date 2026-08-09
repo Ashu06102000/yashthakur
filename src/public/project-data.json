@@ -1,10 +1,11 @@
 [
   {
     "id": 1,
-    "title": "AI-POWERED RAG CHAT SYSTEM",
+    "title": "ENTERPRISE AI RAG KNOWLEDGE SYSTEM",
     "role": "AI / <br /> AWS BEDROCK",
     "description": "End to end document ingestion, vectorization, storage, retrieval, and LLM response flows enabling scalable, context aware information access.",
-    "link": ""
+    "link": "",
+    "critical": true
   },
   {
     "id": 2,
@@ -22,10 +23,11 @@
   },
   {
     "id": 4,
-    "title": "ONLINE ASSESSMENT PLATFORM",
+    "title": "ENTERPRISE ONLINE ASSESSMENT PLATFORM",
     "role": "AUTOMATION / <br /> RESULT WORKFLOWS",
     "description": "Scalable online assessment platform with automated evaluation, validation, and result workflows, improving hiring efficiency by 60%+.",
-    "link": ""
+    "link": "",
+    "critical": true
   },
   {
     "id": 5,
@@ -49,4 +51,3 @@
     "link": ""
   }
 ]
-

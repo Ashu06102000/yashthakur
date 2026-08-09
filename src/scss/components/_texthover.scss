@@ -151,7 +151,7 @@
     }
   }
 
-  &__title {
+&__title {
     @extend %title-160;
     line-height: 1;
 
@@ -170,6 +170,44 @@
     .inline-ovh {
       display: inline-flex;
       overflow: hidden;
+    }
+  }
+
+  // Critical / flagship system titles
+  .title--critical {
+    @extend %title-160;
+    font-size: 19rem;
+    color: $col-white;
+
+    @include media("<=tablet") {
+      font-size: 12rem;
+    }
+
+    @include media("<=phone") {
+      font-size: 6.4rem;
+    }
+  }
+
+  .title__critical-desc {
+    @extend %description-16;
+    max-width: 60rem;
+    color: $col-gray;
+    margin-top: -1.4rem;
+    padding-bottom: 2.4rem;
+
+    @include media("<=phone") {
+      max-width: 100%;
+      margin-top: 0;
+    }
+  }
+}
+
+.project--critical {
+  .label__inner {
+    p {
+      &:last-of-type {
+        color: $col-orange;
+      }
     }
   }
 }
