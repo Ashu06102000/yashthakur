@@ -3,15 +3,17 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { copyText } from "./utils/index";
 import { mapEach } from "./utils/dom";
-// import Home from "./pages/home";
 import Time from "./components/Time";
+import CaseStudy from "./pages/CaseStudy";
+import Router from "./router";
 
 const toContactButtons = document.querySelectorAll(".contact-scroll");
 const footer = document.getElementById("js-footer");
 const scrollEl = document.querySelector("[data-scroll-container]");
 const emailButton = document.querySelector("button.email");
 const toCopyText = document.querySelector(".to-copy span");
-// const body = document.body;
+const homeEl = document.querySelector("[data-home-view]");
+const caseStudyEl = document.querySelector("[data-case-study-view]");
 const time = new Time();
 
 gsap.registerPlugin(ScrollTrigger);
@@ -57,6 +59,10 @@ export default class Home {
     this.homeActions();
   }
 
+  scrollToTop() {
+    this.locomotive.scrollTo(0, 0, 0);
+  }
+
   homeActions() {
     mapEach(toContactButtons, (button) => {
       button.onclick = () => {
@@ -64,14 +70,18 @@ export default class Home {
       };
     });
 
-    emailButton.addEventListener("click", (e) => {
-      copyText(e);
-      toCopyText.textContent = "copied";
+    if (emailButton) {
+      emailButton.addEventListener("click", (e) => {
+        copyText(e);
+        if (toCopyText) {
+          toCopyText.textContent = "copied";
 
-      setTimeout(() => {
-        toCopyText.textContent = "Click To Copy";
-      }, 2000);
-    });
+          setTimeout(() => {
+            toCopyText.textContent = "Click To Copy";
+          }, 2000);
+        }
+      });
+    }
   }
 
   homeIntro() {
@@ -201,4 +211,15 @@ export default class Home {
   }
 }
 
-new Home(scroll);
+const home = new Home(scroll);
+const caseStudy = new CaseStudy(scroll);
+
+const router = new Router({
+  homeView: home,
+  caseStudyView: caseStudy,
+  homeEl,
+  caseStudyEl,
+});
+
+// Resolve initial route on load
+router.onHashChange();

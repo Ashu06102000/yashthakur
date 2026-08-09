@@ -17,9 +17,10 @@ const buildProjectSection = (templateCheerio, set, setIndex) => {
     const scrollSpeed = isEven ? 8 : -8;
     const scrollDirection = isEven ? "right" : "left";
     const featured = setIndex === 0 && index === 0;
+    const caseStudyPath = `#/case-study/${project.slug}`;
 
     // Add line before project
-    const lineBefore = `<span class="home__projects__line ${lineDirection}"><span></span></span>`;
+    const lineBefore = `<span class="home__projects__line ${lineDirection}"><span></span>`;
     projectsSection.append(lineBefore);
 
     const labelInner = featured
@@ -36,75 +37,40 @@ const buildProjectSection = (templateCheerio, set, setIndex) => {
       ${labelInner}
     </div>`;
 
-const hasLink = project.link && project.link.length > 0;
     const isCritical = project.critical;
 
     const criticalDesc = isCritical
       ? `<p class="title__critical-desc">${project.description}</p>`
       : "";
 
-    const title = hasLink
-      ? `
-    <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="home__projects__project__link">
-      <h1 class="home__projects__project__title ${isCritical ? "title--critical" : ""}"
-          data-scroll=""
-          data-scroll-direction="horizontal"
-          data-scroll-speed="${scrollSpeed}">
-        <span class="inline-ovh">
-          <div class="title__main ${scrollDirection}">
-            <span class="slide-up"
-                  data-content="${project.title}"
-                  aria-hidden="true"></span>
-            ${project.title}
-          </div>
-        </span>
-      </h1>
-      ${criticalDesc}
-    </a>`
-      : `
-    <div class="home__projects__project__link">
-      <h1 class="home__projects__project__title ${isCritical ? "title--critical" : ""}"
-          data-scroll=""
-          data-scroll-direction="horizontal"
-          data-scroll-speed="${scrollSpeed}">
-        <span class="inline-ovh">
-          <div class="title__main ${scrollDirection}">
-            <span class="slide-up"
-                  data-content="${project.title}"
-                  aria-hidden="true"></span>
-            ${project.title}
-          </div>
-        </span>
-      </h1>
-      ${criticalDesc}
-    </div>`;
+    const hasLink = project.link && project.link.length > 0;
 
-    const button = hasLink
-      ? `
-    <div class="project__link">
-      <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="c-button">
-        <span class="c-link">
-          <span class="c-link__inner">
-            <span>
-              Visit Site
-              <span class="share-icon">
-                <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M13.337 7.845l-7.173 7.173-1.178-1.179 7.172-7.172H5.837V5h9.166v9.167h-1.666V7.845z" fill="#777"/>
-                </svg>
-              </span>
-            </span>
-          </span>
+    const title = `
+    <a href="${caseStudyPath}" class="home__projects__project__link">
+      <h1 class="home__projects__project__title ${isCritical ? "title--critical" : ""}"
+          data-scroll=""
+          data-scroll-direction="horizontal"
+          data-scroll-speed="${scrollSpeed}">
+        <span class="inline-ovh">
+          <div class="title__main ${scrollDirection}">
+            <span class="slide-up"
+                  data-content="${project.title}"
+                  aria-hidden="true"></span>
+            ${project.title}
+          </div>
         </span>
-      </a>
-    </div>`
-      : `<div class="project__link project__link--static">
-      <span class="c-button c-button--static">
+      </h1>
+      ${criticalDesc}
+    </a>`;
+
+    const button = `
+    <div class="project__link">
+      <a href="${caseStudyPath}" class="c-button">
         <span class="c-link">
           <span class="c-link__inner">
             <span>Case Study</span>
-          </span>
         </span>
-      </span>
+      </a>
     </div>`;
 
     // Build project block
@@ -119,7 +85,7 @@ const hasLink = project.link && project.link.length > 0;
   // Add final line
   const finalLine = `<span class="home__projects__line ${
     set.length % 2 === 0 ? "left" : "right"
-  }"><span></span></span>`;
+  }"><span></span>`;
   projectsSection.append(finalLine);
 };
 

@@ -2,57 +2,190 @@
   {
     "id": 1,
     "title": "ENTERPRISE AI RAG KNOWLEDGE SYSTEM",
+    "slug": "enterprise-ai-rag-knowledge-system",
     "role": "AI / <br /> AWS BEDROCK",
     "description": "End to end document ingestion, vectorization, storage, retrieval, and LLM response flows enabling scalable, context aware information access across large enterprise datasets.",
     "link": "",
-    "critical": true
+    "critical": true,
+    "caseStudy": {
+      "overview": "An AI-powered RAG (Retrieval-Augmented Generation) knowledge system built on AWS Bedrock that gives enterprises a scalable, context-aware way to access information across vast document datasets.",
+      "problem": "Organizations struggled to find relevant information across large, siloed document repositories. Manual search was slow and returned irrelevant results, while generic LLM chat lacked access to proprietary enterprise data.",
+      "approach": "Designed an end-to-end pipeline covering document ingestion, vectorization, storage, retrieval, and LLM response generation. Leveraged AWS Bedrock for foundation models and secure vector search to deliver low-latency, accurate, context-aware answers.",
+      "features": [
+        "Document ingestion and chunking pipeline",
+        "Vectorization and embedding storage",
+        "Semantic similarity retrieval",
+        "LLM response generation with source grounding",
+        "Context-aware conversational interface"
+      ],
+      "impact": [
+        "Scalable, context-aware information access",
+        "Reduced time-to-answer for enterprise queries",
+        "Minimized hallucinations via retrieval grounding"
+      ],
+      "techStack": ["React.js", "TypeScript", "AWS Bedrock", "Vector Databases", "S3", "Lambda", "LangGraph", "RAG"]
+    }
   },
   {
     "id": 2,
     "title": "CROSS-PLATFORM MOBILE APP",
+    "slug": "cross-platform-mobile-app",
     "role": "REACT NATIVE / <br /> iOS & ANDROID",
     "description": "End to end cross platform mobile application (iOS & Android) with scalable architecture and optimized performance for smooth, high quality user experiences at scale.",
     "link": "",
-    "critical": true
+    "critical": true,
+    "caseStudy": {
+      "overview": "A production-grade cross-platform mobile application built with React Native, delivering smooth, high-quality user experiences on both iOS and Android from a single codebase.",
+      "problem": "Maintaining separate native apps was costly and slow, while unoptimized React Native implementations suffered from janky interactions, excessive re-renders, and inconsistent behavior under high user activity.",
+      "approach": "Designed a scalable architecture with efficient navigation and state-driven interfaces. Optimized rendering to reduce re-renders and ensure consistent, responsive behavior even under heavy concurrent usage.",
+      "features": [
+        "Single codebase for iOS & Android",
+        "State-driven mobile interfaces",
+        "Efficient navigation and data handling",
+        "Performance optimization with reduced re-renders",
+        "Consistent behavior under high user activity"
+      ],
+      "impact": [
+        "Fast time-to-market across platforms",
+        "Smooth and responsive interactions",
+        "Reduced infrastructure and maintenance cost"
+      ],
+      "techStack": ["React Native", "TypeScript", "Redux", "React Navigation", "iOS", "Android", "REST", "GraphQL"]
+    }
   },
   {
     "id": 3,
     "title": "MICRO-FRONTEND ARCHITECTURE",
+    "slug": "micro-frontend-architecture",
     "role": "MODULE FEDERATION / <br /> SYSTEM DESIGN",
     "description": "Architected a micro-frontend setup using Module Federation, enabling independent deployments, reducing coupling, and significantly improving team productivity.",
     "link": "",
-    "critical": true
+    "critical": true,
+    "caseStudy": {
+      "overview": "A modular, scalable frontend architecture using Module Federation to split the platform into independently deployable micro-frontends, dramatically improving maintainability and team velocity.",
+      "problem": "A monolithic frontend created bottlenecks: slow builds, tightly coupled code, and blockers where one team's changes stalled another. Scaling the team and adding features became increasingly risky and slow.",
+      "approach": "Architected a micro-frontend setup using Webpack Module Federation. Each domain became an independently built, versioned, and deployed micro-app that shared consistent UI primitives through a federated shell.",
+      "features": [
+        "Independent micro-frontend deployments",
+        "Shared component library via Module Federation",
+        "Decoupled domain ownership",
+        "Faster, isolated builds and releases",
+        "Improved maintainability and scalability"
+      ],
+      "impact": [
+        "Reduced development time for new features by 30%",
+        "Improved team productivity and autonomy",
+        "Enabled independent, low-risk deployments"
+      ],
+      "techStack": ["React.js", "Webpack Module Federation", "TypeScript", "Turborepo", "Micro Frontend", "Docker"]
+    }
   },
   {
     "id": 4,
     "title": "ENTERPRISE ONLINE ASSESSMENT PLATFORM",
+    "slug": "enterprise-online-assessment-platform",
     "role": "AUTOMATION / <br /> RESULT WORKFLOWS",
     "description": "Scalable online assessment platform with automated evaluation, validation, and result workflows, improving hiring efficiency by 60%+ across the enterprise.",
     "link": "",
-    "critical": true
+    "critical": true,
+    "caseStudy": {
+      "overview": "A scalable online assessment platform that automates evaluation, validation, and result workflows, enabling companies to hire faster and more fairly at scale.",
+      "problem": "Manual hiring assessment workflows were slow, inconsistent, and couldn't scale. Recruiters and hiring managers needed a reliable way to administer, evaluate, and validate candidate assessments.",
+      "approach": "Built an end-to-end assessment platform with automated evaluation engines, validation rules, and result pipelines. Designed for reliability and scale to handle high volumes of candidates seamlessly.",
+      "features": [
+        "Automated evaluation and scoring",
+        "Validation and anti-cheating workflows",
+        "Streamlined result generation and reporting",
+        "Scalable candidate handling",
+        "Role-based access control"
+      ],
+      "impact": [
+        "Improved hiring efficiency by 60%+",
+        "Reduced manual evaluation effort",
+        "Consistent, fair candidate assessment"
+      ],
+      "techStack": ["React.js", "TypeScript", "Node.js", "PostgreSQL", "AWS", "Docker", "REST"]
+    }
   },
   {
     "id": 5,
     "title": "AI VOICE ASSISTANT",
+    "slug": "ai-voice-assistant",
     "role": "REAL-TIME AUDIO / <br /> HEALTHCARE",
     "description": "Hands free AI voice assistant for healthcare workflows with real time audio processing, wake word detection, and continuous speech handling for low latency interactions.",
     "link": "",
-    "critical": true
+    "critical": true,
+    "caseStudy": {
+      "overview": "A hands-free AI voice assistant purpose-built for healthcare workflows, enabling seamless, low-latency voice interactions without manual triggers.",
+      "problem": "Healthcare professionals often have their hands occupied, making manual interaction with software impractical. Existing voice solutions required manual triggers and suffered from high latency.",
+      "approach": "Engineered real-time audio processing with wake word detection and continuous speech handling. Designed the pipeline for low latency to ensure natural, seamless voice interactions in demanding clinical environments.",
+      "features": [
+        "Wake word detection",
+        "Continuous speech handling",
+        "Real-time audio processing",
+        "Low-latency voice interactions",
+        "Hands-free operation"
+      ],
+      "impact": [
+        "Seamless hands-free workflows",
+        "Reduced friction for healthcare staff",
+        "Fast, natural voice interactions"
+      ],
+      "techStack": ["React Native", "TypeScript", "Python", "AWS Transcribe", "AWS Lambda", "WebRTC", "LLM"]
+    }
   },
   {
     "id": 6,
     "title": "DATA-INTENSIVE DASHBOARDS",
+    "slug": "data-intensive-dashboards",
     "role": "REAL-TIME UI / <br /> SYSTEM DESIGN",
     "description": "Data intensive dashboards and real time UI systems built for scale, improving usability and interaction quality for high volume concurrent users.",
     "link": "",
-    "critical": true
+    "critical": true,
+    "caseStudy": {
+      "overview": "Data-intensive dashboards and real-time UI systems engineered to present complex data clearly and perform smoothly under high-volume concurrent usage.",
+      "problem": "Dashboards loaded slowly, felt cluttered, and struggled to keep real-time data in sync for large numbers of concurrent users, hurting usability and decision-making.",
+      "approach": "Designed efficient data models and real-time subscriptions, optimized rendering, and built modular dashboard components. Focused on usability and interaction quality at scale.",
+      "features": [
+        "Real-time data updates",
+        "Modular, reusable dashboard components",
+        "Efficient virtualization and rendering",
+        "Interactive data visualizations",
+        "Optimized for concurrent users"
+      ],
+      "impact": [
+        "Improved usability and interaction quality",
+        "Smooth real-time performance at scale",
+        "Faster, clearer decision-making"
+      ],
+      "techStack": ["React.js", "TypeScript", "WebSockets", "GraphQL", "PostgreSQL", "Redis", "Turborepo"]
+    }
   },
   {
     "id": 7,
     "title": "VIDEO PROCESSING PIPELINE",
+    "slug": "video-processing-pipeline",
     "role": "AWS MEDIACONVERT / <br /> MEDIA DELIVERY",
     "description": "Integrated AWS Elemental MediaConvert for scalable video processing, improving playback performance and ensuring consistent media delivery across platforms.",
     "link": "",
-    "critical": true
+    "critical": true,
+    "caseStudy": {
+      "overview": "A scalable video processing pipeline built on AWS Elemental MediaConvert, delivering smooth playback and consistent media quality across all platforms.",
+      "problem": "Video uploads and transcoding were slow, unreliable, and produced inconsistent playback across devices and network conditions, degrading the user experience.",
+      "approach": "Integrated AWS Elemental MediaConvert to orchestrate scalable transcoding, adaptive bitrate delivery, and multi-platform output, improving playback performance and reliability.",
+      "features": [
+        "Scalable transcoding pipeline",
+        "Adaptive bitrate streaming",
+        "Multi-platform output formats",
+        "Reliable media delivery",
+        "Optimized playback performance"
+      ],
+      "impact": [
+        "Improved playback performance",
+        "Consistent media delivery across platforms",
+        "Scalable handling of video workloads"
+      ],
+      "techStack": ["React.js", "TypeScript", "AWS MediaConvert", "S3", "CloudFront", "Node.js", "Docker"]
+    }
   }
 ]
