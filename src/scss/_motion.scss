@@ -145,9 +145,12 @@
   z-index: 7000;
   transition: background 0.3s, backdrop-filter 0.3s;
   &.is-solid {
-    background: rgba(10, 10, 10, 0.72);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    background: rgba(10, 10, 10, 0.92);
+    @include up(768px) {
+      background: rgba(10, 10, 10, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
   }
 }
 
@@ -196,7 +199,6 @@
 .feature,
 .product {
   transform-style: preserve-3d;
-  will-change: transform;
 }
 
 .footer__tag .dot {
@@ -214,4 +216,93 @@
 
 .cs .cs__chips span {
   display: inline-block;
+}
+
+/* ---------- mobile menu ---------- */
+.nav__toggle {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  background: none;
+  border: 0;
+  color: $ink;
+  cursor: pointer;
+  @include up(768px) {
+    display: none;
+  }
+  span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.35s, width 0.35s;
+    transform-origin: center;
+  }
+  span:last-child {
+    width: 16px;
+  }
+  .is-menu & span:first-child {
+    transform: translateY(3.75px) rotate(45deg);
+  }
+  .is-menu & span:last-child {
+    width: 24px;
+    transform: translateY(-3.75px) rotate(-45deg);
+  }
+}
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 6900;
+  background: $bg;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 96px 24px 40px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s, visibility 0s 0.35s;
+  @include up(768px) {
+    display: none;
+  }
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.35s;
+  }
+  a {
+    font-family: $tight;
+    font-weight: 600;
+    font-size: clamp(44px, 14vw, 72px);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    padding: 6px 0;
+    border-bottom: 1px solid $line;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s, transform 0.5s, color 0.2s;
+    &:hover,
+    &.is-active {
+      color: $accent;
+    }
+  }
+  &.is-open a {
+    opacity: 1;
+    transform: none;
+    @for $i from 1 through 5 {
+      &:nth-child(#{$i}) {
+        transition-delay: #{0.08 + $i * 0.06}s;
+      }
+    }
+  }
+  &__foot {
+    margin-top: 28px;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: $muted;
+  }
 }
