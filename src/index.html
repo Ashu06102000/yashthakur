@@ -26,7 +26,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600&family=Bebas+Neue&display=swap"
       rel="stylesheet"
     />
 
@@ -69,30 +69,34 @@
 
       <!-- HERO -->
       <section id="top" class="hero">
-        <canvas class="hero__net" data-net aria-hidden="true"></canvas>
-        <div class="hero__veil" aria-hidden="true"></div>
-
         <div class="wrap hero__body">
-          <div class="mono hero__eyebrow">[ AI ENGINEER + FULL-STACK DEVELOPER ]</div>
-          <h1 class="hero__title">I build intelligent <span class="accent">systems.</span></h1>
-          <p class="hero__lead">
-            Agentic workflows and RAG on the backend, polished React and React Native on the front. I take an AI idea
-            from the model call all the way to a product people actually use.
-          </p>
-          <div class="hero__cta">
-            <a href="#/work" class="btn btn--pill">
-              Explore my work
-              <span class="btn__icon">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
-              </span>
-            </a>
-            <a href="#/contact" class="hero__ghost">Get in touch <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-
-        <div class="wrap hero__foot mono">
-          <span class="hero__status"><span class="dot dot--lg"></span>PUNE, INDIA — OPEN TO SELECT OPPORTUNITIES</span>
-          <span class="hero__scroll">SCROLL <span aria-hidden="true">↓</span></span>
+          <h1 class="hero__title" aria-label="AI Full-Stack Engineer">
+            <div class="hero__row hero__row--top" aria-hidden="true">
+              <span class="hero__left"><span class="hero__hover">A</span><span class="hero__hover">I</span></span>
+              <span class="hero__dash"><i></i></span>
+              <span class="hero__right"><span class="hero__hover">F</span><span class="hero__hover">U</span><span class="hero__hover">L</span><span class="hero__hover">L</span><span class="hero__hover">-</span><span class="hero__hover">S</span><span class="hero__hover">T</span><span class="hero__hover">A</span><span class="hero__hover">C</span><span class="hero__hover">K</span></span>
+            </div>
+            <div class="hero__row hero__row--bottom">
+              <span class="hero__eng" aria-hidden="true"><span class="hero__hover">E</span><span class="hero__hover">N</span><span class="hero__hover">G</span><span class="hero__hover">I</span><span class="hero__hover">N</span><span class="hero__hover">E</span><span class="hero__hover">E</span><span class="hero__hover">R</span></span>
+              <div class="hero__side">
+                <p class="hero__lead">
+                  <span class="mono hero__label">ABOUT</span>
+                  Agentic workflows and RAG on the backend, polished React and React Native on the front. I take an AI
+                  idea from the model call all the way to a product people actually use.
+                </p>
+                <div class="hero__cta">
+                  <a href="#/work" class="btn btn--pill">
+                    Explore my work
+                    <span class="btn__icon">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
+                    </span>
+                  </a>
+                  <span class="mono hero__status"><span class="dot dot--lg"></span>PUNE, INDIA — OPEN TO OPPORTUNITIES</span>
+                </div>
+                <a href="#/work" class="mono hero__scroll">SCROLL DOWN <span aria-hidden="true">↓</span></a>
+              </div>
+            </div>
+          </h1>
         </div>
       </section>
 
@@ -243,22 +247,26 @@
             <div class="skill">
               <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="13" cy="13" r="3" /><circle cx="5" cy="6" r="2" /><circle cx="21" cy="6" r="2" /><circle cx="5" cy="20" r="2" /><circle cx="21" cy="20" r="2" /><path d="M7 7l4 4M19 7l-4 4M7 19l4-4M19 19l-4-4" /></svg>
               <h3>AI &amp; Cloud</h3>
-              <p>LLMs, RAG, MCP, agentic AI, AWS Bedrock, OpenSearch</p>
+              <p>LLMs, RAG, MCP servers, agentic AI, agent orchestration, LangGraph, AI gateways, vector databases</p>
+              <p>AWS (22 services): Bedrock, SageMaker, Lambda, ECS, EKS, EC2, S3, CloudFront, RDS, OpenSearch, API Gateway, SQS, SNS, EventBridge, MediaConvert</p>
             </div>
             <div class="skill">
               <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="4" width="20" height="7" rx="1.5" /><rect x="3" y="15" width="20" height="7" rx="1.5" /><path d="M7 7.5h.01M7 18.5h.01" /></svg>
               <h3>Backend &amp; Infra</h3>
-              <p>Node.js, Python, Postgres, Prisma, microservices, system design</p>
+              <p>TypeScript, JavaScript, Python, Go, PHP</p>
+              <p>Node.js, Express, GraphQL, gRPC, REST, PostgreSQL, MongoDB, Redis, Kafka, Prisma, microservices, system design</p>
             </div>
             <div class="skill">
               <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="8" y="3" width="10" height="20" rx="2" /><path d="M12 19.5h2" /></svg>
               <h3>Frontend &amp; Mobile</h3>
-              <p>React, Next.js, Remix, React Native, Expo, Tailwind, UI/UX</p>
+              <p>React, Next.js, Remix, React Native, Expo, Stencil.js, micro frontends, Turborepo</p>
+              <p>Tailwind, Shadcn UI, Material UI, Sanity, Shopify (Liquid), WordPress, Webflow</p>
             </div>
             <div class="skill">
               <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M13 3l9 5v10l-9 5-9-5V8z" /><path d="M4 8l9 5 9-5M13 13v10" /></svg>
               <h3>DevSecOps &amp; Tooling</h3>
-              <p>Docker, Jenkins, SonarQube, Snyk, GitHub Actions, Terraform</p>
+              <p>Docker, Jenkins, SonarQube, Snyk, GitHub Actions, Terraform, JFrog Artifactory, Fly.io</p>
+              <p>OpenTelemetry, Grafana, Sentry, CloudWatch, Cypress, Playwright, Jira</p>
             </div>
           </div>
         </div>
