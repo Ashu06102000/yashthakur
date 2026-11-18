@@ -213,11 +213,11 @@ function initGlobal() {
    ====================================================================== */
 function heroIntro(delay = 0) {
   const letters = gsap.utils.toArray(".hero__hover");
-  const top = gsap.utils.toArray(".hero__row--top .hero__hover");
+  const top = gsap.utils.toArray(".hero__left .hero__hover, .hero__right .hero__hover");
   const bottom = gsap.utils.toArray(".hero__eng .hero__hover");
 
   gsap.set(letters, { yPercent: 115 });
-  gsap.set(".hero__side > *", { opacity: 0, y: 24 });
+  gsap.set(".hero__copy > *, .hero__panel", { opacity: 0, y: 24 });
   gsap.set(".hero__dash i", { scaleX: 0 });
   gsap.set(".nav-bar", { y: -30, opacity: 0 });
 
@@ -226,7 +226,7 @@ function heroIntro(delay = 0) {
     .to(top, { yPercent: 0, duration: 1.1, stagger: 0.045 }, 0.05)
     .to(".hero__dash i", { scaleX: 1, duration: 1.4, ease: "power4.inOut" }, 0.35)
     .to(bottom, { yPercent: 0, duration: 1.1, stagger: 0.045 }, 0.35)
-    .to(".hero__side > *", { opacity: 1, y: 0, duration: 0.9, stagger: 0.12 }, 0.8);
+    .to(".hero__copy > *, .hero__panel", { opacity: 1, y: 0, duration: 0.9, stagger: 0.12 }, 0.8);
   return tl;
 }
 
@@ -278,10 +278,11 @@ export async function initHome() {
     /* hero: halves drift apart, dash stretches */
     if (!RM) {
       const heroST = { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.6 };
-      gsap.to(".hero__left", { x: () => -innerWidth * 0.07, ease: "none", scrollTrigger: heroST });
-      gsap.to(".hero__right", { x: () => innerWidth * 0.07, ease: "none", scrollTrigger: heroST });
-      gsap.to(".hero__dash", { scaleX: 2.4, ease: "none", scrollTrigger: heroST });
-      gsap.to(".hero__eng", { x: () => -innerWidth * 0.04, ease: "none", scrollTrigger: heroST });
+      gsap.to(".hero__left", { x: () => innerWidth * 0.02, ease: "none", scrollTrigger: heroST });
+      gsap.to(".hero__right", { x: () => innerWidth * 0.04, ease: "none", scrollTrigger: heroST });
+      gsap.to(".hero__eng", { x: () => innerWidth * 0.06, ease: "none", scrollTrigger: heroST });
+      gsap.to(".hero__dash", { scaleX: 1.25, ease: "none", scrollTrigger: heroST });
+      gsap.to(".hero__panel", { yPercent: -8, ease: "none", scrollTrigger: heroST });
     }
 
     /* marquees: scroll-velocity driven */
