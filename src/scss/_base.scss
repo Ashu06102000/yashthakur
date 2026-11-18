@@ -80,8 +80,8 @@ ul {
   @include up(1024px) {
     padding: 0 80px;
   }
-  @include up(1440px) {
-    padding: 0 104px;
+  @include up(1280px) {
+    padding: 0 120px;
   }
 }
 

@@ -280,7 +280,7 @@ export async function initHome() {
       const heroST = { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.6 };
       gsap.to(".hero__left", { x: () => -innerWidth * 0.07, ease: "none", scrollTrigger: heroST });
       gsap.to(".hero__right", { x: () => innerWidth * 0.07, ease: "none", scrollTrigger: heroST });
-      gsap.to(".hero__dash i", { scaleX: 2.4, ease: "none", scrollTrigger: heroST });
+      gsap.to(".hero__dash", { scaleX: 2.4, ease: "none", scrollTrigger: heroST });
       gsap.to(".hero__eng", { x: () => -innerWidth * 0.04, ease: "none", scrollTrigger: heroST });
     }
 
