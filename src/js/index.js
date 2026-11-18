@@ -53,6 +53,23 @@ async function renderCaseList() {
     .join("");
 }
 
+/* ---------- mobile menu ---------- */
+const bar = document.querySelector("[data-navbar]");
+const menu = document.querySelector("[data-menu]");
+const toggle = document.querySelector("[data-menu-toggle]");
+const setMenu = (open) => {
+  bar.classList.toggle("is-menu", open);
+  menu.classList.toggle("is-open", open);
+  menu.setAttribute("aria-hidden", String(!open));
+  toggle.setAttribute("aria-expanded", String(open));
+  toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  document.documentElement.style.overflow = open ? "hidden" : "";
+};
+toggle.addEventListener("click", () => setMenu(!menu.classList.contains("is-open")));
+menu.querySelectorAll("[data-menu-link]").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+window.addEventListener("keydown", (e) => e.key === "Escape" && setMenu(false));
+window.matchMedia("(min-width: 768px)").addEventListener("change", (e) => e.matches && setMenu(false));
+
 /* ---------- boot ---------- */
 let caseCtx = null;
 const router = new Router({

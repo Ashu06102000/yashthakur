@@ -183,14 +183,19 @@ function initGlobal() {
 
   // floating nav: solid after scroll, hides on scroll down, returns on scroll up
   const bar = document.querySelector("[data-navbar]");
+  let navHidden = false;
   ScrollTrigger.create({
     start: 0,
     end: "max",
     onUpdate(self) {
       const y = self.scroll();
-      bar.classList.toggle("is-solid", y > 40);
-      const hide = self.direction === 1 && y > 240;
-      gsap.to(bar, { yPercent: hide ? -100 : 0, duration: 0.4, ease: "power3.out", overwrite: true });
+      const solid = y > 40;
+      if (solid !== bar.classList.contains("is-solid")) bar.classList.toggle("is-solid", solid);
+      const hide = self.direction === 1 && y > 240 && !bar.classList.contains("is-menu");
+      if (hide !== navHidden) {
+        navHidden = hide;
+        gsap.to(bar, { yPercent: hide ? -100 : 0, duration: 0.4, ease: "power3.out", overwrite: "auto" });
+      }
     },
   });
   // nav link scramble on hover
@@ -430,15 +435,18 @@ export async function initHome() {
     });
     if (!RM) {
       let vel = 0;
+      let lastSkew = 0;
       ScrollTrigger.create({ start: 0, end: "max", onUpdate: (s) => (vel = s.getVelocity()) });
       gsap.ticker.add(() => {
         vel *= 0.92;
         const boost = 1 + Math.abs(vel) / 260;
         const sign = vel < -40 ? -1 : 1;
         const skew = gsap.utils.clamp(-10, 10, vel / -180);
+        const moved = Math.abs(skew - lastSkew) > 0.02;
+        lastSkew = skew;
         marquees.forEach(({ track, loop }) => {
           loop.timeScale(gsap.utils.interpolate(loop.timeScale(), sign * boost, 0.12));
-          gsap.set(track, { skewX: skew });
+          if (moved) gsap.set(track, { skewX: skew });
         });
       });
     }
