@@ -209,164 +209,24 @@ function initGlobal() {
 }
 
 /* ======================================================================
-   hero network: drifting nodes, signal pulses, cursor-reactive links
-   ====================================================================== */
-function initNetwork() {
-  const canvas = document.querySelector("[data-net]");
-  if (!canvas) return;
-  const hero = canvas.parentElement;
-  const ctx = canvas.getContext("2d");
-  const ACC = "198,243,107";
-  const INK = "242,239,232";
-  let w = 0, h = 0, nodes = [], pulses = [], link = 150, spawnIn = 0;
-  const mouse = { x: -9999, y: -9999, on: false };
-  const rnd = (a, b) => a + Math.random() * (b - a);
-
-  const resize = () => {
-    const r = hero.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    w = r.width;
-    h = r.height;
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    link = w < 700 ? 105 : 150;
-    const count = Math.round(Math.min(95, Math.max(26, (w * h) / 15000)));
-    nodes = Array.from({ length: count }, () => ({
-      x: rnd(0, w), y: rnd(0, h), vx: rnd(-0.22, 0.22), vy: rnd(-0.22, 0.22), r: rnd(1, 2.2),
-    }));
-    pulses = [];
-  };
-
-  const draw = (dt) => {
-    ctx.clearRect(0, 0, w, h);
-    const edges = [];
-    for (const n of nodes) {
-      n.x += n.vx * dt;
-      n.y += n.vy * dt;
-      if (n.x < -20) n.x = w + 20; else if (n.x > w + 20) n.x = -20;
-      if (n.y < -20) n.y = h + 20; else if (n.y > h + 20) n.y = -20;
-      if (mouse.on) {
-        const dx = mouse.x - n.x, dy = mouse.y - n.y, d2 = dx * dx + dy * dy;
-        if (d2 < 190 * 190 && d2 > 1) {
-          const f = (1 - Math.sqrt(d2) / 190) * 0.02 * dt;
-          n.x += dx * f;
-          n.y += dy * f;
-        }
-      }
-    }
-    // node-to-node links
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const a = nodes[i], b = nodes[j];
-        const dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
-        if (d < link) {
-          edges.push([a, b]);
-          ctx.strokeStyle = `rgba(${INK},${(1 - d / link) * 0.2})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-        }
-      }
-    }
-    // cursor links (accent)
-    if (mouse.on) {
-      for (const n of nodes) {
-        const d = Math.hypot(mouse.x - n.x, mouse.y - n.y);
-        if (d < 190) {
-          ctx.strokeStyle = `rgba(${ACC},${(1 - d / 190) * 0.55})`;
-          ctx.beginPath();
-          ctx.moveTo(mouse.x, mouse.y);
-          ctx.lineTo(n.x, n.y);
-          ctx.stroke();
-        }
-      }
-    }
-    // nodes
-    for (const n of nodes) {
-      ctx.fillStyle = `rgba(${INK},0.55)`;
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r, 0, 6.2832);
-      ctx.fill();
-    }
-    // signal pulses travelling along edges
-    spawnIn -= dt;
-    if (spawnIn <= 0 && edges.length) {
-      const [a, b] = edges[(Math.random() * edges.length) | 0];
-      pulses.push({ a, b, t: 0, s: rnd(0.012, 0.024) });
-      spawnIn = rnd(10, 26);
-    }
-    pulses = pulses.filter((p) => p.t < 1);
-    for (const p of pulses) {
-      p.t += p.s * dt;
-      const x = p.a.x + (p.b.x - p.a.x) * p.t, y = p.a.y + (p.b.y - p.a.y) * p.t;
-      const g = ctx.createRadialGradient(x, y, 0, x, y, 14);
-      g.addColorStop(0, `rgba(${ACC},0.9)`);
-      g.addColorStop(1, `rgba(${ACC},0)`);
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(x, y, 14, 0, 6.2832);
-      ctx.fill();
-      ctx.fillStyle = `rgb(${ACC})`;
-      ctx.beginPath();
-      ctx.arc(x, y, 2.2, 0, 6.2832);
-      ctx.fill();
-    }
-  };
-
-  resize();
-  window.addEventListener("resize", () => {
-    clearTimeout(initNetwork.t);
-    initNetwork.t = setTimeout(resize, 150);
-  });
-
-  if (RM) return draw(0);
-
-  hero.addEventListener("pointermove", (e) => {
-    const r = hero.getBoundingClientRect();
-    mouse.x = e.clientX - r.left;
-    mouse.y = e.clientY - r.top;
-    mouse.on = e.pointerType !== "touch";
-  });
-  hero.addEventListener("pointerleave", () => (mouse.on = false));
-
-  const tick = (_, delta) => draw(Math.min(delta, 50) / 16.67);
-  let running = false;
-  ScrollTrigger.create({
-    trigger: hero,
-    start: "top bottom",
-    end: "bottom top",
-    onToggle: (s) => {
-      if (s.isActive && !running) { gsap.ticker.add(tick); running = true; }
-      else if (!s.isActive && running) { gsap.ticker.remove(tick); running = false; }
-    },
-  });
-  gsap.fromTo(canvas, { opacity: 0 }, { opacity: 1, duration: 2.2, ease: "power2.out", delay: 0.4 });
-}
-
-/* ======================================================================
    intro (loader + hero)
    ====================================================================== */
 function heroIntro(delay = 0) {
-  const title = document.querySelector(".hero__title");
-  const words = splitWords(title);
-  const eyebrow = document.querySelector(".hero__eyebrow");
-  eyebrow.dataset.text = eyebrow.textContent;
+  const letters = gsap.utils.toArray(".hero__hover");
+  const top = gsap.utils.toArray(".hero__row--top .hero__hover");
+  const bottom = gsap.utils.toArray(".hero__eng .hero__hover");
 
-  gsap.set(".hero__eyebrow, .hero__lead, .hero__cta > *", { opacity: 0, y: 24 });
-  gsap.set(words, { yPercent: 115, rotate: 4 });
+  gsap.set(letters, { yPercent: 115 });
+  gsap.set(".hero__side > *", { opacity: 0, y: 24 });
+  gsap.set(".hero__dash i", { scaleX: 0 });
   gsap.set(".nav-bar", { y: -30, opacity: 0 });
 
   const tl = gsap.timeline({ delay, defaults: { ease: "power4.out" } });
   tl.to(".nav-bar", { y: 0, opacity: 1, duration: 0.8 })
-    .to(".hero__eyebrow", { opacity: 1, y: 0, duration: 0.5 }, 0.05)
-    .add(() => scramble(eyebrow, 0.9), 0.05)
-    .to(words, { yPercent: 0, rotate: 0, duration: 1.2, stagger: 0.09 }, 0.1)
-    .to(".hero__lead", { opacity: 1, y: 0, duration: 0.9 }, 0.55)
-    .to(".hero__cta > *", { opacity: 1, y: 0, duration: 0.9, stagger: 0.1 }, 0.75)
-    .from(".hero__foot", { opacity: 0, y: 16, duration: 0.8 }, 1.1);
+    .to(top, { yPercent: 0, duration: 1.1, stagger: 0.045 }, 0.05)
+    .to(".hero__dash i", { scaleX: 1, duration: 1.4, ease: "power4.inOut" }, 0.35)
+    .to(bottom, { yPercent: 0, duration: 1.1, stagger: 0.045 }, 0.35)
+    .to(".hero__side > *", { opacity: 1, y: 0, duration: 0.9, stagger: 0.12 }, 0.8);
   return tl;
 }
 
@@ -415,15 +275,13 @@ export async function initHome() {
   heroIntro(played ? 0.1 : 0.05);
 
   gsap.context(() => {
-    /* hero: network + scroll-out */
-    initNetwork();
+    /* hero: halves drift apart, dash stretches */
     if (!RM) {
-      gsap.to(".hero__body", {
-        y: -90,
-        opacity: 0.1,
-        ease: "none",
-        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true },
-      });
+      const heroST = { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.6 };
+      gsap.to(".hero__left", { x: () => -innerWidth * 0.07, ease: "none", scrollTrigger: heroST });
+      gsap.to(".hero__right", { x: () => innerWidth * 0.07, ease: "none", scrollTrigger: heroST });
+      gsap.to(".hero__dash i", { scaleX: 2.4, ease: "none", scrollTrigger: heroST });
+      gsap.to(".hero__eng", { x: () => -innerWidth * 0.04, ease: "none", scrollTrigger: heroST });
     }
 
     /* marquees: scroll-velocity driven */
@@ -545,7 +403,7 @@ export async function initHome() {
     gsap.from(".stat", { y: 30, opacity: 0, stagger: 0.12, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: ".stats", start: "top 88%" } });
 
     /* skills: icons draw themselves */
-    gsap.from(".skill", { y: 50, opacity: 0, stagger: 0.12, duration: 1, ease: "power4.out", scrollTrigger: { trigger: ".skills__grid", start: "top 85%" } });
+    gsap.from(".skill", { y: 50, opacity: 0, stagger: 0.07, duration: 1, ease: "power4.out", scrollTrigger: { trigger: ".skills__grid", start: "top 85%" } });
     gsap.utils.toArray(".skill svg").forEach((svg) => {
       const shapes = svg.querySelectorAll("circle, rect, path");
       shapes.forEach((s) => s.setAttribute("pathLength", "1"));
