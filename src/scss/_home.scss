@@ -22,15 +22,15 @@
     grid-template-columns: minmax(0, 1fr);
     align-content: center;
     gap: 40px;
-    padding-top: 120px;
-    padding-bottom: 72px;
+    padding-top: 104px;
+    padding-bottom: 48px;
     @include up(1024px) {
       grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
       grid-template-areas:
         "title panel"
         "copy panel";
       column-gap: 72px;
-      row-gap: 48px;
+      row-gap: 36px;
       .hero__title {
         grid-area: title;
       }
@@ -52,7 +52,7 @@
     font-size: min(24vw, 200px);
     color: $ink;
     @include up(1024px) {
-      font-size: min(12.5vw, 200px);
+      font-size: min(12.5vw, 200px, 17svh);
     }
   }
   &__row {
