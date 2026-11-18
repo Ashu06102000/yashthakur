@@ -23,7 +23,16 @@
         "Reduced time-to-answer for enterprise queries",
         "Minimized hallucinations via retrieval grounding"
       ],
-      "techStack": ["React.js", "TypeScript", "AWS Bedrock", "Vector Databases", "S3", "Lambda", "LangGraph", "RAG"]
+      "techStack": [
+        "React.js",
+        "TypeScript",
+        "AWS Bedrock",
+        "Vector Databases",
+        "S3",
+        "Lambda",
+        "LangGraph",
+        "RAG"
+      ]
     }
   },
   {
@@ -50,7 +59,16 @@
         "Smooth and responsive interactions",
         "Reduced infrastructure and maintenance cost"
       ],
-      "techStack": ["React Native", "TypeScript", "Redux", "React Navigation", "iOS", "Android", "REST", "GraphQL"]
+      "techStack": [
+        "React Native",
+        "TypeScript",
+        "Redux",
+        "React Navigation",
+        "iOS",
+        "Android",
+        "REST",
+        "GraphQL"
+      ]
     }
   },
   {
@@ -77,7 +95,14 @@
         "Improved team productivity and autonomy",
         "Enabled independent, low-risk deployments"
       ],
-      "techStack": ["React.js", "Webpack Module Federation", "TypeScript", "Turborepo", "Micro Frontend", "Docker"]
+      "techStack": [
+        "React.js",
+        "Webpack Module Federation",
+        "TypeScript",
+        "Turborepo",
+        "Micro Frontend",
+        "Docker"
+      ]
     }
   },
   {
@@ -104,7 +129,15 @@
         "Reduced manual evaluation effort",
         "Consistent, fair candidate assessment"
       ],
-      "techStack": ["React.js", "TypeScript", "Node.js", "PostgreSQL", "AWS", "Docker", "REST"]
+      "techStack": [
+        "React.js",
+        "TypeScript",
+        "Node.js",
+        "PostgreSQL",
+        "AWS",
+        "Docker",
+        "REST"
+      ]
     }
   },
   {
@@ -131,7 +164,15 @@
         "Reduced friction for healthcare staff",
         "Fast, natural voice interactions"
       ],
-      "techStack": ["React Native", "TypeScript", "Python", "AWS Transcribe", "AWS Lambda", "WebRTC", "LLM"]
+      "techStack": [
+        "React Native",
+        "TypeScript",
+        "Python",
+        "AWS Transcribe",
+        "AWS Lambda",
+        "WebRTC",
+        "LLM"
+      ]
     }
   },
   {
@@ -158,7 +199,15 @@
         "Smooth real-time performance at scale",
         "Faster, clearer decision-making"
       ],
-      "techStack": ["React.js", "TypeScript", "WebSockets", "GraphQL", "PostgreSQL", "Redis", "Turborepo"]
+      "techStack": [
+        "React.js",
+        "TypeScript",
+        "WebSockets",
+        "GraphQL",
+        "PostgreSQL",
+        "Redis",
+        "Turborepo"
+      ]
     }
   },
   {
@@ -185,7 +234,205 @@
         "Consistent media delivery across platforms",
         "Scalable handling of video workloads"
       ],
-      "techStack": ["React.js", "TypeScript", "AWS MediaConvert", "S3", "CloudFront", "Node.js", "Docker"]
+      "techStack": [
+        "React.js",
+        "TypeScript",
+        "AWS MediaConvert",
+        "S3",
+        "CloudFront",
+        "Node.js",
+        "Docker"
+      ]
+    }
+  },
+  {
+    "id": 8,
+    "title": "AI CLINICAL SCRIBE — WEB PLATFORM",
+    "slug": "ai-clinical-scribe-web",
+    "role": "NEXT.JS / <br /> HEALTHCARE AI",
+    "description": "Web platform that listens to care visits and drafts the clinical note for review, backed by an agentic AI assistant that plans, calls tools across the clinic's data, and asks before it writes anything.",
+    "link": "",
+    "critical": true,
+    "caseStudy": {
+      "overview": "A web platform for clinicians who visit patients and then have to write everything up by hand. It records the visit, transcribes who said what, drafts a structured clinical note, and hands it back to the clinician to review and approve. The same product also runs the day around the visit: patients, the appointment book, charting and an AI assistant. Behind it sits an agentic AI assistant that can look things up, build plans and take actions across the clinic's systems, with a person confirming anything that changes data.",
+      "problem": "In the US, nurses and other clinicians often travel to patients' homes or see back-to-back appointments, and every visit ends with documentation. Notes get typed up between visits, after hours, or from memory. That is slow, tiring, and the first thing to go wrong when a day runs long: details are missed, charts fall behind, and clinicians burn out on admin instead of care. Generic dictation tools did not help much, because the output was a wall of text, not a note in the shape the chart needs.",
+      "approach": "I treated the note as the product and the recording as the input. The visit is captured live, streamed for transcription with speaker turns, and turned into a structured note (summary, SOAP sections, action items and decisions) tied to the right patient and booking. The clinician is always the last step: they read the draft, fix it, and approve it before anything is exported or written back. Everything around it (today's visits, patient context, the appointment book) exists so the right patient is attached to a recording before it starts and the clinician rarely has to search for anything.",
+      "features": [
+        "Consent-first recording flow with live transcript and speaker turns",
+        "Structured notes: summary, SOAP sections, action items and decisions",
+        "Today's visits view that attaches a recording to the right booking",
+        "Review and approval step before copy, export or write-back to the record",
+        "Audio playback synced to the transcript, with markers and comments",
+        "Sharing with access by role, PDF and transcript export",
+        "Appointment book with day, week and per-provider load views",
+        "Patient profiles with visit history, charts, photos and linked scribes",
+        "Agentic assistant with tool use, MCP, retrieval and confirm-before-write actions",
+        "AI assistant chat over WebSockets with a voice mode and file attachments",
+        "Feature flags and role-based access so each workspace sees only what it should"
+      ],
+      "challenges": [
+        {
+          "title": "Recording that survives real conditions",
+          "text": "Microphones get blocked, tabs lose focus, and networks drop mid-visit. The recording flow handles permission errors with plain explanations, pauses and resumes cleanly, keeps the audio when note generation fails, and offers a retry instead of losing the visit."
+        },
+        {
+          "title": "Long-running AI work in a fast UI",
+          "text": "A note is not ready the moment recording stops. The list and note pages poll for processing, failed and write-back states, show the reason for a failure by error code, and let the clinician keep working while the note is generated."
+        },
+        {
+          "title": "Trust in a clinical setting",
+          "text": "Nothing is final until a person approves it. Approval gates the exports, status rules decide what a clinician can do next, and multi-tenant headers and role checks keep each clinic's data separate."
+        },
+        {
+          "title": "A big product, kept safe to change",
+          "text": "The app grew to many modules with several people shipping at once. An atomic component system, strict design tokens, lint and type checks on every push, and four test lanes (unit, mocked end-to-end, live-API, pre-push gate) kept changes reviewable."
+        }
+      ],
+      "architecture": [
+        "Next.js 15 App Router with React 19 and TypeScript; server route handlers for auth, layout, support and proxying",
+        "Redux Toolkit and RTK Query for data, with contract tests against shared fixtures and schemas",
+        "WebSocket layer for chat and live transcription, kept opt-in so the text flow is never affected",
+        "Cookie-based session checks in middleware protect every dashboard route",
+        "Tailwind design tokens with Shadcn UI and dark/light themes; Biome and Lefthook enforce quality"
+      ],
+      "impact": [
+        "Turns a free-form conversation into a structured note the clinician only has to review",
+        "An assistant that does the lookup and planning work, such as finding patients to call for open slots, instead of only answering questions",
+        "Moves documentation out of evenings and into the visit itself",
+        "One product covers the visit, the schedule and the patient record, so context follows the clinician",
+        "Predictable releases through layered automated testing and CI gates"
+      ],
+      "techStack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Redux Toolkit",
+        "RTK Query",
+        "Tailwind CSS",
+        "WebSockets",
+        "AWS Bedrock",
+        "LaunchDarkly",
+        "Jest",
+        "Playwright",
+        "Biome",
+        "AWS Bedrock Agents",
+        "MCP",
+        "AWS Lambda",
+        "S3",
+        "Redis",
+        "PostgreSQL",
+        "OpenTelemetry"
+      ],
+      "agentic": {
+        "intro": "The assistant is not a chatbot bolted onto the product. It is an agent: it reads the question, decides which tools it needs, calls them, looks at what came back, and repeats until it can answer, all streamed to the clinician as it works.",
+        "steps": [
+          {
+            "title": "Classify, then plan",
+            "text": "Each message is classified first (a patient lookup, a schedule question, a search, a request to act) so the model starts with the right tools and instructions instead of every tool at once."
+          },
+          {
+            "title": "A multi-turn tool loop",
+            "text": "The model runs a reason, act, observe loop of up to 15 turns. It asks for a tool, gets the result, and decides the next step, so a question like \"who could fill Thursday's open slot\" becomes several dependent lookups ending in one short answer."
+          },
+          {
+            "title": "One registry for every kind of tool",
+            "text": "Built-in functions, Lambda-backed data views and MCP servers all sit behind a single tool registry with the same contract: a definition, an executor and metadata. Adding a capability means registering a tool, not changing the agent."
+          },
+          {
+            "title": "Parallel when safe, sequential when not",
+            "text": "An execution strategy detects dependencies between requested tools (pagination, a read that needs an earlier write) and runs independent calls in parallel, with per-source limits, and dependent ones in order."
+          },
+          {
+            "title": "Built to fail gracefully",
+            "text": "Each tool has retries with exponential backoff, a circuit breaker and a fallback chain, so if the structured query fails the agent drops back to search instead of giving up. Failed calls come back to the model as data it can reason about."
+          },
+          {
+            "title": "Grounded retrieval and memory",
+            "text": "Search fans out to the knowledge base, the database and conversation memory in parallel, then fuses, de-duplicates and reranks. Conversation summaries and patient context are stored per clinic, so answers stay consistent across sessions."
+          },
+          {
+            "title": "Safe by construction",
+            "text": "Every tool call carries the clinic, user and patient context, and access is checked per request. Writes and sends need the user's confirmation. Content from uploaded files is treated as data, never instructions, which also guards against prompt injection."
+          },
+          {
+            "title": "Rich results, not just text",
+            "text": "Tools return structured attachments (patient photos, documents, chart links, a live fill plan for open appointment slots) that the apps render as cards. The model only sees references, so no links or private data are made up or leaked."
+          },
+          {
+            "title": "Observable and tested",
+            "text": "OpenTelemetry-style traces, metrics and token budgets cover every turn, and eval suites for routing and conversations catch regressions when prompts, tools or models change."
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 9,
+    "title": "AI CLINICAL SCRIBE — MOBILE APP",
+    "slug": "ai-clinical-scribe-mobile",
+    "role": "REACT NATIVE / <br /> iOS & ANDROID",
+    "description": "The clinician's pocket version of the scribe: record a visit from the patient's home, see today's schedule and patient history, and review the note, all from a phone.",
+    "link": "",
+    "critical": true,
+    "caseStudy": {
+      "overview": "A React Native app for clinicians who spend the day moving between patients. It carries the three things they need on the road: AI Scribe, the appointment book and the patient list. The web product was the source of truth, and I rebuilt its phone experience natively so a nurse in a driveway sees the same sections, wording, statuses and data they see at the desk.",
+      "problem": "The people who most need to cut down on paperwork are the ones who are away from a desk. A home-care nurse cannot open a laptop in a patient's living room, so notes were written later, from memory, in the car or at night. The first mobile app was a thin shell: a flat list, a silent record button and plain-text summaries. It did not match the web, so clinicians had to learn two products, and it could not be trusted to behave the same.",
+      "approach": "I rebuilt the app tab by tab against the web's phone view, using the web code as the specification: same sections in the same order, same colours and spacing, same status rules, same backend endpoints. Where the phone does something better natively (haptics, bottom sheets, share sheet, on-device speech), I used the native way and documented the difference. Each rebuilt area (Patients, Appointments, AI Scribe, More menu and settings) shipped with its own parity document, so reviewers and the next developer know what matches and what deliberately does not.",
+      "features": [
+        "Bottom tab bar with AI Scribe, Appointments and Patients, plus a More menu",
+        "Recording flow with a consent dialog, speaker turns, floating dock and a visit-context sheet",
+        "Note page with Summary and Transcript tabs, SOAP note, action items, talk time and audio player",
+        "Approve, copy, export and share, with the web's messages and loading states",
+        "Appointment book with date strip, Mine/Everyone, week view and a booking-details sheet",
+        "Patient list with filters and pagination, and a full patient profile",
+        "Role-aware tab gating, including a scribe-only mode for clinicians who only need the scribe",
+        "Guided tour, in-app user guide, support reporting and settings",
+        "Times shown in the clinic's own time zone, not the phone's",
+        "White-label brand foundation: tokens, fonts, icons and native files"
+      ],
+      "challenges": [
+        {
+          "title": "Parity without copy-paste",
+          "text": "React on the web and React Native do not share components. I matched layout, copy and behaviour by reading the web source and rebuilding it with NativeWind, then recorded every intentional difference so parity stays a checkable claim, not a feeling."
+        },
+        {
+          "title": "Native speech and audio",
+          "text": "Live speech recognition needs native modules, so it does not work in Expo Go. I built it on a development build, and made the app degrade safely: no crash when the native microphone module is missing, and clear errors when permission is denied or the mic stops."
+        },
+        {
+          "title": "Time zones and real-world data",
+          "text": "Visits happen in the clinic's time zone, and some phones do not recognise every zone. I moved all schedule and recording times to the clinic's clock and added a guard so an unknown zone falls back instead of crashing."
+        },
+        {
+          "title": "Staying current on a fast-moving platform",
+          "text": "I upgraded the app from Expo SDK 54 to 58 and React Native 0.88, replaced the removed audio library with the new one, and updated navigation, keeping the app building and shippable through EAS for both stores."
+        }
+      ],
+      "architecture": [
+        "Expo SDK 58 and React Native 0.88 with React Navigation and TypeScript",
+        "Redux Toolkit slices plus RTK Query APIs for scribe, appointments, patients, approvals and chat",
+        "NativeWind for styling from the same design tokens as the web",
+        "expo-speech-recognition and expo-audio for capture and playback; expo-notifications for alerts",
+        "EAS Build profiles for development, beta and production, producing signed .aab and .ipa files"
+      ],
+      "impact": [
+        "Clinicians can start and finish documentation at the patient's side",
+        "One mental model across web and phone, so there is less to learn",
+        "Documented parity per screen makes reviews and future work faster",
+        "A current, store-ready build pipeline for iOS and Android"
+      ],
+      "techStack": [
+        "React Native",
+        "Expo SDK 58",
+        "TypeScript",
+        "Redux Toolkit",
+        "RTK Query",
+        "NativeWind",
+        "React Navigation",
+        "expo-speech-recognition",
+        "expo-audio",
+        "EAS Build"
+      ]
     }
   }
 ]

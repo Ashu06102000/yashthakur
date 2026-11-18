@@ -30,6 +30,18 @@ export function renderCaseStudy(project, projects) {
     .map((t, i) => `<div ><span class="big">${pad(i)}</span><span class="txt">${esc(t)}</span></div>`)
     .join("");
 
+  const challenges = (cs.challenges || [])
+    .map((c, i) => `<div class="cs__card"><span class="num">${pad(i)}</span><h3 class="cs__card-title">${esc(c.title)}</h3><p>${esc(c.text)}</p></div>`)
+    .join("");
+
+  const agentic = cs.agentic
+    ? (cs.agentic.steps || [])
+        .map((c, i) => `<div class="cs__card"><span class="num">${pad(i)}</span><h3 class="cs__card-title">${esc(c.title)}</h3><p>${esc(c.text)}</p></div>`)
+        .join("")
+    : "";
+
+  const architecture = (cs.architecture || []).map((a) => `<li>${esc(a)}</li>`).join("");
+
   const chips = (cs.techStack || []).map((t) => `<span>${esc(t)}</span>`).join("");
 
   return `
@@ -73,6 +85,27 @@ export function renderCaseStudy(project, projects) {
         <div class="cs__cards">${features}</div>
       </div>
     </section>
+
+    ${agentic ? `<section class="cs__band">
+      <div class="cs-wrap">
+        <div>
+          <div class="cs-eyebrow" style="color:#a9b1bc">Agentic workflow</div>
+          <h2 class="cs-h2" style="margin-top:10px">How the assistant works</h2>
+          <p class="cs__lede">${esc(cs.agentic.intro)}</p>
+        </div>
+        <div class="cs__cards cs__cards--grid">${agentic}</div>
+      </div>
+    </section>` : ""}
+
+    ${challenges ? `<section class="cs-wrap cs__section">
+      <h2 class="cs-h2">Challenges &amp; how I solved them</h2>
+      <div class="cs__cards cs__cards--grid">${challenges}</div>
+    </section>` : ""}
+
+    ${architecture ? `<section class="cs-narrow cs__split">
+      <h2>Architecture</h2>
+      <ul class="cs__list">${architecture}</ul>
+    </section>` : ""}
 
     <section class="cs-wrap cs__section">
       <h2 class="cs-h2">Impact</h2>

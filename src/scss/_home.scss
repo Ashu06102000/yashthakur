@@ -320,6 +320,23 @@
   &--stripes .feature__art {
     background: repeating-linear-gradient(135deg, #1b1b1b 0 22px, #2e2e2e 22px 24px, #121212 24px 46px, #262626 46px 48px);
   }
+  &--wide {
+    @include up(1024px) {
+      grid-column: 1 / -1;
+      min-height: 220px;
+      .feature__text {
+        flex: 1 1 62%;
+        p {
+          max-width: 62ch;
+        }
+      }
+    }
+  }
+  &--wave .feature__art {
+    background: repeating-linear-gradient(90deg, #1c1c1c 0 6px, #2f2f2f 6px 8px, #121212 8px 18px),
+      radial-gradient(circle at 100% 50%, #3a3a3a, transparent 70%);
+    background-blend-mode: screen;
+  }
   &--cone .feature__art {
     background: conic-gradient(from 200deg at 70% 60%, #1a1a1a, #3a3a3a 18%, #111111 40%, #2a2a2a 62%, #0f0f0f 80%, #1a1a1a);
   }
@@ -334,8 +351,13 @@
     grid-template-columns: repeat(2, 1fr);
   }
   @include up(1100px) {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
+}
+
+a.product {
+  color: inherit;
+  text-decoration: none;
 }
 
 .product {
