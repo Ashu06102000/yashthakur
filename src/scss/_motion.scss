@@ -152,17 +152,6 @@
 }
 
 /* ---------- hero extras ---------- */
-.hero__glow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 620px;
-  height: 620px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(198, 243, 107, 0.14), transparent 62%);
-  pointer-events: none;
-  opacity: 0;
-}
 /* ---------- marquee ---------- */
 .marquee {
   overflow: hidden;

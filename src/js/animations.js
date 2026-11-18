@@ -112,6 +112,7 @@ function initCursor() {
   document.addEventListener("pointerover", (e) => {
     const lbl = e.target.closest("[data-cursor]");
     if (lbl) return state({ label: lbl.dataset.cursor });
+    if (e.target.closest(".btn")) return state({});
     if (e.target.closest("a, button")) return state({ link: true });
     state({});
   });
@@ -203,6 +204,144 @@ function initGlobal() {
 }
 
 /* ======================================================================
+   hero network: drifting nodes, signal pulses, cursor-reactive links
+   ====================================================================== */
+function initNetwork() {
+  const canvas = document.querySelector("[data-net]");
+  if (!canvas) return;
+  const hero = canvas.parentElement;
+  const ctx = canvas.getContext("2d");
+  const ACC = "198,243,107";
+  const INK = "242,239,232";
+  let w = 0, h = 0, nodes = [], pulses = [], link = 150, spawnIn = 0;
+  const mouse = { x: -9999, y: -9999, on: false };
+  const rnd = (a, b) => a + Math.random() * (b - a);
+
+  const resize = () => {
+    const r = hero.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = r.width;
+    h = r.height;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    link = w < 700 ? 105 : 150;
+    const count = Math.round(Math.min(95, Math.max(26, (w * h) / 15000)));
+    nodes = Array.from({ length: count }, () => ({
+      x: rnd(0, w), y: rnd(0, h), vx: rnd(-0.22, 0.22), vy: rnd(-0.22, 0.22), r: rnd(1, 2.2),
+    }));
+    pulses = [];
+  };
+
+  const draw = (dt) => {
+    ctx.clearRect(0, 0, w, h);
+    const edges = [];
+    for (const n of nodes) {
+      n.x += n.vx * dt;
+      n.y += n.vy * dt;
+      if (n.x < -20) n.x = w + 20; else if (n.x > w + 20) n.x = -20;
+      if (n.y < -20) n.y = h + 20; else if (n.y > h + 20) n.y = -20;
+      if (mouse.on) {
+        const dx = mouse.x - n.x, dy = mouse.y - n.y, d2 = dx * dx + dy * dy;
+        if (d2 < 190 * 190 && d2 > 1) {
+          const f = (1 - Math.sqrt(d2) / 190) * 0.02 * dt;
+          n.x += dx * f;
+          n.y += dy * f;
+        }
+      }
+    }
+    // node-to-node links
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
+        if (d < link) {
+          edges.push([a, b]);
+          ctx.strokeStyle = `rgba(${INK},${(1 - d / link) * 0.2})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+    // cursor links (accent)
+    if (mouse.on) {
+      for (const n of nodes) {
+        const d = Math.hypot(mouse.x - n.x, mouse.y - n.y);
+        if (d < 190) {
+          ctx.strokeStyle = `rgba(${ACC},${(1 - d / 190) * 0.55})`;
+          ctx.beginPath();
+          ctx.moveTo(mouse.x, mouse.y);
+          ctx.lineTo(n.x, n.y);
+          ctx.stroke();
+        }
+      }
+    }
+    // nodes
+    for (const n of nodes) {
+      ctx.fillStyle = `rgba(${INK},0.55)`;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, 6.2832);
+      ctx.fill();
+    }
+    // signal pulses travelling along edges
+    spawnIn -= dt;
+    if (spawnIn <= 0 && edges.length) {
+      const [a, b] = edges[(Math.random() * edges.length) | 0];
+      pulses.push({ a, b, t: 0, s: rnd(0.012, 0.024) });
+      spawnIn = rnd(10, 26);
+    }
+    pulses = pulses.filter((p) => p.t < 1);
+    for (const p of pulses) {
+      p.t += p.s * dt;
+      const x = p.a.x + (p.b.x - p.a.x) * p.t, y = p.a.y + (p.b.y - p.a.y) * p.t;
+      const g = ctx.createRadialGradient(x, y, 0, x, y, 14);
+      g.addColorStop(0, `rgba(${ACC},0.9)`);
+      g.addColorStop(1, `rgba(${ACC},0)`);
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(x, y, 14, 0, 6.2832);
+      ctx.fill();
+      ctx.fillStyle = `rgb(${ACC})`;
+      ctx.beginPath();
+      ctx.arc(x, y, 2.2, 0, 6.2832);
+      ctx.fill();
+    }
+  };
+
+  resize();
+  window.addEventListener("resize", () => {
+    clearTimeout(initNetwork.t);
+    initNetwork.t = setTimeout(resize, 150);
+  });
+
+  if (RM) return draw(0);
+
+  hero.addEventListener("pointermove", (e) => {
+    const r = hero.getBoundingClientRect();
+    mouse.x = e.clientX - r.left;
+    mouse.y = e.clientY - r.top;
+    mouse.on = e.pointerType !== "touch";
+  });
+  hero.addEventListener("pointerleave", () => (mouse.on = false));
+
+  const tick = (_, delta) => draw(Math.min(delta, 50) / 16.67);
+  let running = false;
+  ScrollTrigger.create({
+    trigger: hero,
+    start: "top bottom",
+    end: "bottom top",
+    onToggle: (s) => {
+      if (s.isActive && !running) { gsap.ticker.add(tick); running = true; }
+      else if (!s.isActive && running) { gsap.ticker.remove(tick); running = false; }
+    },
+  });
+  gsap.fromTo(canvas, { opacity: 0 }, { opacity: 1, duration: 2.2, ease: "power2.out", delay: 0.4 });
+}
+
+/* ======================================================================
    intro (loader + hero)
    ====================================================================== */
 function heroIntro(delay = 0) {
@@ -211,9 +350,8 @@ function heroIntro(delay = 0) {
   const eyebrow = document.querySelector(".hero__eyebrow");
   eyebrow.dataset.text = eyebrow.textContent;
 
-  gsap.set(".hero__eyebrow, .hero__lead, .hero__cta > *, .hero__strip > *", { opacity: 0, y: 24 });
+  gsap.set(".hero__eyebrow, .hero__lead, .hero__cta > *", { opacity: 0, y: 24 });
   gsap.set(words, { yPercent: 115, rotate: 4 });
-  gsap.set(".term", { opacity: 0, y: 60, rotateY: -14, transformPerspective: 1200, transformOrigin: "left center" });
   gsap.set(".nav-bar", { y: -30, opacity: 0 });
 
   const tl = gsap.timeline({ delay, defaults: { ease: "power4.out" } });
@@ -223,40 +361,8 @@ function heroIntro(delay = 0) {
     .to(words, { yPercent: 0, rotate: 0, duration: 1.2, stagger: 0.09 }, 0.1)
     .to(".hero__lead", { opacity: 1, y: 0, duration: 0.9 }, 0.55)
     .to(".hero__cta > *", { opacity: 1, y: 0, duration: 0.9, stagger: 0.1 }, 0.75)
-    .to(".term", { opacity: 1, y: 0, rotateY: 0, duration: 1.4 }, 0.45)
-    .to(".hero__strip > *", { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 }, 1)
-    .add(() => runTerminal(), 1.3);
+    .from(".hero__foot", { opacity: 0, y: 16, duration: 0.8 }, 1.1);
   return tl;
-}
-
-/** types out the agent log line by line, lights up pipeline nodes, loops */
-function runTerminal() {
-  const term = document.querySelector("[data-term]");
-  if (!term) return;
-  const lines = [...term.querySelectorAll("[data-line]")];
-  const nodes = [...term.querySelectorAll("[data-node]")];
-  const gate = nodes[nodes.length - 1];
-  // line index -> node index to light (brief on line 0, planner on 1, ...)
-  const nodeFor = [0, 1, 2, 3, null, 4, null];
-  if (RM) return;
-
-  const reset = () => {
-    gsap.set(lines, { opacity: 0, x: -8 });
-    nodes.forEach((n) => n.classList.remove("is-on", "is-warn"));
-  };
-  const tl = gsap.timeline({ repeat: -1, repeatDelay: 3.2, onRepeat: reset });
-  reset();
-  lines.forEach((line, i) => {
-    tl.to(line, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, i === 0 ? 0 : ">+0.5");
-    tl.add(() => {
-      const n = nodeFor[i];
-      if (n != null) nodes[n].classList.add("is-on");
-      if (i === 4) gate.classList.add("is-warn");
-      if (i === 5) gate.classList.remove("is-warn");
-    }, "<");
-  });
-  // pause the loop when the hero is offscreen
-  ScrollTrigger.create({ trigger: term, start: "top bottom", end: "bottom top", onToggle: (s) => (s.isActive ? tl.play() : tl.pause()) });
 }
 
 function runLoader() {
@@ -304,35 +410,12 @@ export async function initHome() {
   heroIntro(played ? 0.1 : 0.05);
 
   gsap.context(() => {
-    /* hero: cursor glow, terminal parallax tilt, scroll-out */
-    if (FINE && !RM) {
-      const hero = document.querySelector(".hero");
-      const glow = hero.querySelector("[data-glow]");
-      const gx = lerpTo(glow, "x");
-      const gy = lerpTo(glow, "y");
-      const term = hero.querySelector(".term");
-      const tx = lerpTo(term, "rotationY");
-      const ty = lerpTo(term, "rotationX");
-      gsap.set(glow, { xPercent: -50, yPercent: -50 });
-      hero.addEventListener("pointermove", (e) => {
-        const r = hero.getBoundingClientRect();
-        gsap.to(glow, { opacity: 1, duration: 0.5, overwrite: "auto" });
-        gx(e.clientX - r.left);
-        gy(e.clientY - r.top);
-        tx((e.clientX / innerWidth - 0.5) * 8);
-        ty((e.clientY / innerHeight - 0.5) * -6);
-      });
-      hero.addEventListener("pointerleave", () => gsap.to(glow, { opacity: 0, duration: 0.6 }));
-    }
+    /* hero: network + scroll-out */
+    initNetwork();
     if (!RM) {
       gsap.to(".hero__body", {
         y: -90,
         opacity: 0.1,
-        ease: "none",
-        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true },
-      });
-      gsap.to(".hero__grid", {
-        yPercent: 18,
         ease: "none",
         scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true },
       });
@@ -476,7 +559,7 @@ export async function initHome() {
     });
     gsap.from(".footer", { opacity: 0, y: 20, duration: 0.8, scrollTrigger: { trigger: ".footer", start: "top 98%" } });
 
-    magnetic(document.querySelectorAll(".btn, .contact__links a, .circle-arrow, .label-row__link"), 0.3);
+    magnetic(document.querySelectorAll(".contact__links a, .circle-arrow, .label-row__link"), 0.3);
   });
 
   ScrollTrigger.refresh();
@@ -525,8 +608,7 @@ export function initCaseStudy(root) {
     gsap.from(".cs__next > div > *", { y: 30, opacity: 0, stagger: 0.12, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: ".cs__next", start: "top 92%" } });
 
     tilt(gsap.utils.toArray(".cs__card"), 4);
-    magnetic(root.querySelectorAll(".btn, .cs__nav .back"), 0.3);
-    root.querySelectorAll(".btn").forEach((b) => b.setAttribute("data-cursor", "GO"));
+    magnetic(root.querySelectorAll(".cs__nav .back"), 0.3);
   }, root);
 }
 

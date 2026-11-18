@@ -122,9 +122,19 @@ ul {
   font-size: 15px;
   background: $accent;
   color: $bg;
-  transition: filter 0.2s;
+  transition: background 0.2s, transform 0.15s;
   &:hover {
-    filter: brightness(1.08);
+    background: #d6f98f;
+  }
+  &:active {
+    transform: scale(0.98);
+  }
+  svg,
+  &__icon {
+    transition: transform 0.2s;
+  }
+  &:hover svg {
+    transform: translateX(3px);
   }
   &--pill {
     border-radius: 999px;
