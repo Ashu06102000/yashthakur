@@ -3,14 +3,14 @@
     "id": 1,
     "title": "AI CLINICAL SCRIBE — WEB & MOBILE PLATFORM",
     "slug": "ai-clinical-scribe-platform",
-    "role": "NEXT.JS / REACT NATIVE / <br /> HEALTHCARE AI",
+    "role": "TECH LEAD / <br /> NEXT.JS / REACT NATIVE / AI",
     "description": "Web and mobile platform that listens to care visits and drafts the clinical note for review, backed by an agentic AI assistant that plans, calls tools across the clinic's data, and asks before it writes anything.",
     "link": "",
     "critical": true,
     "caseStudy": {
       "overview": "A web and mobile platform for clinicians who visit patients and then have to write everything up by hand. It records the visit, transcribes who said what, drafts a structured clinical note, and hands it back to the clinician to review and approve. The same product also runs the day around the visit: patients, the appointment book, charting and an AI assistant. Behind it sits an agentic AI assistant that can look things up, build plans and take actions across the clinic's systems, with a person confirming anything that changes data. The mobile app (iOS and Android, built with Expo and React Native) puts the scribe, the appointment book and the patient list in the clinician's pocket, so a nurse in a patient's living room can record and review a visit without a laptop.",
       "problem": "In the US, nurses and other clinicians often travel to patients' homes or see back-to-back appointments, and every visit ends with documentation. Notes get typed up between visits, after hours, or from memory. That is slow, tiring, and the first thing to go wrong when a day runs long: details are missed, charts fall behind, and clinicians burn out on admin instead of care. Generic dictation tools did not help much, because the output was a wall of text, not a note in the shape the chart needs. The people who most need less paperwork are the ones away from a desk, so a web-only tool leaves the home-visit case unsolved.",
-      "approach": "I treated the note as the product and the recording as the input. The visit is captured live, streamed for transcription with speaker turns, and turned into a structured note (summary, SOAP sections, action items and decisions) tied to the right patient and booking. The clinician is always the last step: they read the draft, fix it, and approve it before anything is exported or written back. Everything around it (today's visits, patient context, the appointment book) exists so the right patient is attached to a recording before it starts and the clinician rarely has to search for anything. For the road, I rebuilt the product's phone experience natively in React Native, using the web code as the specification: the same sections in the same order, the same wording, status rules and backend endpoints, with native touches (haptics, bottom sheets, share sheet, on-device speech) where the phone does it better. Each rebuilt area shipped with its own parity document, so reviewers know what matches and what deliberately differs.",
+      "approach": "I treated the note as the product and the recording as the input. The visit is captured live, streamed for transcription with speaker turns, and turned into a structured note (summary, SOAP sections, action items and decisions) tied to the right patient and booking. The clinician is always the last step: they read the draft, fix it, and approve it before anything is exported or written back. Everything around it (today's visits, patient context, the appointment book) exists so the right patient is attached to a recording before it starts and the clinician rarely has to search for anything. For the road, I rebuilt the product's phone experience natively in React Native, using the web code as the specification: the same sections in the same order, the same wording, status rules and backend endpoints, with native touches (haptics, bottom sheets, share sheet, on-device speech) where the phone does it better. Each rebuilt area shipped with its own parity document, so reviewers know what matches and what deliberately differs. I led this work as tech lead: I owned the architecture across the web app, the mobile app and the AI backend, made the key technology and design decisions, worked directly with the client on scope and priorities, divided the work across the team and reviewed their code.",
       "features": [
         "Consent-first recording flow with live transcript and speaker turns",
         "Structured notes: summary, SOAP sections, action items and decisions",
@@ -63,6 +63,10 @@
         {
           "title": "Staying current on a fast-moving platform",
           "text": "I upgraded the app from Expo SDK 54 to 58 and React Native 0.88, replaced the removed audio library with the new one, and updated navigation, keeping the app building and shippable through EAS for both stores."
+        },
+        {
+          "title": "Leading across web, mobile and AI",
+          "text": "One product, three codebases and a model pipeline, all moving at once. I set the shared contracts and standards, split the work so teams were not blocked on each other, and reviewed changes so the web app, the phone app and the AI backend stayed consistent."
         }
       ],
       "architecture": [
@@ -313,14 +317,14 @@
     "id": 3,
     "title": "ENGINEERING KNOWLEDGE MCP PIPELINE",
     "slug": "engineering-knowledge-mcp-pipeline",
-    "role": "MCP / <br /> S3 VECTORS / AGENTCORE",
+    "role": "TECH LEAD / <br /> MCP / S3 VECTORS / AGENTCORE",
     "description": "A merge-triggered pipeline that keeps every repo's code and design knowledge embedded in S3 Vectors, served to employees and agents through FastMCP servers and Bedrock AgentCore.",
     "link": "",
     "critical": true,
     "caseStudy": {
       "overview": "An internal platform that turns a company's many repositories into one searchable, always-current knowledge layer. Each time a project is merged into its main branch, a pipeline re-embeds what changed and updates the vector store. MCP servers then expose that knowledge to employees and AI agents, so anyone can ask how a system is designed, how a service works or where something lives, without hunting through repos.",
       "problem": "The company had many projects and repositories across different technologies, each with its own system design, conventions and decisions. Knowledge lived in code and scattered docs, went stale as soon as it was written down, and was only really known by the people who built it. New joiners and other teams lost days finding answers, and AI assistants could not help because they had no access to the company's own systems. A one-time import would not fix it, since the code changes every day.",
-      "approach": "I made freshness the core of the design: knowledge updates when code does. A pipeline listens for merges to main or master across all repositories, processes only what changed, and keeps the index in sync. The knowledge is organised into collections, one per project, so results stay relevant and access can be controlled. Retrieval is exposed through MCP servers built with FastMCP, the standard way for AI tools and agents to use external knowledge, and the same servers feed an agent running on Bedrock AgentCore. Claude, through the Anthropic API, is used to understand code and documents so that what gets embedded is meaningful and not raw text.",
+      "approach": "I made freshness the core of the design: knowledge updates when code does. A pipeline listens for merges to main or master across all repositories, processes only what changed, and keeps the index in sync. The knowledge is organised into collections, one per project, so results stay relevant and access can be controlled. Retrieval is exposed through MCP servers built with FastMCP, the standard way for AI tools and agents to use external knowledge, and the same servers feed an agent running on Bedrock AgentCore. Claude, through the Anthropic API, is used to understand code and documents so that what gets embedded is meaningful and not raw text. I led the project: I designed the pipeline and the MCP architecture, decided how knowledge is organised and kept fresh, worked with the teams who own the repositories, and reviewed the code that shipped it.",
       "agentic": {
         "intro": "The system has two halves: a pipeline that keeps knowledge current, and MCP servers that let people and agents use it.",
         "steps": [
@@ -384,6 +388,10 @@
         {
           "title": "One interface for people and agents",
           "text": "By serving everything through MCP, the same knowledge works in an employee's AI tool and in an AgentCore agent, with no separate integration for each."
+        },
+        {
+          "title": "Leading a cross-team rollout",
+          "text": "Connecting many repositories means working with many teams. I defined a simple way for a project to join, agreed what each team needed to do, and reviewed the implementation so the pipeline stayed consistent across all of them."
         }
       ],
       "architecture": [
@@ -621,6 +629,70 @@
         "Adaptive Bitrate Streaming",
         "Admin Dashboard",
         "LMS"
+      ]
+    }
+  },
+  {
+    "id": 7,
+    "title": "CANDIDATE ASSESSMENT PLATFORM",
+    "slug": "candidate-assessment-platform",
+    "role": "REMIX / <br /> PRISMA / POSTGRES",
+    "description": "Full-stack candidate assessment system built with Remix, Prisma and PostgreSQL: automated evaluation, validation and result workflows that improved hiring efficiency by 60%+.",
+    "link": "",
+    "critical": true,
+    "caseStudy": {
+      "overview": "A candidate assessment system that lets hiring teams create assessments, invite candidates, run them online, and get evaluated results without manual marking. It is a full-stack Remix application backed by PostgreSQL through Prisma, covering the candidate's test experience, the evaluation logic and the reviewer's results view.",
+      "problem": "Hiring assessments were run by hand: tests sent around as files, answers checked one by one, results compiled in spreadsheets. That was slow, inconsistent between reviewers and impossible to scale when many candidates applied at once. Hiring managers wanted the same fair, repeatable process for every candidate and results they could trust and compare.",
+      "approach": "I built the platform end to end in Remix, so the candidate experience, the server logic and the data layer live in one codebase. Remix's loaders and actions kept data fetching and submissions simple and server-validated, which matters when answers must not be trusted from the browser. Prisma gave a typed schema and safe migrations over PostgreSQL for assessments, questions, candidates, attempts and results. Evaluation runs on the server against stored rules, so scoring is automatic, identical for every candidate and re-runnable if a rule changes.",
+      "features": [
+        "Assessment builder with questions, sections and time limits",
+        "Candidate invitations and a focused, timed test experience",
+        "Answers saved as the candidate goes, so a refresh or dropped connection does not lose progress",
+        "Automated evaluation and scoring on the server",
+        "Validation and integrity checks for fair attempts",
+        "Results and reporting for reviewers, with comparison across candidates",
+        "Role-based access for admins, reviewers and candidates",
+        "Typed database schema and migrations with Prisma"
+      ],
+      "challenges": [
+        {
+          "title": "Never trusting the browser",
+          "text": "Scores and timings cannot be decided by client code. Remix actions validate every submission on the server, check time limits and attempt state, and compute results from stored rules."
+        },
+        {
+          "title": "Not losing a candidate's work",
+          "text": "A candidate on a weak connection must not lose half an hour of answers. Answers are persisted incrementally and the attempt can resume from the last saved state."
+        },
+        {
+          "title": "Fair, repeatable evaluation",
+          "text": "Scoring rules live in data, not in ad hoc code, so every candidate is judged by the same logic and results can be regenerated after a rule is corrected."
+        },
+        {
+          "title": "A data model that fits real hiring",
+          "text": "Assessments, versions, questions, attempts and results have to relate cleanly, so an edited question never rewrites the history of an attempt already taken. Prisma's schema and migrations kept that model explicit and safe to change."
+        }
+      ],
+      "architecture": [
+        "Remix full-stack app: routes, loaders and actions for the candidate, reviewer and admin experiences",
+        "Prisma ORM with a typed schema and migrations",
+        "PostgreSQL for assessments, questions, attempts and results",
+        "Server-side evaluation engine that scores from stored rules",
+        "Role-based access control on every route"
+      ],
+      "impact": [
+        "Improved hiring efficiency by 60%+",
+        "Removed manual marking and spreadsheet compilation",
+        "Consistent, fair assessment of every candidate",
+        "A system that handles many candidates at once"
+      ],
+      "techStack": [
+        "Remix",
+        "React",
+        "TypeScript",
+        "Prisma",
+        "PostgreSQL",
+        "Node.js",
+        "REST"
       ]
     }
   }
