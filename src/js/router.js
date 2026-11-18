@@ -1,92 +1,70 @@
-import gsap from "gsap";
-
 /**
- * Lightweight hash-based SPA router.
- * Routes:
- *   ""                    -> home
- *   "#/"                  -> home
- *   "#/case-study/:slug"  -> case study view
+ * Lightweight hash router.
+ *   #/ , #/work , #/about ...   -> home (scrolls to the section)
+ *   #/case-study/:slug          -> case study view
  */
-class Router {
-  constructor({ homeView, caseStudyView, homeEl, caseStudyEl }) {
-    this.homeView = homeView;
-    this.caseStudyView = caseStudyView;
-    this.homeEl = homeEl;
-    this.caseStudyEl = caseStudyEl;
-
+export default class Router {
+  constructor({ homeEl, caseStudyEl, renderCaseStudy, onSection, transition, onLeaveCase, afterView }) {
+    Object.assign(this, { homeEl, caseStudyEl, renderCaseStudy, onSection, transition, onLeaveCase, afterView });
     this.current = null;
-
-    this.onHashChange = this.onHashChange.bind(this);
-    window.addEventListener("hashchange", this.onHashChange);
+    window.addEventListener("hashchange", () => this.resolve());
   }
 
-  parse(hash) {
-    const clean = hash.replace(/^#\/?/, "");
-    const parts = clean.split("/").filter(Boolean);
+  parse() {
+    const parts = window.location.hash.replace(/^#\/?/, "").split("/").filter(Boolean);
+    if (parts[0] === "case-study" && parts[1]) return { name: "caseStudy", slug: parts[1] };
+    return { name: "home", section: parts[0] || "top" };
+  }
 
-    if (parts[0] === "case-study" && parts[1]) {
-      return { name: "caseStudy", slug: parts[1] };
+  async resolve() {
+    const route = this.parse();
+    const key = route.name === "caseStudy" ? route.slug : "home";
+    const crossView = this.current !== null && (route.name === "caseStudy" || this.current !== "home");
+    if (crossView && this.transition) {
+      if (this.busy) return;
+      this.busy = true;
+      try {
+        await this.transition(() => this.show(route));
+      } finally {
+        this.busy = false;
+      }
+      return;
+    }
+    await this.show(route);
+  }
+
+  async show(route) {
+
+    if (route.name === "caseStudy") {
+      this.homeEl.hidden = true;
+      this.caseStudyEl.hidden = false;
+      document.title = "Case study — Yash Thakur";
+      this.onLeaveCase?.();
+      await this.renderCaseStudy(route.slug);
+      window.scrollTo({ top: 0, behavior: "instant" });
+      this.current = "caseStudy";
+      this.afterView?.("caseStudy");
+      return;
     }
 
-    return { name: "home" };
-  }
-
-  onHashChange() {
-    this.resolve(window.location.hash);
-  }
-
-  resolve(hash) {
-    const parsed = this.parse(hash || "");
-
-    if (parsed.name === "caseStudy") {
-      this.showCaseStudy(parsed.slug);
-    } else {
-      this.showHome();
-    }
-  }
-
-  showHome() {
-    if (this.current === "home") return;
-
+    const wasHome = this.current === "home";
+    this.onLeaveCase?.();
+    this.caseStudyEl.hidden = true;
+    this.caseStudyEl.innerHTML = "";
+    this.homeEl.hidden = false;
+    document.title = "Yash Thakur — AI Engineer & Full-Stack Developer";
     this.current = "home";
 
-    if (this.caseStudyEl) {
-      gsap.set(this.caseStudyEl, { display: "none" });
-      this.caseStudyEl.innerHTML = "";
+    const target = document.getElementById(route.section);
+    if (target) {
+      // jump instantly when arriving from another view, glide when already on home
+      requestAnimationFrame(() =>
+        target.scrollIntoView({ behavior: wasHome ? "smooth" : "instant", block: "start" })
+      );
+    } else {
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
-    if (this.homeEl) {
-      gsap.set(this.homeEl, { display: "block" });
-    }
-
-    if (this.homeView) {
-      this.homeView.scrollToTop();
-    }
-  }
-
-  showCaseStudy(slug) {
-    if (this.current === slug) return;
-
-    this.current = slug;
-
-    if (this.homeEl) {
-      gsap.set(this.homeEl, { display: "none" });
-    }
-
-    if (this.caseStudyEl) {
-      gsap.set(this.caseStudyEl, { display: "block" });
-      if (this.caseStudyView) {
-        this.caseStudyView.render(slug);
-      }
-    }
-
-    if (this.homeView) {
-      this.homeView.scrollToTop();
-    }
-  }
-
-  navigate(path) {
-    window.location.hash = path;
+    this.onSection?.(route.section);
+    this.afterView?.("home");
   }
 }
-
-export default Router;
