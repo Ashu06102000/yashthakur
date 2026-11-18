@@ -1,0 +1,629 @@
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const RM = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const FINE = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+export const motionOK = !RM;
+
+/* ======================================================================
+   helpers
+   ====================================================================== */
+
+/** wrap every word in a masked span; returns the inner spans to animate */
+export function splitWords(el, { mask = true } = {}) {
+  const words = [];
+  const walk = (node) => {
+    [...node.childNodes].forEach((n) => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach((part) => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) return frag.append(document.createTextNode(" "));
+          const w = document.createElement("span");
+          w.className = "w" + (mask ? "" : " w--plain");
+          const i = document.createElement("span");
+          i.className = "wi";
+          i.textContent = part;
+          w.append(i);
+          frag.append(w);
+          words.push(i);
+        });
+        n.replaceWith(frag);
+      } else if (n.nodeType === 1) walk(n);
+    });
+  };
+  el.setAttribute("aria-label", el.textContent.replace(/\s+/g, " ").trim());
+  walk(el);
+  return words;
+}
+
+const GLYPHS = "01<>/_[]{}—=+*#";
+/** decode-style text scramble */
+export function scramble(el, duration = 0.9) {
+  const final = el.dataset.text || (el.dataset.text = el.textContent);
+  const state = { p: 0 };
+  return gsap.to(state, {
+    p: 1,
+    duration,
+    ease: "none",
+    onUpdate() {
+      const reveal = Math.floor(state.p * final.length);
+      el.textContent = final
+        .split("")
+        .map((c, i) => (c === " " || i < reveal ? c : GLYPHS[(Math.random() * GLYPHS.length) | 0]))
+        .join("");
+    },
+    onComplete: () => (el.textContent = final),
+  });
+}
+
+const lerpTo = (el, prop) => gsap.quickTo(el, prop, { duration: 0.6, ease: "power3" });
+
+/* ======================================================================
+   cursor
+   ====================================================================== */
+function initCursor() {
+  if (!FINE || RM) return;
+  const dot = document.querySelector("[data-cursor-dot]");
+  const ring = document.querySelector("[data-cursor-ring]");
+  const label = ring.querySelector("span");
+  document.body.classList.add("has-cursor");
+
+  gsap.set([dot, ring], { xPercent: -50, yPercent: -50 });
+  const dx = gsap.quickTo(dot, "x", { duration: 0.08, ease: "none" });
+  const dy = gsap.quickTo(dot, "y", { duration: 0.08, ease: "none" });
+  const rx = gsap.quickTo(ring, "x", { duration: 0.45, ease: "power3" });
+  const ry = gsap.quickTo(ring, "y", { duration: 0.45, ease: "power3" });
+
+  let shown = false;
+  window.addEventListener("pointermove", (e) => {
+    if (!shown) {
+      shown = true;
+      gsap.set([dot, ring], { x: e.clientX, y: e.clientY });
+      gsap.to([dot, ring], { opacity: 1, duration: 0.3 });
+    }
+    dx(e.clientX);
+    dy(e.clientY);
+    rx(e.clientX);
+    ry(e.clientY);
+  });
+  document.addEventListener("pointerleave", () => gsap.to([dot, ring], { opacity: 0, duration: 0.2 }));
+  document.addEventListener("pointerenter", () => shown && gsap.to([dot, ring], { opacity: 1, duration: 0.2 }));
+
+  const state = (s) => {
+    if (s.label) {
+      label.textContent = s.label;
+      gsap.to(ring, { width: 88, height: 88, backgroundColor: "#C6F36B", borderColor: "#C6F36B", duration: 0.35, ease: "power3.out" });
+      gsap.to(label, { opacity: 1, duration: 0.2 });
+      gsap.to(dot, { scale: 0, duration: 0.2 });
+    } else if (s.link) {
+      gsap.to(ring, { width: 64, height: 64, backgroundColor: "rgba(198,243,107,0.12)", borderColor: "#C6F36B", duration: 0.35, ease: "power3.out" });
+      gsap.to(label, { opacity: 0, duration: 0.1 });
+      gsap.to(dot, { scale: 0.6, duration: 0.2 });
+    } else {
+      gsap.to(ring, { width: 40, height: 40, backgroundColor: "rgba(198,243,107,0)", borderColor: "rgba(242,239,232,0.45)", duration: 0.35, ease: "power3.out" });
+      gsap.to(label, { opacity: 0, duration: 0.1 });
+      gsap.to(dot, { scale: 1, duration: 0.2 });
+    }
+  };
+
+  document.addEventListener("pointerover", (e) => {
+    const lbl = e.target.closest("[data-cursor]");
+    if (lbl) return state({ label: lbl.dataset.cursor });
+    if (e.target.closest(".btn")) return state({});
+    if (e.target.closest("a, button")) return state({ link: true });
+    state({});
+  });
+}
+
+/* ======================================================================
+   magnetic + tilt
+   ====================================================================== */
+function magnetic(els, strength = 0.35) {
+  if (!FINE || RM) return;
+  els.forEach((el) => {
+    const x = gsap.quickTo(el, "x", { duration: 0.6, ease: "elastic.out(1, 0.45)" });
+    const y = gsap.quickTo(el, "y", { duration: 0.6, ease: "elastic.out(1, 0.45)" });
+    el.addEventListener("pointermove", (e) => {
+      const r = el.getBoundingClientRect();
+      x((e.clientX - (r.left + r.width / 2)) * strength);
+      y((e.clientY - (r.top + r.height / 2)) * strength);
+    });
+    el.addEventListener("pointerleave", () => {
+      x(0);
+      y(0);
+    });
+  });
+}
+
+function tilt(els, max = 7) {
+  if (!FINE || RM) return;
+  els.forEach((el) => {
+    const art = el.querySelector(".feature__art");
+    el.addEventListener("pointermove", (e) => {
+      const r = el.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
+      el.style.setProperty("--mx", `${px * 100}%`);
+      el.style.setProperty("--my", `${py * 100}%`);
+      gsap.to(el, {
+        rotationY: (px - 0.5) * max * 2,
+        rotationX: (0.5 - py) * max * 2,
+        transformPerspective: 900,
+        duration: 0.5,
+        ease: "power2.out",
+      });
+      if (art) gsap.to(art, { x: (px - 0.5) * -18, y: (py - 0.5) * -18, duration: 0.6, ease: "power2.out" });
+    });
+    el.addEventListener("pointerleave", () => {
+      gsap.to(el, { rotationX: 0, rotationY: 0, duration: 0.9, ease: "elastic.out(1, 0.5)" });
+      if (art) gsap.to(art, { x: 0, y: 0, duration: 0.9, ease: "power3.out" });
+    });
+  });
+}
+
+/* ======================================================================
+   global (runs once)
+   ====================================================================== */
+let globalDone = false;
+function initGlobal() {
+  if (globalDone) return;
+  globalDone = true;
+
+  initCursor();
+
+  // scroll progress
+  gsap.to("[data-progress]", {
+    scaleX: 1,
+    ease: "none",
+    scrollTrigger: { start: 0, end: "max", scrub: 0.2 },
+  });
+
+  // floating nav: solid after scroll, hides on scroll down, returns on scroll up
+  const bar = document.querySelector("[data-navbar]");
+  ScrollTrigger.create({
+    start: 0,
+    end: "max",
+    onUpdate(self) {
+      const y = self.scroll();
+      bar.classList.toggle("is-solid", y > 40);
+      const hide = self.direction === 1 && y > 240;
+      gsap.to(bar, { yPercent: hide ? -100 : 0, duration: 0.4, ease: "power3.out", overwrite: true });
+    },
+  });
+  // nav link scramble on hover
+  document.querySelectorAll(".nav__link, .nav__brand").forEach((a) => {
+    a.addEventListener("mouseenter", () => {
+      if (RM) return;
+      if (!a.querySelector("*")) scramble(a, 0.45);
+    });
+  });
+  magnetic(document.querySelectorAll(".nav__link, .nav__brand"), 0.25);
+}
+
+/* ======================================================================
+   hero network: drifting nodes, signal pulses, cursor-reactive links
+   ====================================================================== */
+function initNetwork() {
+  const canvas = document.querySelector("[data-net]");
+  if (!canvas) return;
+  const hero = canvas.parentElement;
+  const ctx = canvas.getContext("2d");
+  const ACC = "198,243,107";
+  const INK = "242,239,232";
+  let w = 0, h = 0, nodes = [], pulses = [], link = 150, spawnIn = 0;
+  const mouse = { x: -9999, y: -9999, on: false };
+  const rnd = (a, b) => a + Math.random() * (b - a);
+
+  const resize = () => {
+    const r = hero.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = r.width;
+    h = r.height;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    link = w < 700 ? 105 : 150;
+    const count = Math.round(Math.min(95, Math.max(26, (w * h) / 15000)));
+    nodes = Array.from({ length: count }, () => ({
+      x: rnd(0, w), y: rnd(0, h), vx: rnd(-0.22, 0.22), vy: rnd(-0.22, 0.22), r: rnd(1, 2.2),
+    }));
+    pulses = [];
+  };
+
+  const draw = (dt) => {
+    ctx.clearRect(0, 0, w, h);
+    const edges = [];
+    for (const n of nodes) {
+      n.x += n.vx * dt;
+      n.y += n.vy * dt;
+      if (n.x < -20) n.x = w + 20; else if (n.x > w + 20) n.x = -20;
+      if (n.y < -20) n.y = h + 20; else if (n.y > h + 20) n.y = -20;
+      if (mouse.on) {
+        const dx = mouse.x - n.x, dy = mouse.y - n.y, d2 = dx * dx + dy * dy;
+        if (d2 < 190 * 190 && d2 > 1) {
+          const f = (1 - Math.sqrt(d2) / 190) * 0.02 * dt;
+          n.x += dx * f;
+          n.y += dy * f;
+        }
+      }
+    }
+    // node-to-node links
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
+        if (d < link) {
+          edges.push([a, b]);
+          ctx.strokeStyle = `rgba(${INK},${(1 - d / link) * 0.2})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+    // cursor links (accent)
+    if (mouse.on) {
+      for (const n of nodes) {
+        const d = Math.hypot(mouse.x - n.x, mouse.y - n.y);
+        if (d < 190) {
+          ctx.strokeStyle = `rgba(${ACC},${(1 - d / 190) * 0.55})`;
+          ctx.beginPath();
+          ctx.moveTo(mouse.x, mouse.y);
+          ctx.lineTo(n.x, n.y);
+          ctx.stroke();
+        }
+      }
+    }
+    // nodes
+    for (const n of nodes) {
+      ctx.fillStyle = `rgba(${INK},0.55)`;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, 6.2832);
+      ctx.fill();
+    }
+    // signal pulses travelling along edges
+    spawnIn -= dt;
+    if (spawnIn <= 0 && edges.length) {
+      const [a, b] = edges[(Math.random() * edges.length) | 0];
+      pulses.push({ a, b, t: 0, s: rnd(0.012, 0.024) });
+      spawnIn = rnd(10, 26);
+    }
+    pulses = pulses.filter((p) => p.t < 1);
+    for (const p of pulses) {
+      p.t += p.s * dt;
+      const x = p.a.x + (p.b.x - p.a.x) * p.t, y = p.a.y + (p.b.y - p.a.y) * p.t;
+      const g = ctx.createRadialGradient(x, y, 0, x, y, 14);
+      g.addColorStop(0, `rgba(${ACC},0.9)`);
+      g.addColorStop(1, `rgba(${ACC},0)`);
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(x, y, 14, 0, 6.2832);
+      ctx.fill();
+      ctx.fillStyle = `rgb(${ACC})`;
+      ctx.beginPath();
+      ctx.arc(x, y, 2.2, 0, 6.2832);
+      ctx.fill();
+    }
+  };
+
+  resize();
+  window.addEventListener("resize", () => {
+    clearTimeout(initNetwork.t);
+    initNetwork.t = setTimeout(resize, 150);
+  });
+
+  if (RM) return draw(0);
+
+  hero.addEventListener("pointermove", (e) => {
+    const r = hero.getBoundingClientRect();
+    mouse.x = e.clientX - r.left;
+    mouse.y = e.clientY - r.top;
+    mouse.on = e.pointerType !== "touch";
+  });
+  hero.addEventListener("pointerleave", () => (mouse.on = false));
+
+  const tick = (_, delta) => draw(Math.min(delta, 50) / 16.67);
+  let running = false;
+  ScrollTrigger.create({
+    trigger: hero,
+    start: "top bottom",
+    end: "bottom top",
+    onToggle: (s) => {
+      if (s.isActive && !running) { gsap.ticker.add(tick); running = true; }
+      else if (!s.isActive && running) { gsap.ticker.remove(tick); running = false; }
+    },
+  });
+  gsap.fromTo(canvas, { opacity: 0 }, { opacity: 1, duration: 2.2, ease: "power2.out", delay: 0.4 });
+}
+
+/* ======================================================================
+   intro (loader + hero)
+   ====================================================================== */
+function heroIntro(delay = 0) {
+  const title = document.querySelector(".hero__title");
+  const words = splitWords(title);
+  const eyebrow = document.querySelector(".hero__eyebrow");
+  eyebrow.dataset.text = eyebrow.textContent;
+
+  gsap.set(".hero__eyebrow, .hero__lead, .hero__cta > *", { opacity: 0, y: 24 });
+  gsap.set(words, { yPercent: 115, rotate: 4 });
+  gsap.set(".nav-bar", { y: -30, opacity: 0 });
+
+  const tl = gsap.timeline({ delay, defaults: { ease: "power4.out" } });
+  tl.to(".nav-bar", { y: 0, opacity: 1, duration: 0.8 })
+    .to(".hero__eyebrow", { opacity: 1, y: 0, duration: 0.5 }, 0.05)
+    .add(() => scramble(eyebrow, 0.9), 0.05)
+    .to(words, { yPercent: 0, rotate: 0, duration: 1.2, stagger: 0.09 }, 0.1)
+    .to(".hero__lead", { opacity: 1, y: 0, duration: 0.9 }, 0.55)
+    .to(".hero__cta > *", { opacity: 1, y: 0, duration: 0.9, stagger: 0.1 }, 0.75)
+    .from(".hero__foot", { opacity: 0, y: 16, duration: 0.8 }, 1.1);
+  return tl;
+}
+
+function runLoader() {
+  const loader = document.querySelector("[data-loader]");
+  if (RM || sessionStorage.getItem("yt-intro")) {
+    loader.remove();
+    return Promise.resolve(false);
+  }
+  try {
+    sessionStorage.setItem("yt-intro", "1");
+  } catch (_) {}
+  document.documentElement.style.overflow = "hidden";
+  const count = loader.querySelector("[data-loader-count]");
+  const bar = loader.querySelector("[data-loader-bar]");
+  const n = { v: 0 };
+  return new Promise((resolve) => {
+    gsap
+      .timeline({
+        onComplete() {
+          loader.remove();
+          document.documentElement.style.overflow = "";
+        },
+      })
+      .to(n, {
+        v: 100,
+        duration: 1.5,
+        ease: "power2.inOut",
+        onUpdate: () => (count.textContent = Math.round(n.v)),
+      })
+      .to(bar, { scaleX: 1, duration: 1.5, ease: "power2.inOut" }, 0)
+      .to(".loader__name, .loader__count", { yPercent: -30, opacity: 0, duration: 0.5, ease: "power3.in" }, 1.55)
+      .add(() => resolve(true), 1.9)
+      .to(loader, { yPercent: -100, duration: 0.95, ease: "power4.inOut" }, 1.9);
+  });
+}
+
+/* ======================================================================
+   home
+   ====================================================================== */
+export async function initHome() {
+  initGlobal();
+
+  const played = await runLoader();
+  // runLoader resolves partway through the wipe so the hero can start under it
+  heroIntro(played ? 0.1 : 0.05);
+
+  gsap.context(() => {
+    /* hero: network + scroll-out */
+    initNetwork();
+    if (!RM) {
+      gsap.to(".hero__body", {
+        y: -90,
+        opacity: 0.1,
+        ease: "none",
+        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true },
+      });
+    }
+
+    /* marquees: scroll-velocity driven */
+    const marquees = [...document.querySelectorAll("[data-marquee]")].map((m) => {
+      const track = m.querySelector(".marquee__track");
+      const dir = Number(m.dataset.dir);
+      const loop = gsap.fromTo(track, { xPercent: dir > 0 ? 0 : -25 }, { xPercent: dir > 0 ? -25 : 0, ease: "none", duration: 22, repeat: -1 });
+      return { track, loop };
+    });
+    if (!RM) {
+      let vel = 0;
+      ScrollTrigger.create({ start: 0, end: "max", onUpdate: (s) => (vel = s.getVelocity()) });
+      gsap.ticker.add(() => {
+        vel *= 0.92;
+        const boost = 1 + Math.abs(vel) / 260;
+        const sign = vel < -40 ? -1 : 1;
+        const skew = gsap.utils.clamp(-10, 10, vel / -180);
+        marquees.forEach(({ track, loop }) => {
+          loop.timeScale(gsap.utils.interpolate(loop.timeScale(), sign * boost, 0.12));
+          gsap.set(track, { skewX: skew });
+        });
+      });
+    }
+
+    if (RM) return;
+
+    /* section labels: scramble in + draw the rule */
+    document.querySelectorAll(".label").forEach((el) => {
+      el.dataset.text = el.textContent;
+      ScrollTrigger.create({ trigger: el, start: "top 92%", once: true, onEnter: () => scramble(el, 0.8) });
+    });
+    gsap.utils.toArray(".label-row__line").forEach((l) =>
+      gsap.from(l, { scaleX: 0, transformOrigin: "left", duration: 1.4, ease: "power4.inOut", scrollTrigger: { trigger: l, start: "top 92%" } })
+    );
+
+    /* headings: masked word reveal */
+    gsap.utils.toArray(".h2").forEach((h) => {
+      const words = splitWords(h);
+      gsap.from(words, {
+        yPercent: 115,
+        rotate: 3,
+        duration: 1.1,
+        stagger: 0.08,
+        ease: "power4.out",
+        scrollTrigger: { trigger: h, start: "top 88%" },
+      });
+    });
+
+    /* feature cards */
+    const features = gsap.utils.toArray(".feature");
+    features.forEach((f) => f.setAttribute("data-cursor", "VIEW"));
+    gsap.from(features, {
+      y: 90,
+      opacity: 0,
+      clipPath: "inset(12% 0% 0% 0%)",
+      duration: 1.2,
+      stagger: 0.14,
+      ease: "power4.out",
+      scrollTrigger: { trigger: ".feature-grid", start: "top 82%" },
+    });
+    gsap.from(".feature__art", {
+      scale: 1.35,
+      duration: 1.8,
+      stagger: 0.14,
+      ease: "power3.out",
+      scrollTrigger: { trigger: ".feature-grid", start: "top 82%" },
+    });
+    tilt(features, 5);
+
+    /* products */
+    const products = gsap.utils.toArray(".product");
+    gsap.from(products, {
+      y: 70,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.1,
+      ease: "power4.out",
+      scrollTrigger: { trigger: ".product-grid", start: "top 85%" },
+    });
+    tilt(products, 6);
+
+    /* case list */
+    gsap.from(".case-list li", {
+      y: 40,
+      opacity: 0,
+      duration: 0.9,
+      stagger: 0.07,
+      ease: "power3.out",
+      scrollTrigger: { trigger: ".case-list", start: "top 85%" },
+    });
+
+    /* about: scrubbed word-by-word light-up */
+    const about = document.querySelector(".about__text");
+    const aboutWords = splitWords(about, { mask: false });
+    gsap.fromTo(
+      aboutWords,
+      { opacity: 0.15 },
+      { opacity: 1, stagger: 0.12, ease: "none", scrollTrigger: { trigger: about, start: "top 82%", end: "bottom 55%", scrub: 0.6 } }
+    );
+
+    /* stats: count up */
+    gsap.utils.toArray(".stat__n").forEach((el) => {
+      const m = el.textContent.match(/^(\d+)(.*)$/);
+      if (!m) return;
+      const target = Number(m[1]);
+      const o = { v: 0 };
+      el.textContent = "0" + m[2];
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top 90%",
+        once: true,
+        onEnter: () =>
+          gsap.to(o, { v: target, duration: 1.6, ease: "power3.out", onUpdate: () => (el.textContent = Math.round(o.v) + m[2]) }),
+      });
+    });
+    gsap.from(".stat", { y: 30, opacity: 0, stagger: 0.12, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: ".stats", start: "top 88%" } });
+
+    /* skills: icons draw themselves */
+    gsap.from(".skill", { y: 50, opacity: 0, stagger: 0.12, duration: 1, ease: "power4.out", scrollTrigger: { trigger: ".skills__grid", start: "top 85%" } });
+    gsap.utils.toArray(".skill svg").forEach((svg) => {
+      const shapes = svg.querySelectorAll("circle, rect, path");
+      shapes.forEach((s) => s.setAttribute("pathLength", "1"));
+      gsap.fromTo(
+        shapes,
+        { strokeDasharray: 1, strokeDashoffset: 1 },
+        { strokeDashoffset: 0, duration: 1.6, ease: "power2.inOut", stagger: 0.08, scrollTrigger: { trigger: svg, start: "top 90%" } }
+      );
+    });
+
+    /* contact */
+    gsap.from(".contact__cta > *, .contact__links a", {
+      y: 30,
+      opacity: 0,
+      stagger: 0.1,
+      duration: 0.9,
+      ease: "power3.out",
+      scrollTrigger: { trigger: ".contact__row", start: "top 80%" },
+    });
+    gsap.from(".footer", { opacity: 0, y: 20, duration: 0.8, scrollTrigger: { trigger: ".footer", start: "top 98%" } });
+
+    magnetic(document.querySelectorAll(".contact__links a, .circle-arrow, .label-row__link"), 0.3);
+  });
+
+  ScrollTrigger.refresh();
+}
+
+/* ======================================================================
+   case study
+   ====================================================================== */
+export function initCaseStudy(root) {
+  return gsap.context(() => {
+    if (RM) return;
+    const words = splitWords(root.querySelector(".cs__title h1"));
+    const tl = gsap.timeline({ delay: 0.35, defaults: { ease: "power4.out" } });
+    tl.from(".cs__nav", { y: -30, opacity: 0, duration: 0.6 })
+      .from(".cs__title .cs-eyebrow", { opacity: 0, y: 20, duration: 0.6 }, "<0.1")
+      .add(() => scramble(root.querySelector(".cs__title .cs-eyebrow"), 0.8), "<")
+      .from(words, { yPercent: 115, rotate: 3, duration: 1.1, stagger: 0.08 }, "<0.1")
+      .from(".cs__meta > div", { y: 30, opacity: 0, stagger: 0.08, duration: 0.8 }, "-=0.7")
+      .from(".cs__hero-media > div", { clipPath: "inset(0 0 100% 0)", duration: 1.2, ease: "power4.inOut" }, "-=0.6");
+
+    const lead = root.querySelector(".cs__hero-media p");
+    const leadWords = splitWords(lead, { mask: false });
+    gsap.fromTo(
+      leadWords,
+      { opacity: 0.18 },
+      { opacity: 1, stagger: 0.1, ease: "none", scrollTrigger: { trigger: lead, start: "top 75%", end: "bottom 45%", scrub: 0.6 } }
+    );
+    gsap.to(".cs__hero-media > div", {
+      backgroundPosition: "50% 30%",
+      scrollTrigger: { trigger: ".cs__hero-media", start: "top bottom", end: "bottom top", scrub: true },
+    });
+
+    gsap.utils.toArray(".cs__split").forEach((el) =>
+      gsap.from(el.children, { y: 50, opacity: 0, stagger: 0.14, duration: 1, ease: "power4.out", scrollTrigger: { trigger: el, start: "top 85%" } })
+    );
+    gsap.utils.toArray(".cs-h2").forEach((h) => {
+      const w = splitWords(h);
+      gsap.from(w, { yPercent: 115, duration: 1, stagger: 0.06, ease: "power4.out", scrollTrigger: { trigger: h, start: "top 88%" } });
+    });
+    gsap.from(".cs__card", { y: 60, opacity: 0, stagger: 0.1, duration: 1, ease: "power4.out", scrollTrigger: { trigger: ".cs__cards", start: "top 85%" } });
+    gsap.utils.toArray(".cs__results .big").forEach((el, i) =>
+      gsap.from(el, { yPercent: 100, opacity: 0, duration: 1, delay: i * 0.1, ease: "power4.out", scrollTrigger: { trigger: el, start: "top 90%" } })
+    );
+    gsap.from(".cs__results .txt", { opacity: 0, y: 20, stagger: 0.1, duration: 0.8, scrollTrigger: { trigger: ".cs__results", start: "top 88%" } });
+    gsap.from(".cs__chips span", { scale: 0.6, opacity: 0, stagger: 0.05, duration: 0.6, ease: "back.out(2)", scrollTrigger: { trigger: ".cs__chips", start: "top 90%" } });
+    gsap.from(".cs__next > div > *", { y: 30, opacity: 0, stagger: 0.12, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: ".cs__next", start: "top 92%" } });
+
+    tilt(gsap.utils.toArray(".cs__card"), 4);
+    magnetic(root.querySelectorAll(".cs__nav .back"), 0.3);
+  }, root);
+}
+
+/* ======================================================================
+   page transition (accent curtain)
+   ====================================================================== */
+export async function transition(swap) {
+  if (RM) return swap();
+  const curtain = document.querySelector("[data-curtain]");
+  gsap.set(curtain, { transformOrigin: "bottom" });
+  await gsap.to(curtain, { scaleY: 1, duration: 0.6, ease: "power4.inOut" });
+  await swap();
+  gsap.set(curtain, { transformOrigin: "top" });
+  await gsap.to(curtain, { scaleY: 0, duration: 0.7, ease: "power4.inOut", delay: 0.1 });
+  gsap.set(curtain, { transformOrigin: "bottom" });
+}
+
+export const refresh = () => ScrollTrigger.refresh();

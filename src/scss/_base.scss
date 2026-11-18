@@ -1,0 +1,166 @@
+// Design tokens (from the Portfolio Redesign)
+$accent: #c6f36b;
+$bg: #0a0a0a;
+$ink: #f2efe8;
+$muted: #a3a3a3;
+$soft: #c9c9c9;
+$line: #1f1f1f;
+$line-2: #262626;
+$line-3: #2a2a2a;
+$card: #0f0f0f;
+
+$sans: Inter, system-ui, sans-serif;
+$tight: "Inter Tight", Inter, sans-serif;
+$mono: "JetBrains Mono", ui-monospace, monospace;
+$grotesk: "Space Grotesk", Inter, sans-serif;
+
+@mixin up($bp) {
+  @media (min-width: $bp) {
+    @content;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: $bg;
+  color: $ink;
+  font-family: $sans;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 2px solid $accent;
+  outline-offset: 3px;
+}
+
+.mono {
+  font-family: $mono;
+}
+
+.accent {
+  color: $accent;
+}
+
+.wrap {
+  max-width: 1344px;
+  margin: 0 auto;
+  padding: 0 24px;
+  @include up(768px) {
+    padding: 0 48px;
+  }
+}
+
+.section {
+  border-bottom: 1px solid $line;
+  scroll-margin-top: 0;
+}
+
+.stack-28 {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-top: 72px;
+  padding-bottom: 88px;
+}
+
+.label {
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  white-space: nowrap;
+}
+
+.h2 {
+  font-family: $tight;
+  font-weight: 600;
+  font-size: clamp(40px, 5vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: $accent;
+  display: inline-block;
+  &--lg {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 15px;
+  background: $accent;
+  color: $bg;
+  transition: background 0.2s, transform 0.15s;
+  &:hover {
+    background: #d6f98f;
+  }
+  &:active {
+    transform: scale(0.98);
+  }
+  svg,
+  &__icon {
+    transition: transform 0.2s;
+  }
+  &:hover svg {
+    transform: translateX(3px);
+  }
+  &--pill {
+    border-radius: 999px;
+    padding: 0 12px 0 24px;
+    min-height: 52px;
+    gap: 14px;
+  }
+  &--sm {
+    padding: 0 24px;
+    min-height: 48px;
+    gap: 12px;
+  }
+  &__icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: $bg;
+    color: $accent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
