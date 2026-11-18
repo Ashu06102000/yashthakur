@@ -554,5 +554,74 @@
         "SaaS"
       ]
     }
+  },
+  {
+    "id": 6,
+    "title": "AI LEARNING PLATFORM (LMS) WITH HLS STREAMING",
+    "slug": "ai-learning-platform-lms",
+    "role": "NEXT.JS / <br /> LMS / HLS STREAMING",
+    "description": "A learning management platform for a leading, fast-growing AI learning company in Germany: a Next.js learner app, a full admin panel, S3-backed content and an automated MediaConvert pipeline that turns uploaded MP4s into HLS streams.",
+    "link": "",
+    "critical": true,
+    "caseStudy": {
+      "overview": "A learning management system built for a leading and fast-growing AI learning platform in Germany. It has two sides: a Next.js web app where learners find courses, watch lessons and track progress, and an admin panel where the team manages courses, content, learners and everything behind the platform. Video is delivered with HLS streaming from S3, and an automated pipeline turns every uploaded MP4 into adaptive streams, so lessons start quickly and play smoothly on any connection.",
+      "problem": "The company was growing fast, with more courses, more learners and more video than its existing setup was designed for. Content managers needed a proper way to create and organise courses without engineering help, and learners, many watching on mobile or slower connections, needed video that starts quickly and does not stall. Serving large video files directly meant long waits, buffering and wasted bandwidth, which is the quickest way to lose a learner in the middle of a lesson.",
+      "approach": "I built the platform as two connected products over one content backbone. The learner app is built with Next.js for fast, SEO-friendly pages and a responsive learning experience. The admin panel gives the team full control over courses, lessons, media and learners. All media lives in S3, and video is automated end to end: when an MP4 is dropped into S3, an event triggers a Lambda function that starts an AWS Elemental MediaConvert job, which splits the video into short HLS segments at several quality levels. The player picks the best one for the viewer's connection and switches as conditions change, which is what keeps playback smooth. Admins only upload a file; nothing else is manual.",
+      "features": [
+        "Learner web app with course catalogue, search and lesson player",
+        "Progress tracking so learners can resume where they left off",
+        "Full admin panel to create and manage courses, modules and lessons",
+        "Learner and access management for admins",
+        "Upload an MP4 to S3 and it is processed automatically, with no manual video work",
+        "HLS adaptive streaming produced by AWS Elemental MediaConvert, with multiple quality levels",
+        "Fast start and seamless quality switching on slow or changing connections",
+        "Server-rendered Next.js pages for speed and discoverability"
+      ],
+      "challenges": [
+        {
+          "title": "Video that never stalls",
+          "text": "A single large video file buffers on weak connections. Segmenting video into HLS renditions at several bitrates let the player adapt to each viewer's bandwidth, so lessons start fast and keep playing instead of freezing."
+        },
+        {
+          "title": "A pipeline from upload to playable",
+          "text": "Admins upload an MP4 and expect it to just work. An S3 upload event triggers a Lambda function that submits an AWS Elemental MediaConvert job and writes HLS segments and playlists back to S3, so the video becomes playable for learners with nobody touching a video tool. Job status and failures are handled in the function, so a bad file does not silently disappear."
+        },
+        {
+          "title": "Giving content teams real control",
+          "text": "The admin panel had to cover the whole content lifecycle, from structuring courses and lessons to managing learners, so the team could grow the catalogue without waiting on developers."
+        },
+        {
+          "title": "Built to grow",
+          "text": "Static, cacheable segments served from S3 scale with the audience far better than streaming from application servers, so more learners and more courses did not mean a bigger bottleneck."
+        }
+      ],
+      "architecture": [
+        "Next.js learner web app with server-rendered pages",
+        "Admin panel for courses, lessons, media and learners",
+        "S3 as the home for source videos, HLS output and course assets",
+        "S3 upload event triggers an AWS Lambda function on each new MP4",
+        "Lambda starts an AWS Elemental MediaConvert job that outputs segmented HLS renditions and playlists to S3",
+        "HLS player in the web app that adapts quality to the viewer's connection"
+      ],
+      "impact": [
+        "Smooth video start and playback across devices and connection speeds",
+        "Zero-touch video processing: drop an MP4 in S3 and it becomes a streamable lesson",
+        "A content team that can publish and manage courses on its own",
+        "A platform ready for a fast-growing learner base",
+        "Lower load on application servers, since video is served as cacheable segments"
+      ],
+      "techStack": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "AWS S3",
+        "AWS Lambda",
+        "AWS Elemental MediaConvert",
+        "HLS",
+        "Adaptive Bitrate Streaming",
+        "Admin Dashboard",
+        "LMS"
+      ]
+    }
   }
 ]

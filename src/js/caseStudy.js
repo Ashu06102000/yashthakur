@@ -1,13 +1,13 @@
 const esc = (s = "") =>
   String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-const ACRONYMS = /\b(Ai|Rag|Ui|Aws|Api|Llm|Mcp)\b/g;
+const ACRONYMS = /\b(Ai|Rag|Ui|Aws|Api|Llm|Mcp|Lms|Hls|Sns|Sqs|Sdk|Ios)\b/g;
 
 /** "ENTERPRISE AI RAG KNOWLEDGE SYSTEM" -> "Enterprise AI RAG Knowledge System" */
 export const titleCase = (s = "") =>
   s
     .toLowerCase()
-    .replace(/(^|[\s-])(\w)/g, (_, a, b) => a + b.toUpperCase())
+    .replace(/(^|[\s(-])(\w)/g, (_, a, b) => a + b.toUpperCase())
     .replace(ACRONYMS, (m) => m.toUpperCase());
 
 /** "AI / <br /> AWS BEDROCK" -> "AI / AWS BEDROCK" */
