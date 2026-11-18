@@ -16,7 +16,7 @@
   &__body {
     flex: 1;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     padding-top: 120px;
     padding-bottom: 56px;
   }
@@ -50,8 +50,8 @@
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
-    padding: 0.06em 0.04em 0.02em;
-    margin: -0.06em -0.04em -0.02em;
+    padding: 0.06em 0.12em 0.02em 0.04em;
+    margin: -0.06em -0.12em -0.02em -0.04em;
   }
   &__hover {
     display: inline-block;
@@ -306,6 +306,29 @@
     flex: 0 0 42%;
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 45%);
     mask-image: linear-gradient(90deg, transparent, #000 45%);
+  }
+  @media (max-width: 600px) {
+    flex-direction: column;
+    min-height: 0;
+    &__text {
+      flex: 0 0 auto;
+      padding: 22px 20px 18px;
+      h3 {
+        font-size: 26px;
+      }
+      p {
+        font-size: 14.5px;
+      }
+    }
+    &__tags {
+      margin-top: 4px;
+      line-height: 1.7;
+    }
+    &__art {
+      flex: 0 0 72px;
+      -webkit-mask-image: linear-gradient(180deg, transparent, #000 70%);
+      mask-image: linear-gradient(180deg, transparent, #000 70%);
+    }
   }
   &__arrow {
     position: absolute;

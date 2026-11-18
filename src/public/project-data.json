@@ -1,37 +1,113 @@
 [
   {
     "id": 1,
-    "title": "ENTERPRISE AI RAG KNOWLEDGE SYSTEM",
+    "title": "ENTERPRISE MULTI-AGENT AI ASSISTANT",
     "slug": "enterprise-ai-rag-knowledge-system",
-    "role": "AI / <br /> AWS BEDROCK",
-    "description": "End to end document ingestion, vectorization, storage, retrieval, and LLM response flows enabling scalable, context aware information access across large enterprise datasets.",
+    "role": "AGENTCORE / <br /> LANGGRAPH / GUARDRAILS",
+    "description": "Employee-facing financial assistant built on a supervisor with specialist sub-agents for accounts, loans, contributions, beneficiaries and enrollment, with RAG grounding, integrated guardrails, evals and prompt tracing across dev, staging and production.",
     "link": "",
     "critical": true,
     "caseStudy": {
-      "overview": "An AI-powered RAG (Retrieval-Augmented Generation) knowledge system built on AWS Bedrock that gives enterprises a scalable, context-aware way to access information across vast document datasets.",
-      "problem": "Organizations struggled to find relevant information across large, siloed document repositories. Manual search was slow and returned irrelevant results, while generic LLM chat lacked access to proprietary enterprise data.",
-      "approach": "Designed an end-to-end pipeline covering document ingestion, vectorization, storage, retrieval, and LLM response generation. Leveraged AWS Bedrock for foundation models and secure vector search to deliver low-latency, accurate, context-aware answers.",
+      "overview": "A chat assistant for a company's employees that answers questions and gets financial and benefits tasks done in one place. Behind a single chat window, a supervisor agent routes each request to a specialist sub-agent (self-directed account, loan, contribution, beneficiary, enrollment and more), grounded in the company's own documents and data. Every message passes through guardrails on the way in and on the way out, and every prompt is traced and evaluated across environments.",
+      "problem": "Employees had to hunt through portals, PDFs and phone queues to answer questions about loans, contributions, beneficiaries or enrolling in a plan, and each topic lived in a different system. A single general-purpose chatbot was not an option: financial answers must be correct, grounded in the right policy, and safe, and a wrong or leaky answer has real consequences. The company also had an internal team that owned AI safety policy, so the assistant had to plug into their guardrails and not invent its own.",
+      "approach": "I split the problem the way the business is split. A supervisor agent classifies intent and delegates to domain sub-agents, each with its own tools, knowledge and instructions, orchestrated with LangGraph and run on AWS Bedrock AgentCore. Retrieval keeps answers grounded in company content. Around the agents I integrated the internal team's guardrails web app on both input and output, then went beyond wiring it up: I built the evaluation sets, drove down false positives, and set up monitoring and tracing for prompts in dev, staging and production, so quality and safety could be measured and not assumed.",
+      "agentic": {
+        "intro": "The assistant is a team of agents, not one prompt. A supervisor understands the request and hands it to the specialist that owns that part of the business, then assembles one clear answer for the employee.",
+        "steps": [
+          {
+            "title": "Supervisor agent",
+            "text": "Classifies each message, keeps the conversation state, decides which specialist (or several) should act, and merges their results into a single reply. Ambiguous requests get a clarifying question instead of a guess."
+          },
+          {
+            "title": "Specialist sub-agents",
+            "text": "Separate agents for self-directed accounts, loans, contributions, beneficiaries and enrollment, each with its own tools, data access and instructions, so each stays small, testable and easy to change without touching the others."
+          },
+          {
+            "title": "LangGraph orchestration",
+            "text": "The flow is a LangGraph graph: nodes for routing, tool calls, retrieval and response, with explicit state and edges. That makes handoffs, retries and human-in-the-loop steps predictable and easy to trace."
+          },
+          {
+            "title": "Bedrock AgentCore runtime",
+            "text": "Agents run on AWS Bedrock AgentCore, which handles hosting, identity and memory for the agents, so the team focused on behaviour rather than infrastructure."
+          },
+          {
+            "title": "Grounded with RAG",
+            "text": "Policy documents and plan rules are ingested, chunked and embedded. Sub-agents retrieve the relevant passages and answer from them, with sources, to cut hallucinations on rules that must be exact."
+          },
+          {
+            "title": "Tools with real actions",
+            "text": "Agents call internal APIs to read balances, start a request or update a record. Anything that changes data is explicit and confirmed with the employee first."
+          },
+          {
+            "title": "Guardrails on the way in and out",
+            "text": "Each user message is checked before an agent sees it, and each answer is checked before the user sees it, using the internal team's guardrails service. Blocked content gets a safe, helpful fallback."
+          },
+          {
+            "title": "Evals, tracing and monitoring",
+            "text": "Every prompt and response is traced across dev, staging and production. Evals score routing, retrieval, answers and guardrail decisions, and the scores are watched on dashboards, so a change to a prompt, model or tool shows up as a number before it reaches employees."
+          }
+        ]
+      },
       "features": [
-        "Document ingestion and chunking pipeline",
-        "Vectorization and embedding storage",
-        "Semantic similarity retrieval",
-        "LLM response generation with source grounding",
-        "Context-aware conversational interface"
+        "One chat for loans, contributions, beneficiaries, enrollment and self-directed accounts",
+        "Supervisor and specialist sub-agents, each with its own tools and knowledge",
+        "Retrieval grounded in company policy documents, with sources",
+        "Integrated internal guardrails on both input and output",
+        "Evals and scoring across routing, retrieval, answers and guardrails, using logic-based checks and LLM-as-judge",
+        "False-positive reduction so safe questions are not blocked",
+        "End-to-end tracing and monitoring of prompts in dev, staging and production",
+        "Confirm-before-act for anything that changes an employee's data"
+      ],
+      "challenges": [
+        {
+          "title": "Guardrails that protect without blocking",
+          "text": "Early on, legitimate questions about loans or beneficiaries were being flagged. I collected those cases into a labelled set, found the patterns behind each false positive, and worked with the guardrails owners and the prompts to fix them, re-running the full set after every change so fixes never reopened real risks."
+        },
+        {
+          "title": "Two kinds of checks, used where each fits",
+          "text": "Some input and output checks are deterministic logic: pattern and rule checks that are fast, cheap and explainable, for things like sensitive identifiers. Others need judgement, so an LLM acts as judge with a written rubric for relevance, groundedness and policy. Choosing the right kind for each check kept cost and latency down without losing coverage."
+        },
+        {
+          "title": "Measuring quality, not guessing",
+          "text": "The evals cover the whole pipeline, not just the final answer: routing (did the supervisor pick the right sub-agent), tool selection, retrieval, answer correctness and guardrail decisions on input and output. Each run is scored, with logic-based scores where an answer can be checked exactly and an LLM judge with a rubric where it needs judgement, and the scores are tracked per prompt version and per environment. A prompt or model change has to hold those scores before it moves from dev to staging to production."
+        },
+        {
+          "title": "Seeing inside a multi-agent run",
+          "text": "A single question can touch a supervisor, two sub-agents, retrieval and several tools. Tracing every step with the same prompt versions in each environment made it possible to find which agent or prompt caused a bad answer, and to compare dev, staging and production behaviour."
+        },
+        {
+          "title": "Working across teams",
+          "text": "The guardrails belong to another team. I integrated against their service and contract, fed back the false positives and gaps I found, and agreed how policy changes roll out, so the safety team and the product team could move without blocking each other."
+        }
+      ],
+      "architecture": [
+        "Next.js chat UI streaming responses from the backend",
+        "Supervisor and sub-agents orchestrated as a LangGraph graph, hosted on AWS Bedrock AgentCore",
+        "Retrieval layer over a vector store for policy and plan documents",
+        "Guardrails service called before the agents (input) and before the reply (output)",
+        "Tracing and monitoring per prompt and per environment, with eval jobs scoring samples",
+        "Separate dev, staging and production configurations with promoted prompt versions"
       ],
       "impact": [
-        "Scalable, context-aware information access",
-        "Reduced time-to-answer for enterprise queries",
-        "Minimized hallucinations via retrieval grounding"
+        "One place for employees to ask about and act on their financial benefits",
+        "Answers grounded in company documents, with fewer hallucinations",
+        "Safety policy enforced consistently on every input and output",
+        "Fewer false-positive blocks, so the assistant stays useful",
+        "Prompt and model changes are measured before release, not after"
       ],
       "techStack": [
-        "React.js",
-        "TypeScript",
-        "AWS Bedrock",
-        "Vector Databases",
-        "S3",
-        "Lambda",
+        "AWS Bedrock AgentCore",
         "LangGraph",
-        "RAG"
+        "LangGraph SDK",
+        "Python",
+        "Next.js",
+        "TypeScript",
+        "RAG",
+        "Vector Search",
+        "LLM-as-judge",
+        "Guardrails",
+        "Tracing",
+        "Evals"
       ]
     }
   },

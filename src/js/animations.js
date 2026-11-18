@@ -354,18 +354,6 @@ export async function initHome() {
     });
     tilt(features, 5);
 
-    /* products */
-    const products = gsap.utils.toArray(".product");
-    gsap.from(products, {
-      y: 70,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.1,
-      ease: "power4.out",
-      scrollTrigger: { trigger: ".product-grid", start: "top 85%" },
-    });
-    tilt(products, 6);
-
     /* case list */
     gsap.from(".case-list li", {
       y: 40,
