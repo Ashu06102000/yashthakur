@@ -40,6 +40,12 @@ export function renderCaseStudy(project, projects) {
         .join("")
     : "";
 
+  const llm = cs.llm
+    ? (cs.llm.steps || [])
+        .map((c, i) => `<div class="cs__card"><span class="num">${pad(i)}</span><h3 class="cs__card-title">${esc(c.title)}</h3><p>${esc(c.text)}</p></div>`)
+        .join("")
+    : "";
+
   const architecture = (cs.architecture || []).map((a) => `<li>${esc(a)}</li>`).join("");
 
   const chips = (cs.techStack || []).map((t) => `<span>${esc(t)}</span>`).join("");
@@ -85,6 +91,17 @@ export function renderCaseStudy(project, projects) {
         <div class="cs__cards">${features}</div>
       </div>
     </section>
+
+    ${llm ? `<section class="cs__band">
+      <div class="cs-wrap">
+        <div>
+          <div class="cs-eyebrow" style="color:#a9b1bc">${esc(cs.llm.eyebrow || "LLM pipeline")}</div>
+          <h2 class="cs-h2" style="margin-top:10px">${esc(cs.llm.heading || "How the model is used")}</h2>
+          <p class="cs__lede">${esc(cs.llm.intro)}</p>
+        </div>
+        <div class="cs__cards cs__cards--grid">${llm}</div>
+      </div>
+    </section>` : ""}
 
     ${agentic ? `<section class="cs__band">
       <div class="cs-wrap">

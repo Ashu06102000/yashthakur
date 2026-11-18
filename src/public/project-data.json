@@ -151,6 +151,45 @@
             "text": "OpenTelemetry-style traces, metrics and token budgets cover every turn, and eval suites for routing and conversations catch regressions when prompts, tools or models change."
           }
         ]
+      },
+      "llm": {
+        "eyebrow": "LLM pipeline",
+        "heading": "From conversation to clinical note",
+        "intro": "The hard part was not getting a model to write a note. It was getting a note a busy clinician would actually read, trust and approve. The design choice that mattered most: capture the visit once as structured facts, and draw everything a person reads from those facts.",
+        "steps": [
+          {
+            "title": "Transcribe with speaker turns",
+            "text": "Audio is transcribed as the visit happens, with turns attributed to speakers, so the model works from who said what and not from one block of text."
+          },
+          {
+            "title": "Extract typed visit facts, once",
+            "text": "A single model call turns the transcript into typed groups of short, one-line facts. It replaced a separate SOAP-writing call, so there is one extraction and one source of truth instead of several prompts that can disagree."
+          },
+          {
+            "title": "Every note is a view of the facts",
+            "text": "The SOAP note, the summary and the chart are all rendered from the same facts. This came from a real complaint that notes were far too long. The fix was structural, not another prompt tweak: change the view, not the extraction."
+          },
+          {
+            "title": "Write the way each provider writes",
+            "text": "Charting profiles learn how each provider writes from charts they have already filled in: a few words per field, or lists. Drafts follow that style and the clinic's own chart templates, so nobody re-types the note into the form they know."
+          },
+          {
+            "title": "Note views and learned style",
+            "text": "Each reader can choose brief, detailed or paragraph summaries, resolved from provider to role to clinic to learned style. When someone shortens or deletes sections, the system suggests a view, but never applies it on its own."
+          },
+          {
+            "title": "Intent routing that never blocks",
+            "text": "A semantic router reads each assistant message in parallel and picks the intent and likely tools. It is trained on labelled examples across many intents, calibrated, and tested on a held-out set written by someone who never saw the training data. It guides the turn but never gates it."
+          },
+          {
+            "title": "Reliable under real load",
+            "text": "Claude is the primary model, with a second provider as fallback when the first is over quota, overloaded or silent, applied only when nothing has reached the user's screen. Prompt caching, per-turn token budgets, a rate-limit ledger and conversation checkpoints with summaries keep long sessions fast and within limits."
+          },
+          {
+            "title": "Grounded, safe and measured",
+            "text": "Responses are checked for hallucination and confidence, tenant isolation is tested with red-team cases, uploaded content is treated as data and not instructions, and a person approves every note. Evals run the real prompt and tools end to end with strict structural checks, and are re-run whenever the model, prompt or tools change."
+          }
+        ]
       }
     }
   },
