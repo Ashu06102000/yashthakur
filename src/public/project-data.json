@@ -1,16 +1,171 @@
 [
   {
     "id": 1,
+    "title": "AI CLINICAL SCRIBE — WEB & MOBILE PLATFORM",
+    "slug": "ai-clinical-scribe-platform",
+    "role": "NEXT.JS / REACT NATIVE / <br /> HEALTHCARE AI",
+    "description": "Web and mobile platform that listens to care visits and drafts the clinical note for review, backed by an agentic AI assistant that plans, calls tools across the clinic's data, and asks before it writes anything.",
+    "link": "",
+    "critical": true,
+    "caseStudy": {
+      "overview": "A web and mobile platform for clinicians who visit patients and then have to write everything up by hand. It records the visit, transcribes who said what, drafts a structured clinical note, and hands it back to the clinician to review and approve. The same product also runs the day around the visit: patients, the appointment book, charting and an AI assistant. Behind it sits an agentic AI assistant that can look things up, build plans and take actions across the clinic's systems, with a person confirming anything that changes data. The mobile app (iOS and Android, built with Expo and React Native) puts the scribe, the appointment book and the patient list in the clinician's pocket, so a nurse in a patient's living room can record and review a visit without a laptop.",
+      "problem": "In the US, nurses and other clinicians often travel to patients' homes or see back-to-back appointments, and every visit ends with documentation. Notes get typed up between visits, after hours, or from memory. That is slow, tiring, and the first thing to go wrong when a day runs long: details are missed, charts fall behind, and clinicians burn out on admin instead of care. Generic dictation tools did not help much, because the output was a wall of text, not a note in the shape the chart needs. The people who most need less paperwork are the ones away from a desk, so a web-only tool leaves the home-visit case unsolved.",
+      "approach": "I treated the note as the product and the recording as the input. The visit is captured live, streamed for transcription with speaker turns, and turned into a structured note (summary, SOAP sections, action items and decisions) tied to the right patient and booking. The clinician is always the last step: they read the draft, fix it, and approve it before anything is exported or written back. Everything around it (today's visits, patient context, the appointment book) exists so the right patient is attached to a recording before it starts and the clinician rarely has to search for anything. For the road, I rebuilt the product's phone experience natively in React Native, using the web code as the specification: the same sections in the same order, the same wording, status rules and backend endpoints, with native touches (haptics, bottom sheets, share sheet, on-device speech) where the phone does it better. Each rebuilt area shipped with its own parity document, so reviewers know what matches and what deliberately differs.",
+      "features": [
+        "Consent-first recording flow with live transcript and speaker turns",
+        "Structured notes: summary, SOAP sections, action items and decisions",
+        "Today's visits view that attaches a recording to the right booking",
+        "Review and approval step before copy, export or write-back to the record",
+        "Audio playback synced to the transcript, with markers and comments",
+        "Sharing with access by role, PDF and transcript export",
+        "Appointment book with day, week and per-provider load views",
+        "Patient profiles with visit history, charts, photos and linked scribes",
+        "Mobile app for iOS and Android with AI Scribe, Appointments and Patients tabs and a More menu",
+        "Native recording flow with consent dialog, speaker turns, floating dock and visit-context sheet",
+        "Role-aware tab gating, including a scribe-only mode",
+        "Guided tour, in-app user guide, support reporting and settings on mobile",
+        "Times shown in the clinic's own time zone, not the phone's",
+        "Agentic assistant with tool use, MCP, retrieval and confirm-before-write actions",
+        "AI assistant chat over WebSockets with a voice mode and file attachments",
+        "Inbox, approvals, charting and billing workspaces alongside the scribe and appointment book",
+        "EHR connections set up from Settings, with more integrations behind feature flags",
+        "Feature flags and role-based access so each workspace sees only what it should"
+      ],
+      "challenges": [
+        {
+          "title": "Recording that survives real conditions",
+          "text": "Microphones get blocked, tabs lose focus, and networks drop mid-visit. The recording flow handles permission errors with plain explanations, pauses and resumes cleanly, keeps the audio when note generation fails, and offers a retry instead of losing the visit."
+        },
+        {
+          "title": "Long-running AI work in a fast UI",
+          "text": "A note is not ready the moment recording stops. The list and note pages poll for processing, failed and write-back states, show the reason for a failure by error code, and let the clinician keep working while the note is generated."
+        },
+        {
+          "title": "Trust in a clinical setting",
+          "text": "Nothing is final until a person approves it. Approval gates the exports, status rules decide what a clinician can do next, and multi-tenant headers and role checks keep each clinic's data separate."
+        },
+        {
+          "title": "A big product, kept safe to change",
+          "text": "The app grew to many modules with several people shipping at once. An atomic component system, strict design tokens, lint and type checks on every push, and four test lanes (unit, mocked end-to-end, live-API, pre-push gate) kept changes reviewable."
+        },
+        {
+          "title": "Parity without copy-paste",
+          "text": "React on the web and React Native do not share components. I matched layout, copy and behaviour by reading the web source and rebuilding it with NativeWind, then recorded every intentional difference so parity stays a checkable claim, not a feeling."
+        },
+        {
+          "title": "Native speech and audio",
+          "text": "Live speech recognition needs native modules, so it does not work in Expo Go. I built it on a development build, and made the app degrade safely: no crash when the native microphone module is missing, and clear errors when permission is denied or the mic stops."
+        },
+        {
+          "title": "Time zones and real-world data",
+          "text": "Visits happen in the clinic's time zone, and some phones do not recognise every zone. I moved all schedule and recording times to the clinic's clock and added a guard so an unknown zone falls back instead of crashing."
+        },
+        {
+          "title": "Staying current on a fast-moving platform",
+          "text": "I upgraded the app from Expo SDK 54 to 58 and React Native 0.88, replaced the removed audio library with the new one, and updated navigation, keeping the app building and shippable through EAS for both stores."
+        }
+      ],
+      "architecture": [
+        "Next.js 15 App Router with React 18 and TypeScript; server route handlers for auth, layout, support and proxying",
+        "Redux Toolkit and RTK Query for data, with contract tests against shared fixtures and schemas",
+        "WebSocket layer for chat and live transcription, kept opt-in so the text flow is never affected",
+        "Cookie-based session checks in middleware protect every dashboard route",
+        "Tailwind design tokens with Shadcn UI and dark/light themes; Biome and Lefthook enforce quality",
+        "Expo SDK 58 and React Native 0.88 mobile app sharing Redux Toolkit / RTK Query API logic patterns with the web",
+        "NativeWind styling from the same design tokens as the web",
+        "expo-speech-recognition and expo-audio for capture and playback, expo-notifications for alerts",
+        "EAS Build profiles producing signed .aab and .ipa files for the stores"
+      ],
+      "impact": [
+        "Turns a free-form conversation into a structured note the clinician only has to review",
+        "Clinicians can start and finish documentation at the patient's side, on a phone",
+        "One mental model across web and phone, with documented parity per screen",
+        "An assistant that does the lookup and planning work, such as finding patients to call for open slots, instead of only answering questions",
+        "Moves documentation out of evenings and into the visit itself",
+        "One product covers the visit, the schedule and the patient record, so context follows the clinician",
+        "Predictable releases through layered automated testing and CI gates"
+      ],
+      "techStack": [
+        "Next.js 15",
+        "React 18",
+        "React Native",
+        "Expo SDK 58",
+        "TypeScript",
+        "Redux Toolkit",
+        "RTK Query",
+        "Tailwind CSS",
+        "NativeWind",
+        "WebSockets",
+        "AWS Bedrock",
+        "LaunchDarkly",
+        "Jest",
+        "Playwright",
+        "Biome",
+        "AWS Bedrock Agents",
+        "MCP",
+        "AWS Lambda",
+        "S3",
+        "Redis",
+        "PostgreSQL",
+        "OpenTelemetry",
+        "expo-speech-recognition",
+        "EAS Build"
+      ],
+      "agentic": {
+        "intro": "The assistant is not a chatbot bolted onto the product. It is an agent: it reads the question, decides which tools it needs, calls them, looks at what came back, and repeats until it can answer, all streamed to the clinician as it works.",
+        "steps": [
+          {
+            "title": "Classify, then plan",
+            "text": "Each message is classified first (a patient lookup, a schedule question, a search, a request to act) so the model starts with the right tools and instructions instead of every tool at once."
+          },
+          {
+            "title": "A multi-turn tool loop",
+            "text": "The model runs a reason, act, observe loop of up to 15 turns. It asks for a tool, gets the result, and decides the next step, so a question like \"who could fill Thursday's open slot\" becomes several dependent lookups ending in one short answer."
+          },
+          {
+            "title": "One registry for every kind of tool",
+            "text": "Built-in functions, Lambda-backed data views and MCP servers all sit behind a single tool registry with the same contract: a definition, an executor and metadata. Adding a capability means registering a tool, not changing the agent."
+          },
+          {
+            "title": "Parallel when safe, sequential when not",
+            "text": "An execution strategy detects dependencies between requested tools (pagination, a read that needs an earlier write) and runs independent calls in parallel, with per-source limits, and dependent ones in order."
+          },
+          {
+            "title": "Built to fail gracefully",
+            "text": "Each tool has retries with exponential backoff, a circuit breaker and a fallback chain, so if the structured query fails the agent drops back to search instead of giving up. Failed calls come back to the model as data it can reason about."
+          },
+          {
+            "title": "Grounded retrieval and memory",
+            "text": "Search fans out to the knowledge base, the database and conversation memory in parallel, then fuses, de-duplicates and reranks. Conversation summaries and patient context are stored per clinic, so answers stay consistent across sessions."
+          },
+          {
+            "title": "Safe by construction",
+            "text": "Every tool call carries the clinic, user and patient context, and access is checked per request. Writes and sends need the user's confirmation. Content from uploaded files is treated as data, never instructions, which also guards against prompt injection."
+          },
+          {
+            "title": "Rich results, not just text",
+            "text": "Tools return structured attachments (patient photos, documents, chart links, a live fill plan for open appointment slots) that the apps render as cards. The model only sees references, so no links or private data are made up or leaked."
+          },
+          {
+            "title": "Observable and tested",
+            "text": "OpenTelemetry-style traces, metrics and token budgets cover every turn, and eval suites for routing and conversations catch regressions when prompts, tools or models change."
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 2,
     "title": "ENTERPRISE MULTI-AGENT AI ASSISTANT",
     "slug": "enterprise-ai-rag-knowledge-system",
-    "role": "AGENTCORE / <br /> LANGGRAPH / GUARDRAILS",
+    "role": "TECH LEAD / <br /> AGENTCORE / LANGGRAPH",
     "description": "Employee-facing financial assistant built on a supervisor with specialist sub-agents for accounts, loans, contributions, beneficiaries and enrollment, with RAG grounding, integrated guardrails, evals and prompt tracing across dev, staging and production.",
     "link": "",
     "critical": true,
     "caseStudy": {
       "overview": "A chat assistant for a company's employees that answers questions and gets financial and benefits tasks done in one place. Behind a single chat window, a supervisor agent routes each request to a specialist sub-agent (self-directed account, loan, contribution, beneficiary, enrollment and more), grounded in the company's own documents and data. Every message passes through guardrails on the way in and on the way out, and every prompt is traced and evaluated across environments.",
       "problem": "Employees had to hunt through portals, PDFs and phone queues to answer questions about loans, contributions, beneficiaries or enrolling in a plan, and each topic lived in a different system. A single general-purpose chatbot was not an option: financial answers must be correct, grounded in the right policy, and safe, and a wrong or leaky answer has real consequences. The company also had an internal team that owned AI safety policy, so the assistant had to plug into their guardrails and not invent its own.",
-      "approach": "I split the problem the way the business is split. A supervisor agent classifies intent and delegates to domain sub-agents, each with its own tools, knowledge and instructions, orchestrated with LangGraph and run on AWS Bedrock AgentCore. Retrieval keeps answers grounded in company content. Around the agents I integrated the internal team's guardrails web app on both input and output, then went beyond wiring it up: I built the evaluation sets, drove down false positives, and set up monitoring and tracing for prompts in dev, staging and production, so quality and safety could be measured and not assumed.",
+      "approach": "As the lead on this project, I made the architecture decisions, worked directly with the client and reviewed the team's work. I split the problem the way the business is split. A supervisor agent classifies intent and delegates to domain sub-agents, each with its own tools, knowledge and instructions, orchestrated with LangGraph and run on AWS Bedrock AgentCore. Retrieval keeps answers grounded in company content. Around the agents I integrated the internal team's guardrails web app on both input and output, then went beyond wiring it up: I built the evaluation sets, drove down false positives, and set up monitoring and tracing for prompts in dev, staging and production, so quality and safety could be measured and not assumed.",
       "agentic": {
         "intro": "The assistant is a team of agents, not one prompt. A supervisor understands the request and hands it to the specialist that owns that part of the business, then assembles one clear answer for the employee.",
         "steps": [
@@ -78,6 +233,10 @@
         {
           "title": "Working across teams",
           "text": "The guardrails belong to another team. I integrated against their service and contract, fed back the false positives and gaps I found, and agreed how policy changes roll out, so the safety team and the product team could move without blocking each other."
+        },
+        {
+          "title": "Leading the work",
+          "text": "I was the main contact for the client, translating their needs into a plan, deciding the agent design and evaluation approach, dividing the work across the team and reviewing it, so the pieces fit together and shipped with confidence."
         }
       ],
       "architecture": [
@@ -112,402 +271,248 @@
     }
   },
   {
-    "id": 2,
-    "title": "CROSS-PLATFORM MOBILE APP",
-    "slug": "cross-platform-mobile-app",
-    "role": "REACT NATIVE / <br /> iOS & ANDROID",
-    "description": "End to end cross platform mobile application (iOS & Android) with scalable architecture and optimized performance for smooth, high quality user experiences at scale.",
-    "link": "",
-    "critical": true,
-    "caseStudy": {
-      "overview": "A production-grade cross-platform mobile application built with React Native, delivering smooth, high-quality user experiences on both iOS and Android from a single codebase.",
-      "problem": "Maintaining separate native apps was costly and slow, while unoptimized React Native implementations suffered from janky interactions, excessive re-renders, and inconsistent behavior under high user activity.",
-      "approach": "Designed a scalable architecture with efficient navigation and state-driven interfaces. Optimized rendering to reduce re-renders and ensure consistent, responsive behavior even under heavy concurrent usage.",
-      "features": [
-        "Single codebase for iOS & Android",
-        "State-driven mobile interfaces",
-        "Efficient navigation and data handling",
-        "Performance optimization with reduced re-renders",
-        "Consistent behavior under high user activity"
-      ],
-      "impact": [
-        "Fast time-to-market across platforms",
-        "Smooth and responsive interactions",
-        "Reduced infrastructure and maintenance cost"
-      ],
-      "techStack": [
-        "React Native",
-        "TypeScript",
-        "Redux",
-        "React Navigation",
-        "iOS",
-        "Android",
-        "REST",
-        "GraphQL"
-      ]
-    }
-  },
-  {
     "id": 3,
-    "title": "MICRO-FRONTEND ARCHITECTURE",
-    "slug": "micro-frontend-architecture",
-    "role": "MODULE FEDERATION / <br /> SYSTEM DESIGN",
-    "description": "Architected a micro-frontend setup using Module Federation, enabling independent deployments, reducing coupling, and significantly improving team productivity.",
+    "title": "ENGINEERING KNOWLEDGE MCP PIPELINE",
+    "slug": "engineering-knowledge-mcp-pipeline",
+    "role": "MCP / <br /> S3 VECTORS / AGENTCORE",
+    "description": "A merge-triggered pipeline that keeps every repo's code and design knowledge embedded in S3 Vectors, served to employees and agents through FastMCP servers and Bedrock AgentCore.",
     "link": "",
     "critical": true,
     "caseStudy": {
-      "overview": "A modular, scalable frontend architecture using Module Federation to split the platform into independently deployable micro-frontends, dramatically improving maintainability and team velocity.",
-      "problem": "A monolithic frontend created bottlenecks: slow builds, tightly coupled code, and blockers where one team's changes stalled another. Scaling the team and adding features became increasingly risky and slow.",
-      "approach": "Architected a micro-frontend setup using Webpack Module Federation. Each domain became an independently built, versioned, and deployed micro-app that shared consistent UI primitives through a federated shell.",
+      "overview": "An internal platform that turns a company's many repositories into one searchable, always-current knowledge layer. Each time a project is merged into its main branch, a pipeline re-embeds what changed and updates the vector store. MCP servers then expose that knowledge to employees and AI agents, so anyone can ask how a system is designed, how a service works or where something lives, without hunting through repos.",
+      "problem": "The company had many projects and repositories across different technologies, each with its own system design, conventions and decisions. Knowledge lived in code and scattered docs, went stale as soon as it was written down, and was only really known by the people who built it. New joiners and other teams lost days finding answers, and AI assistants could not help because they had no access to the company's own systems. A one-time import would not fix it, since the code changes every day.",
+      "approach": "I made freshness the core of the design: knowledge updates when code does. A pipeline listens for merges to main or master across all repositories, processes only what changed, and keeps the index in sync. The knowledge is organised into collections, one per project, so results stay relevant and access can be controlled. Retrieval is exposed through MCP servers built with FastMCP, the standard way for AI tools and agents to use external knowledge, and the same servers feed an agent running on Bedrock AgentCore. Claude, through the Anthropic API, is used to understand code and documents so that what gets embedded is meaningful and not raw text.",
+      "agentic": {
+        "intro": "The system has two halves: a pipeline that keeps knowledge current, and MCP servers that let people and agents use it.",
+        "steps": [
+          {
+            "title": "Merge triggers the pipeline",
+            "text": "A merge into main or master in any connected repository starts the run. Many repositories, written in different languages and frameworks, all feed the same flow without each team changing how they work."
+          },
+          {
+            "title": "Process only what changed",
+            "text": "The pipeline reads the diff, not the whole repository, and picks out the files, docs and design notes that changed. That keeps runs fast and cheap, and means the index reflects the main branch within minutes."
+          },
+          {
+            "title": "Understand before embedding",
+            "text": "Code and documents are split into meaningful units that suit their language and type. Claude, via the Anthropic API, adds summaries and context, so a function, a service or a design decision is embedded together with what it does and why."
+          },
+          {
+            "title": "Embeddings in S3 Vectors",
+            "text": "Embeddings are stored in S3 Vectors, so the index is durable, scales with the number of repositories and avoids running a separate vector database. Changed items are upserted and deleted code is removed, so nothing stale is returned."
+          },
+          {
+            "title": "Collections per project",
+            "text": "Each project has its own collection. Searches can target one system or span many, and access can follow who is allowed to see which project."
+          },
+          {
+            "title": "FastMCP servers",
+            "text": "MCP servers built with FastMCP expose tools for searching a collection, listing projects and reading a result in context. Once connected, an employee's AI tool can use the company's knowledge directly from the editor or chat."
+          },
+          {
+            "title": "Agents on AgentCore",
+            "text": "An agent on AWS Bedrock AgentCore uses the same MCP tools, so it can answer cross-project questions, compare designs and point to the source, with the retrieved content as grounding."
+          },
+          {
+            "title": "Observable and safe to run",
+            "text": "Each pipeline run is logged with what was processed, added and removed, and failures are visible and retryable, so a broken repository does not quietly leave the index out of date."
+          }
+        ]
+      },
       "features": [
-        "Independent micro-frontend deployments",
-        "Shared component library via Module Federation",
-        "Decoupled domain ownership",
-        "Faster, isolated builds and releases",
-        "Improved maintainability and scalability"
+        "Merge-triggered pipeline across many repositories and technologies",
+        "Incremental updates that process only what changed",
+        "Embeddings stored in S3 Vectors, organised in collections per project",
+        "FastMCP servers that expose search and lookup tools",
+        "Claude via the Anthropic API to summarise and add context before embedding",
+        "Agents on Bedrock AgentCore using the same MCP tools",
+        "Removal of deleted code so results never go stale",
+        "Run logs and retries for every pipeline execution"
+      ],
+      "challenges": [
+        {
+          "title": "Many repos, many technologies",
+          "text": "Different languages and project layouts need different parsing and chunking. A common pipeline with per-type handling let a new repository join without custom work."
+        },
+        {
+          "title": "Staying fresh without re-indexing everything",
+          "text": "Re-embedding every repository on every merge would be slow and costly. Working from the diff, and deleting what was removed, kept the index current at a fraction of the cost."
+        },
+        {
+          "title": "Useful chunks, not just text",
+          "text": "Raw code embeds poorly. Adding a clear summary and context to each unit with Claude made retrieval return the right function, service or decision, not a near-match."
+        },
+        {
+          "title": "One interface for people and agents",
+          "text": "By serving everything through MCP, the same knowledge works in an employee's AI tool and in an AgentCore agent, with no separate integration for each."
+        }
+      ],
+      "architecture": [
+        "Repository merge events to main or master start a CI pipeline per project",
+        "Diff-based processing, then Claude via the Anthropic API for summaries and context",
+        "Embeddings upserted to S3 Vectors, with one collection per project",
+        "FastMCP servers expose search and read tools over the collections",
+        "AWS Bedrock AgentCore agents and employee AI tools connect as MCP clients"
       ],
       "impact": [
-        "Reduced development time for new features by 30%",
-        "Improved team productivity and autonomy",
-        "Enabled independent, low-risk deployments"
+        "Engineering knowledge that updates itself as code is merged",
+        "Faster onboarding and fewer interruptions for the people who built each system",
+        "Employees and agents can query every project's design from one place",
+        "A reusable pattern: connect a repository once and its knowledge stays current"
       ],
       "techStack": [
-        "React.js",
-        "Webpack Module Federation",
-        "TypeScript",
-        "Turborepo",
-        "Micro Frontend",
-        "Docker"
+        "FastMCP",
+        "MCP",
+        "Anthropic API",
+        "AWS S3 Vectors",
+        "AWS Bedrock AgentCore",
+        "Python",
+        "CI/CD",
+        "Embeddings",
+        "RAG"
       ]
     }
   },
   {
     "id": 4,
-    "title": "ENTERPRISE ONLINE ASSESSMENT PLATFORM",
-    "slug": "enterprise-online-assessment-platform",
-    "role": "AUTOMATION / <br /> RESULT WORKFLOWS",
-    "description": "Scalable online assessment platform with automated evaluation, validation, and result workflows, improving hiring efficiency by 60%+ across the enterprise.",
+    "title": "EVENT DISCOVERY & TICKET BOOKING PLATFORM",
+    "slug": "cross-platform-mobile-app",
+    "role": "TECH LEAD / <br /> EXPO / FULL-STACK",
+    "description": "End-to-end event discovery and ticket booking product across mobile and web: Expo apps, REST APIs documented in Swagger, SNS and SQS for async work and notifications, and Grafana monitoring.",
     "link": "",
     "critical": true,
     "caseStudy": {
-      "overview": "A scalable online assessment platform that automates evaluation, validation, and result workflows, enabling companies to hire faster and more fairly at scale.",
-      "problem": "Manual hiring assessment workflows were slow, inconsistent, and couldn't scale. Recruiters and hiring managers needed a reliable way to administer, evaluate, and validate candidate assessments.",
-      "approach": "Built an end-to-end assessment platform with automated evaluation engines, validation rules, and result pipelines. Designed for reliability and scale to handle high volumes of candidates seamlessly.",
+      "overview": "A consumer platform focused only on events and experiences, in the spirit of the big entertainment-booking apps but without the movies and everything else: browse what's on nearby, join communities around what you like, invite friends, book tickets, and get confirmations and reminders. I led the team and owned the product end to end: the mobile app, the web app, the backend and the cloud setup behind them, from the first screen and API design to logging and monitoring in production, while staying hands-on in the code.",
+      "problem": "The big booking apps try to do everything: movies, sports, plays and events all in one feed. Live events and experiences, such as concerts, festivals, workshops and nightlife, get buried between blockbuster listings, and the app is built around movie-style booking, not around discovering something worth going to. People who want an experience have to dig for it, there is no sense of community around the things they love, and organisers of smaller events struggle to be seen and to build a following. And a booking product has its own hard parts: traffic spikes around popular events, notifications that are missed or sent twice, and failures that are hard to notice and debug without good logging and monitoring.",
+      "approach": "I designed it as one product focused only on events and experiences, with shared foundations, and led its build across every layer: I made the architecture and technology decisions, worked directly with the client to shape scope and priorities, divided the work across the team and reviewed their code. Expo powers the mobile app and the web app from the same React and TypeScript knowledge and shared logic. A REST backend, documented with Swagger so the front ends and the team always work from one contract, handles events, bookings and users. Anything that doesn't have to happen while the user waits, such as confirmations, reminders and notification fan-out, goes through SNS and SQS so it is reliable and absorbs traffic spikes. Logging and monitoring were part of the build from day one, with Grafana dashboards over logs and metrics.",
       "features": [
-        "Automated evaluation and scoring",
-        "Validation and anti-cheating workflows",
-        "Streamlined result generation and reporting",
-        "Scalable candidate handling",
-        "Role-based access control"
+        "Event discovery focused on experiences, with search, categories and nearby results",
+        "Communities around interests and organisers, where people meet before and after events",
+        "Follow organisers and communities to hear about new events first",
+        "Share events and invite friends, so going together is easy",
+        "Event details, ticket selection and a smooth booking flow",
+        "User profiles, saved events and a booking history",
+        "Push, email and in-app notifications for confirmations, reminders and community updates",
+        "Mobile app on iOS and Android and a web app from the same Expo codebase",
+        "REST APIs with Swagger documentation for every endpoint",
+        "Asynchronous processing with SNS topics and SQS queues",
+        "Centralised logging with Grafana dashboards and alerts"
+      ],
+      "challenges": [
+        {
+          "title": "One product on mobile and web",
+          "text": "Using Expo for both mobile and web kept screens, navigation and business logic consistent, while platform-specific details (gestures, permissions, push tokens, responsive layouts) were handled where they differ."
+        },
+        {
+          "title": "Reliable notifications",
+          "text": "A booking should produce exactly one confirmation, even if a service retries. Publishing events to SNS and consuming them from SQS, with idempotent handlers and dead-letter queues, made notifications dependable and kept slow or failing channels from affecting bookings."
+        },
+        {
+          "title": "Handling booking spikes",
+          "text": "Popular events create bursts of traffic. Queues smooth the load on downstream work, and the API stays responsive because the user-facing path only does what the user has to wait for."
+        },
+        {
+          "title": "One source of truth for the API",
+          "text": "Swagger-documented REST endpoints gave the web and mobile clients and the backend one contract, with examples and schemas to test against instead of guesses, which kept every developer on the team building against the same agreed contract."
+        },
+        {
+          "title": "Knowing when something breaks",
+          "text": "Structured logs and metrics feed Grafana dashboards and alerts, so failed payments, stuck queues or slow endpoints show up as a graph and a notification, not as a user complaint."
+        },
+        {
+          "title": "Leading the team and the client",
+          "text": "Beyond the code, I ran the conversations with the client, turned their goals into scoped work, made the calls on trade-offs, split tasks across the team and reviewed pull requests, so quality and delivery stayed predictable."
+        }
+      ],
+      "architecture": [
+        "Expo (React Native and web) with TypeScript for the mobile and web clients",
+        "REST API backend with Swagger / OpenAPI documentation",
+        "SNS topics and SQS queues for confirmations, reminders and notification delivery, with retries and dead-letter queues",
+        "Push, email and in-app notification channels behind a single notification service",
+        "Structured logging and metrics visualised in Grafana, with alerting"
       ],
       "impact": [
-        "Improved hiring efficiency by 60%+",
-        "Reduced manual evaluation effort",
-        "Consistent, fair candidate assessment"
+        "Events become a social experience, with communities and sharing that bring people back",
+        "A product taken from idea to production on iOS, Android and the web under one technical lead, with clear ownership and reviewed code",
+        "Reliable, deduplicated notifications even under retries and traffic spikes",
+        "A documented API contract that keeps the clients and backend in sync",
+        "Production issues visible on dashboards and alerts before users report them"
       ],
       "techStack": [
-        "React.js",
+        "Expo",
+        "React Native",
         "TypeScript",
-        "Node.js",
-        "PostgreSQL",
-        "AWS",
-        "Docker",
-        "REST"
+        "REST APIs",
+        "Swagger / OpenAPI",
+        "AWS SNS",
+        "AWS SQS",
+        "Push Notifications",
+        "Grafana",
+        "Logging & Monitoring"
       ]
     }
   },
   {
     "id": 5,
-    "title": "AI VOICE ASSISTANT",
-    "slug": "ai-voice-assistant",
-    "role": "REAL-TIME AUDIO / <br /> HEALTHCARE",
-    "description": "Hands free AI voice assistant for healthcare workflows with real time audio processing, wake word detection, and continuous speech handling for low latency interactions.",
+    "title": "EMBEDDABLE AUTH COMPONENT BUILDER",
+    "slug": "embeddable-auth-component-builder",
+    "role": "STENCIL / <br /> WEB COMPONENTS / SAAS",
+    "description": "A SaaS where teams design their own sign-up and login experience, customising buttons, colours, fields and layout, then drop it into any project as an embed link or component.",
     "link": "",
     "critical": true,
     "caseStudy": {
-      "overview": "A hands-free AI voice assistant purpose-built for healthcare workflows, enabling seamless, low-latency voice interactions without manual triggers.",
-      "problem": "Healthcare professionals often have their hands occupied, making manual interaction with software impractical. Existing voice solutions required manual triggers and suffered from high latency.",
-      "approach": "Engineered real-time audio processing with wake word detection and continuous speech handling. Designed the pipeline for low latency to ensure natural, seamless voice interactions in demanding clinical environments.",
+      "overview": "A SaaS product that lets teams build and brand their own authentication screens without writing UI code. Users configure sign-up, login and related flows in a builder: which fields appear, how the auth buttons look, colours, layout and more. When they are done, they get an embed link or a ready-to-use component to paste into their own project, on any framework.",
+      "problem": "Every product needs sign-up and login, and every team ends up rebuilding the same screens: forms, validation, social buttons, error states, branding. Off-the-shelf widgets are rigid or tie you to a framework, so they either clash with your design or can't be used outside React. Teams wanted the speed of a ready-made flow, full control of how it looks, and a way to ship it into any stack.",
+      "approach": "I built the auth UI as framework-agnostic web components with Stencil.js, so one implementation works in plain HTML, React, Vue, Angular or anything else. A React wrapper gives React teams a native-feeling component, and a monorepo keeps the web components, the React wrapper, the builder app and shared configuration in one place so they version and ship together. The key design choice was a configuration schema: every option in the builder is data (fields, buttons, theme tokens, layout), and the components render purely from that configuration. The builder edits the config with a live preview, and the same config produces the embed link or component the customer installs.",
       "features": [
-        "Wake word detection",
-        "Continuous speech handling",
-        "Real-time audio processing",
-        "Low-latency voice interactions",
-        "Hands-free operation"
-      ],
-      "impact": [
-        "Seamless hands-free workflows",
-        "Reduced friction for healthcare staff",
-        "Fast, natural voice interactions"
-      ],
-      "techStack": [
-        "React Native",
-        "TypeScript",
-        "Python",
-        "AWS Transcribe",
-        "AWS Lambda",
-        "WebRTC",
-        "LLM"
-      ]
-    }
-  },
-  {
-    "id": 6,
-    "title": "DATA-INTENSIVE DASHBOARDS",
-    "slug": "data-intensive-dashboards",
-    "role": "REAL-TIME UI / <br /> SYSTEM DESIGN",
-    "description": "Data intensive dashboards and real time UI systems built for scale, improving usability and interaction quality for high volume concurrent users.",
-    "link": "",
-    "critical": true,
-    "caseStudy": {
-      "overview": "Data-intensive dashboards and real-time UI systems engineered to present complex data clearly and perform smoothly under high-volume concurrent usage.",
-      "problem": "Dashboards loaded slowly, felt cluttered, and struggled to keep real-time data in sync for large numbers of concurrent users, hurting usability and decision-making.",
-      "approach": "Designed efficient data models and real-time subscriptions, optimized rendering, and built modular dashboard components. Focused on usability and interaction quality at scale.",
-      "features": [
-        "Real-time data updates",
-        "Modular, reusable dashboard components",
-        "Efficient virtualization and rendering",
-        "Interactive data visualizations",
-        "Optimized for concurrent users"
-      ],
-      "impact": [
-        "Improved usability and interaction quality",
-        "Smooth real-time performance at scale",
-        "Faster, clearer decision-making"
-      ],
-      "techStack": [
-        "React.js",
-        "TypeScript",
-        "WebSockets",
-        "GraphQL",
-        "PostgreSQL",
-        "Redis",
-        "Turborepo"
-      ]
-    }
-  },
-  {
-    "id": 7,
-    "title": "VIDEO PROCESSING PIPELINE",
-    "slug": "video-processing-pipeline",
-    "role": "AWS MEDIACONVERT / <br /> MEDIA DELIVERY",
-    "description": "Integrated AWS Elemental MediaConvert for scalable video processing, improving playback performance and ensuring consistent media delivery across platforms.",
-    "link": "",
-    "critical": true,
-    "caseStudy": {
-      "overview": "A scalable video processing pipeline built on AWS Elemental MediaConvert, delivering smooth playback and consistent media quality across all platforms.",
-      "problem": "Video uploads and transcoding were slow, unreliable, and produced inconsistent playback across devices and network conditions, degrading the user experience.",
-      "approach": "Integrated AWS Elemental MediaConvert to orchestrate scalable transcoding, adaptive bitrate delivery, and multi-platform output, improving playback performance and reliability.",
-      "features": [
-        "Scalable transcoding pipeline",
-        "Adaptive bitrate streaming",
-        "Multi-platform output formats",
-        "Reliable media delivery",
-        "Optimized playback performance"
-      ],
-      "impact": [
-        "Improved playback performance",
-        "Consistent media delivery across platforms",
-        "Scalable handling of video workloads"
-      ],
-      "techStack": [
-        "React.js",
-        "TypeScript",
-        "AWS MediaConvert",
-        "S3",
-        "CloudFront",
-        "Node.js",
-        "Docker"
-      ]
-    }
-  },
-  {
-    "id": 8,
-    "title": "AI CLINICAL SCRIBE — WEB PLATFORM",
-    "slug": "ai-clinical-scribe-web",
-    "role": "NEXT.JS / <br /> HEALTHCARE AI",
-    "description": "Web platform that listens to care visits and drafts the clinical note for review, backed by an agentic AI assistant that plans, calls tools across the clinic's data, and asks before it writes anything.",
-    "link": "",
-    "critical": true,
-    "caseStudy": {
-      "overview": "A web platform for clinicians who visit patients and then have to write everything up by hand. It records the visit, transcribes who said what, drafts a structured clinical note, and hands it back to the clinician to review and approve. The same product also runs the day around the visit: patients, the appointment book, charting and an AI assistant. Behind it sits an agentic AI assistant that can look things up, build plans and take actions across the clinic's systems, with a person confirming anything that changes data.",
-      "problem": "In the US, nurses and other clinicians often travel to patients' homes or see back-to-back appointments, and every visit ends with documentation. Notes get typed up between visits, after hours, or from memory. That is slow, tiring, and the first thing to go wrong when a day runs long: details are missed, charts fall behind, and clinicians burn out on admin instead of care. Generic dictation tools did not help much, because the output was a wall of text, not a note in the shape the chart needs.",
-      "approach": "I treated the note as the product and the recording as the input. The visit is captured live, streamed for transcription with speaker turns, and turned into a structured note (summary, SOAP sections, action items and decisions) tied to the right patient and booking. The clinician is always the last step: they read the draft, fix it, and approve it before anything is exported or written back. Everything around it (today's visits, patient context, the appointment book) exists so the right patient is attached to a recording before it starts and the clinician rarely has to search for anything.",
-      "features": [
-        "Consent-first recording flow with live transcript and speaker turns",
-        "Structured notes: summary, SOAP sections, action items and decisions",
-        "Today's visits view that attaches a recording to the right booking",
-        "Review and approval step before copy, export or write-back to the record",
-        "Audio playback synced to the transcript, with markers and comments",
-        "Sharing with access by role, PDF and transcript export",
-        "Appointment book with day, week and per-provider load views",
-        "Patient profiles with visit history, charts, photos and linked scribes",
-        "Agentic assistant with tool use, MCP, retrieval and confirm-before-write actions",
-        "AI assistant chat over WebSockets with a voice mode and file attachments",
-        "Feature flags and role-based access so each workspace sees only what it should"
+        "Sign-up, login and related auth flows as ready-made components",
+        "Builder to customise fields, auth buttons, colours, typography and layout",
+        "Live preview that updates as the configuration changes",
+        "Framework-agnostic web components built with Stencil.js",
+        "React wrapper for a native-feeling component in React apps",
+        "Embed link or component output to drop into any project",
+        "Configuration-driven rendering, so a design is just saved data",
+        "Monorepo with shared packages for the components, wrapper and builder"
       ],
       "challenges": [
         {
-          "title": "Recording that survives real conditions",
-          "text": "Microphones get blocked, tabs lose focus, and networks drop mid-visit. The recording flow handles permission errors with plain explanations, pauses and resumes cleanly, keeps the audio when note generation fails, and offers a retry instead of losing the visit."
+          "title": "One component, any framework",
+          "text": "Web components work everywhere, but frameworks handle props, events and styling differently. Stencil produced the standards-based components, and a thin React wrapper smoothed over the differences so React teams get typed props and normal event handling."
         },
         {
-          "title": "Long-running AI work in a fast UI",
-          "text": "A note is not ready the moment recording stops. The list and note pages poll for processing, failed and write-back states, show the reason for a failure by error code, and let the clinician keep working while the note is generated."
+          "title": "Customisable without becoming chaos",
+          "text": "Giving users control over fields, colours and layout can easily produce broken or inaccessible screens. A typed configuration schema with defaults and validation kept every combination renderable, and design tokens kept theming consistent."
         },
         {
-          "title": "Trust in a clinical setting",
-          "text": "Nothing is final until a person approves it. Approval gates the exports, status rules decide what a clinician can do next, and multi-tenant headers and role checks keep each clinic's data separate."
+          "title": "Styling inside someone else's app",
+          "text": "Embedded components must not break, or be broken by, the host page's CSS. Encapsulated styles with exposed theme variables let each customer match the component to their brand safely."
         },
         {
-          "title": "A big product, kept safe to change",
-          "text": "The app grew to many modules with several people shipping at once. An atomic component system, strict design tokens, lint and type checks on every push, and four test lanes (unit, mocked end-to-end, live-API, pre-push gate) kept changes reviewable."
+          "title": "Keeping several packages in step",
+          "text": "The components, the React wrapper and the builder all depend on the same configuration schema. A monorepo with shared packages meant a schema change updated them together, and the preview in the builder always matched what customers would ship."
         }
       ],
       "architecture": [
-        "Next.js 15 App Router with React 19 and TypeScript; server route handlers for auth, layout, support and proxying",
-        "Redux Toolkit and RTK Query for data, with contract tests against shared fixtures and schemas",
-        "WebSocket layer for chat and live transcription, kept opt-in so the text flow is never affected",
-        "Cookie-based session checks in middleware protect every dashboard route",
-        "Tailwind design tokens with Shadcn UI and dark/light themes; Biome and Lefthook enforce quality"
+        "Monorepo containing the web components, the React wrapper, the builder app and shared config packages",
+        "Stencil.js web components that render entirely from a configuration object",
+        "React wrapper package that exposes the components with typed props and events",
+        "Builder app that edits and validates the configuration with a live preview",
+        "Output as an embed link or an installable component using the saved configuration"
       ],
       "impact": [
-        "Turns a free-form conversation into a structured note the clinician only has to review",
-        "An assistant that does the lookup and planning work, such as finding patients to call for open slots, instead of only answering questions",
-        "Moves documentation out of evenings and into the visit itself",
-        "One product covers the visit, the schedule and the patient record, so context follows the clinician",
-        "Predictable releases through layered automated testing and CI gates"
+        "Teams get a branded, working auth flow without building the UI",
+        "The same component works in any framework, so customers are not locked in",
+        "A configuration-first design that makes new options and themes cheap to add",
+        "One monorepo that keeps components, wrapper and builder consistent"
       ],
       "techStack": [
-        "Next.js 15",
-        "React 19",
+        "Stencil.js",
+        "Web Components",
+        "React",
         "TypeScript",
-        "Redux Toolkit",
-        "RTK Query",
-        "Tailwind CSS",
-        "WebSockets",
-        "AWS Bedrock",
-        "LaunchDarkly",
-        "Jest",
-        "Playwright",
-        "Biome",
-        "AWS Bedrock Agents",
-        "MCP",
-        "AWS Lambda",
-        "S3",
-        "Redis",
-        "PostgreSQL",
-        "OpenTelemetry"
-      ],
-      "agentic": {
-        "intro": "The assistant is not a chatbot bolted onto the product. It is an agent: it reads the question, decides which tools it needs, calls them, looks at what came back, and repeats until it can answer, all streamed to the clinician as it works.",
-        "steps": [
-          {
-            "title": "Classify, then plan",
-            "text": "Each message is classified first (a patient lookup, a schedule question, a search, a request to act) so the model starts with the right tools and instructions instead of every tool at once."
-          },
-          {
-            "title": "A multi-turn tool loop",
-            "text": "The model runs a reason, act, observe loop of up to 15 turns. It asks for a tool, gets the result, and decides the next step, so a question like \"who could fill Thursday's open slot\" becomes several dependent lookups ending in one short answer."
-          },
-          {
-            "title": "One registry for every kind of tool",
-            "text": "Built-in functions, Lambda-backed data views and MCP servers all sit behind a single tool registry with the same contract: a definition, an executor and metadata. Adding a capability means registering a tool, not changing the agent."
-          },
-          {
-            "title": "Parallel when safe, sequential when not",
-            "text": "An execution strategy detects dependencies between requested tools (pagination, a read that needs an earlier write) and runs independent calls in parallel, with per-source limits, and dependent ones in order."
-          },
-          {
-            "title": "Built to fail gracefully",
-            "text": "Each tool has retries with exponential backoff, a circuit breaker and a fallback chain, so if the structured query fails the agent drops back to search instead of giving up. Failed calls come back to the model as data it can reason about."
-          },
-          {
-            "title": "Grounded retrieval and memory",
-            "text": "Search fans out to the knowledge base, the database and conversation memory in parallel, then fuses, de-duplicates and reranks. Conversation summaries and patient context are stored per clinic, so answers stay consistent across sessions."
-          },
-          {
-            "title": "Safe by construction",
-            "text": "Every tool call carries the clinic, user and patient context, and access is checked per request. Writes and sends need the user's confirmation. Content from uploaded files is treated as data, never instructions, which also guards against prompt injection."
-          },
-          {
-            "title": "Rich results, not just text",
-            "text": "Tools return structured attachments (patient photos, documents, chart links, a live fill plan for open appointment slots) that the apps render as cards. The model only sees references, so no links or private data are made up or leaked."
-          },
-          {
-            "title": "Observable and tested",
-            "text": "OpenTelemetry-style traces, metrics and token budgets cover every turn, and eval suites for routing and conversations catch regressions when prompts, tools or models change."
-          }
-        ]
-      }
-    }
-  },
-  {
-    "id": 9,
-    "title": "AI CLINICAL SCRIBE — MOBILE APP",
-    "slug": "ai-clinical-scribe-mobile",
-    "role": "REACT NATIVE / <br /> iOS & ANDROID",
-    "description": "The clinician's pocket version of the scribe: record a visit from the patient's home, see today's schedule and patient history, and review the note, all from a phone.",
-    "link": "",
-    "critical": true,
-    "caseStudy": {
-      "overview": "A React Native app for clinicians who spend the day moving between patients. It carries the three things they need on the road: AI Scribe, the appointment book and the patient list. The web product was the source of truth, and I rebuilt its phone experience natively so a nurse in a driveway sees the same sections, wording, statuses and data they see at the desk.",
-      "problem": "The people who most need to cut down on paperwork are the ones who are away from a desk. A home-care nurse cannot open a laptop in a patient's living room, so notes were written later, from memory, in the car or at night. The first mobile app was a thin shell: a flat list, a silent record button and plain-text summaries. It did not match the web, so clinicians had to learn two products, and it could not be trusted to behave the same.",
-      "approach": "I rebuilt the app tab by tab against the web's phone view, using the web code as the specification: same sections in the same order, same colours and spacing, same status rules, same backend endpoints. Where the phone does something better natively (haptics, bottom sheets, share sheet, on-device speech), I used the native way and documented the difference. Each rebuilt area (Patients, Appointments, AI Scribe, More menu and settings) shipped with its own parity document, so reviewers and the next developer know what matches and what deliberately does not.",
-      "features": [
-        "Bottom tab bar with AI Scribe, Appointments and Patients, plus a More menu",
-        "Recording flow with a consent dialog, speaker turns, floating dock and a visit-context sheet",
-        "Note page with Summary and Transcript tabs, SOAP note, action items, talk time and audio player",
-        "Approve, copy, export and share, with the web's messages and loading states",
-        "Appointment book with date strip, Mine/Everyone, week view and a booking-details sheet",
-        "Patient list with filters and pagination, and a full patient profile",
-        "Role-aware tab gating, including a scribe-only mode for clinicians who only need the scribe",
-        "Guided tour, in-app user guide, support reporting and settings",
-        "Times shown in the clinic's own time zone, not the phone's",
-        "White-label brand foundation: tokens, fonts, icons and native files"
-      ],
-      "challenges": [
-        {
-          "title": "Parity without copy-paste",
-          "text": "React on the web and React Native do not share components. I matched layout, copy and behaviour by reading the web source and rebuilding it with NativeWind, then recorded every intentional difference so parity stays a checkable claim, not a feeling."
-        },
-        {
-          "title": "Native speech and audio",
-          "text": "Live speech recognition needs native modules, so it does not work in Expo Go. I built it on a development build, and made the app degrade safely: no crash when the native microphone module is missing, and clear errors when permission is denied or the mic stops."
-        },
-        {
-          "title": "Time zones and real-world data",
-          "text": "Visits happen in the clinic's time zone, and some phones do not recognise every zone. I moved all schedule and recording times to the clinic's clock and added a guard so an unknown zone falls back instead of crashing."
-        },
-        {
-          "title": "Staying current on a fast-moving platform",
-          "text": "I upgraded the app from Expo SDK 54 to 58 and React Native 0.88, replaced the removed audio library with the new one, and updated navigation, keeping the app building and shippable through EAS for both stores."
-        }
-      ],
-      "architecture": [
-        "Expo SDK 58 and React Native 0.88 with React Navigation and TypeScript",
-        "Redux Toolkit slices plus RTK Query APIs for scribe, appointments, patients, approvals and chat",
-        "NativeWind for styling from the same design tokens as the web",
-        "expo-speech-recognition and expo-audio for capture and playback; expo-notifications for alerts",
-        "EAS Build profiles for development, beta and production, producing signed .aab and .ipa files"
-      ],
-      "impact": [
-        "Clinicians can start and finish documentation at the patient's side",
-        "One mental model across web and phone, so there is less to learn",
-        "Documented parity per screen makes reviews and future work faster",
-        "A current, store-ready build pipeline for iOS and Android"
-      ],
-      "techStack": [
-        "React Native",
-        "Expo SDK 58",
-        "TypeScript",
-        "Redux Toolkit",
-        "RTK Query",
-        "NativeWind",
-        "React Navigation",
-        "expo-speech-recognition",
-        "expo-audio",
-        "EAS Build"
+        "Monorepo",
+        "Design Tokens",
+        "SaaS"
       ]
     }
   }
