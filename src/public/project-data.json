@@ -317,14 +317,14 @@
     "id": 3,
     "title": "ENGINEERING KNOWLEDGE MCP PIPELINE",
     "slug": "engineering-knowledge-mcp-pipeline",
-    "role": "TECH LEAD / <br /> MCP / S3 VECTORS / AGENTCORE",
-    "description": "A merge-triggered pipeline that keeps every repo's code and design knowledge embedded in S3 Vectors, served to employees and agents through FastMCP servers and Bedrock AgentCore.",
+    "role": "TECH LEAD / <br /> MCP / S3 VECTORS / FASTMCP",
+    "description": "A merge-triggered pipeline that keeps every repo's code and design knowledge embedded in S3 Vectors, served to employees and AI agents through FastMCP servers.",
     "link": "",
     "critical": true,
     "caseStudy": {
       "overview": "An internal platform that turns a company's many repositories into one searchable, always-current knowledge layer. Each time a project is merged into its main branch, a pipeline re-embeds what changed and updates the vector store. MCP servers then expose that knowledge to employees and AI agents, so anyone can ask how a system is designed, how a service works or where something lives, without hunting through repos.",
       "problem": "The company had many projects and repositories across different technologies, each with its own system design, conventions and decisions. Knowledge lived in code and scattered docs, went stale as soon as it was written down, and was only really known by the people who built it. New joiners and other teams lost days finding answers, and AI assistants could not help because they had no access to the company's own systems. A one-time import would not fix it, since the code changes every day.",
-      "approach": "I made freshness the core of the design: knowledge updates when code does. A pipeline listens for merges to main or master across all repositories, processes only what changed, and keeps the index in sync. The knowledge is organised into collections, one per project, so results stay relevant and access can be controlled. Retrieval is exposed through MCP servers built with FastMCP, the standard way for AI tools and agents to use external knowledge, and the same servers feed an agent running on Bedrock AgentCore. Claude, through the Anthropic API, is used to understand code and documents so that what gets embedded is meaningful and not raw text. I led the project: I designed the pipeline and the MCP architecture, decided how knowledge is organised and kept fresh, worked with the teams who own the repositories, and reviewed the code that shipped it.",
+      "approach": "I made freshness the core of the design: knowledge updates when code does. A pipeline listens for merges to main or master across all repositories, processes only what changed, and keeps the index in sync. The knowledge is organised into collections, one per project, so results stay relevant and access can be controlled. Retrieval is exposed through MCP servers built with FastMCP, the standard way for AI tools and agents to use external knowledge, so any MCP client can use the same servers. Claude, through the Anthropic API, is used to understand code and documents so that what gets embedded is meaningful and not raw text. I led the project: I designed the pipeline and the MCP architecture, decided how knowledge is organised and kept fresh, worked with the teams who own the repositories, and reviewed the code that shipped it.",
       "agentic": {
         "intro": "The system has two halves: a pipeline that keeps knowledge current, and MCP servers that let people and agents use it.",
         "steps": [
@@ -353,8 +353,8 @@
             "text": "MCP servers built with FastMCP expose tools for searching a collection, listing projects and reading a result in context. Once connected, an employee's AI tool can use the company's knowledge directly from the editor or chat."
           },
           {
-            "title": "Agents on AgentCore",
-            "text": "An agent on AWS Bedrock AgentCore uses the same MCP tools, so it can answer cross-project questions, compare designs and point to the source, with the retrieved content as grounding."
+            "title": "Any MCP client, people or agents",
+            "text": "Because the servers speak standard MCP, any client can use the same tools: an employee's AI tool today, and agents that need cross-project answers, design comparisons and sources, with the retrieved content as grounding."
           },
           {
             "title": "Observable and safe to run",
@@ -368,7 +368,7 @@
         "Embeddings stored in S3 Vectors, organised in collections per project",
         "FastMCP servers that expose search and lookup tools",
         "Claude via the Anthropic API to summarise and add context before embedding",
-        "Agents on Bedrock AgentCore using the same MCP tools",
+        "Standard MCP, so any client or agent can use the same tools",
         "Removal of deleted code so results never go stale",
         "Run logs and retries for every pipeline execution"
       ],
@@ -387,7 +387,7 @@
         },
         {
           "title": "One interface for people and agents",
-          "text": "By serving everything through MCP, the same knowledge works in an employee's AI tool and in an AgentCore agent, with no separate integration for each."
+          "text": "By serving everything through MCP, the same knowledge works in an employee's AI tool and in any agent, with no separate integration for each."
         },
         {
           "title": "Leading a cross-team rollout",
@@ -399,7 +399,7 @@
         "Diff-based processing, then Claude via the Anthropic API for summaries and context",
         "Embeddings upserted to S3 Vectors, with one collection per project",
         "FastMCP servers expose search and read tools over the collections",
-        "AWS Bedrock AgentCore agents and employee AI tools connect as MCP clients"
+        "Employee AI tools and agents connect as MCP clients"
       ],
       "impact": [
         "Engineering knowledge that updates itself as code is merged",
@@ -412,7 +412,6 @@
         "MCP",
         "Anthropic API",
         "AWS S3 Vectors",
-        "AWS Bedrock AgentCore",
         "Python",
         "CI/CD",
         "Embeddings",
