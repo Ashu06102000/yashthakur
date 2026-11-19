@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Yash Chandrakant Thakur — Software Developer</title>
+<style>
+@page{size:A4;margin:10mm 13mm}
+*{box-sizing:border-box}
+body{font-family:-apple-system,"Helvetica Neue",Arial,sans-serif;color:#1a1a1a;font-size:9.4pt;line-height:1.42;margin:0}
+a{color:inherit;text-decoration:none}
+.top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+h1{font-size:19pt;margin:0;letter-spacing:-.01em}
+.role{font-size:11pt;color:#3a5a00;font-weight:600}
+.contact{color:#444;font-size:8.7pt;margin-top:2px}
+.contact span+span::before{content:"·";margin:0 6px;color:#999}
+h2{font-size:8.6pt;letter-spacing:.14em;text-transform:uppercase;border-bottom:1.2px solid #1a1a1a;padding-bottom:1.5px;margin:9px 0 5px}
+p{margin:0 0 3px}
+.skills div{display:flex;gap:8px;margin-bottom:1px}.skills b{flex:0 0 112px}
+.co{display:flex;justify-content:space-between;font-weight:700;font-size:9.4pt}
+.co span:last-child{font-weight:600;color:#444}
+.sub{font-weight:700;color:#3a5a00;margin:5px 0 2px;font-size:8.7pt}
+.proj{margin-bottom:3px}
+.pt{font-weight:700}.ps{color:#666}
+ul{margin:3px 0 0;padding-left:0;list-style:none}li{margin-bottom:3.5px}
+.edu{display:flex;justify-content:space-between;margin-bottom:1px}
+</style></head><body>
+<div class="top"><h1>Yash Chandrakant Thakur</h1><span class="role">Software Developer</span></div>
+<div class="contact"><span>yash6102000thakur@gmail.com</span><span>7028046118</span><span><a href="https://www.linkedin.com/in/yash-thakur-0b71051b9/">LinkedIn</a></span><span><a href="https://yashthakur.vercel.app/">Portfolio</a></span><span>Pune, India</span></div>
+
+<h2>Summary</h2>
+<p>Software Developer with 4.6+ years of experience taking AI and full-stack products from the first client conversation to production. Build agentic and RAG systems on AWS, plus web and mobile apps, and lead delivery end to end: scoping with stakeholders, architecture decisions, hands-on build and code review. Strong in system design and in turning messy, real customer problems into reliable software.</p>
+
+<h2>Technical skills</h2>
+<div class="skills">
+<div><b>AI &amp; agents</b>LLMs, RAG, MCP (FastMCP), multi-agent orchestration, LangGraph, AWS Bedrock AgentCore, guardrails, evals / LLM-as-judge, prompt tracing, vector search (S3 Vectors)</div>
+<div><b>Frontend &amp; mobile</b>React.js, Next.js, Remix, React Native, Expo, Stencil.js, Redux Toolkit, Tailwind CSS, micro-frontends (Module Federation)</div>
+<div><b>Backend &amp; APIs</b>Node.js, Python, TypeScript, REST / Swagger, Prisma, MongoDB, PostgreSQL, Redis</div>
+<div><b>Cloud &amp; DevOps</b>AWS (EC2, S3, Bedrock, Lambda, SNS, SQS, Elemental MediaConvert, CloudFront, Lightsail, IAM, Route53), Docker, CI/CD (GitHub Actions, Jenkins), Terraform, SonarQube, Snyk, Grafana, OpenTelemetry</div>
+<div><b>Tools &amp; other</b>Git, Webpack, Jest, Playwright, Cypress, HLS streaming, Seats.io, Twilio</div>
+</div>
+
+<h2>Professional experience</h2>
+<div class="co"><span>Copods · Software Developer</span><span>2022 – Present</span></div>
+
+<ul class="exp">
+<li>Led delivery of an enterprise multi-agent AI assistant on AWS Bedrock AgentCore, LangGraph and Next.js as the client's main technical contact: a supervisor agent routing to specialist sub-agents for employee financial and benefits workflows, grounded with RAG.</li>
+<li>Integrated the client's internal guardrails on input and output, drove down false positives with a labelled set, and built evals for routing, retrieval and answers (logic checks plus LLM-as-judge) with tracing across dev, staging and production.</li>
+<li>Led an AI clinical scribe for web and mobile (Next.js, React Native / Expo, WebSockets, Bedrock) that listens to care visits and drafts structured clinical notes for review, so home-visit nurses and clinicians stop writing notes by hand; the LLM flow is built on typed visit facts, with SOAP notes, summaries and charts drawn as views in each provider's style.</li>
+<li>Built the scribe's agentic assistant with tool use, MCP and retrieval, with confirm-before-write actions and tenant isolation, and rebuilt the phone experience in Expo with native speech and audio, shipped via EAS.</li>
+<li>Designed a merge-triggered CI/CD pipeline across many repositories: on each merge to main, changed files are summarised with Claude through the Anthropic API, embedded and upserted to S3 Vectors, then served to employees and AgentCore agents through FastMCP servers.</li>
+<li>Led and built an events-only booking platform for iOS, Android and web in Expo with communities and sharing, using SNS and SQS for deduplicated notifications and booking spikes, REST APIs documented in Swagger, and Grafana dashboards and alerts.</li>
+<li>Built the learner app (Next.js) and admin panel of an AI learning platform for a leading company in Germany; an MP4 uploaded to S3 triggers Lambda and AWS Elemental MediaConvert to produce adaptive HLS streams for smooth playback.</li>
+<li>Built an online assessment platform with Remix, Prisma and PostgreSQL, with automated evaluation, validation and result workflows, improving hiring efficiency by 60%+.</li>
+<li>Built an embeddable auth component SaaS with Stencil.js, a React wrapper and a monorepo, where customers design sign-up and login and embed it in any framework.</li>
+<li>Implemented a modular, scalable frontend architecture, reducing development time for new features by 30%, and a micro-frontend setup with Module Federation for independent deployments.</li>
+<li>Built a cross-platform React Native app (iOS and Android) with state-driven interfaces and fewer re-renders, plus data-intensive dashboards and real-time UI systems.</li>
+<li>Built a hands-free healthcare voice assistant with real-time audio, wake-word detection and continuous speech, and implemented role-based data access with IAM policies and serverless workflows over a RAG chat system on AWS Bedrock.</li>
+</ul>
+
+<h2>Education</h2>
+<div class="edu"><span><b>SVKM IOT,</b> Bachelor of Engineering</span><span>2019 – 2022</span></div>
+<div class="edu"><span><b>Government Polytechnic,</b> Electrical Engineering</span><span>2016 – 2019</span></div>
+</body></html>
